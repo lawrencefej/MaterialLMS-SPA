@@ -1,0 +1,94 @@
+<div class="navigation-container" [class.app-is-mobile]="(isHandset$ | async)">
+  <mat-toolbar color="primary" class="navigation-toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>MaterialLMS-SPA</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <img class="profile-picture" src="http://i.pravatar.cc/300">
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>settings_application</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="(isHandset$ | async) ? 56 : 0">
+    <mat-sidenav #sidenav [mode]="(isHandset$ | async) ? 'over' : 'side'" [fixedInViewport]="(isHandset$ | async)"
+      fixedTopGap="56">
+      <mat-card>
+          <mat-card-header>
+            <div 
+              mat-card-avatar 
+              class="avatar"></div>
+  
+            <mat-card-title>John Doe</mat-card-title>
+            <mat-card-subtitle>Admin</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      <mat-nav-list>
+        <mat-list-item>
+          <button class="menu-item" mat-flat-button>
+            <mat-icon>dashboard</mat-icon>
+            Dashboard
+          </button>
+        </mat-list-item>
+
+        <mat-list-item>
+          <button class="menu-item" mat-flat-button>
+            <mat-icon>account_circle</mat-icon>
+            Members
+          </button>
+        </mat-list-item>
+
+        <mat-list-item>
+          <button class="menu-item" mat-flat-button>
+            <mat-icon>library_books</mat-icon>
+            Items
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button class="menu-item" mat-flat-button>
+            <mat-icon>person</mat-icon>
+            Authors
+          </button>
+        </mat-list-item>
+
+        <mat-list-item>
+          <button class="menu-item" mat-flat-button>
+            <mat-icon>library_add</mat-icon>
+            Checkouts
+          </button>
+        </mat-list-item>
+
+        <mat-list-item>
+          <button class="menu-item" mat-flat-button>
+            <mat-icon>supervisor_account</mat-icon>
+            Admin
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button class="menu-item" mat-flat-button>
+            <mat-icon>settings_application</mat-icon>
+            Settings
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
