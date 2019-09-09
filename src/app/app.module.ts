@@ -15,13 +15,15 @@ import {MatMenuModule} from '@angular/material/menu';
 import { TestComponent } from './core/test/test.component';
 import { ShortcloseNavComponent } from './shortclose-nav/shortclose-nav.component';
 import { ResponsiveNavComponent } from './core/responsive-nav/responsive-nav.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 @NgModule({
    declarations: [
       AppComponent,
-      TestComponent,
+      HasRoleDirective,
+      ResponsiveNavComponent,
       ShortcloseNavComponent,
-      ResponsiveNavComponent
+      TestComponent,
    ],
    imports: [
       BrowserModule,
