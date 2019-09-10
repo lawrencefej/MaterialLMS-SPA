@@ -39,41 +39,41 @@
         </mat-card>
       <mat-nav-list>
         <mat-list-item>
-          <button class="menu-item" mat-flat-button>
+          <button [routerLink]="['/dashboard']" routerLinkActive="active" class="menu-item" mat-flat-button>
             <mat-icon>dashboard</mat-icon>
             Dashboard
           </button>
         </mat-list-item>
 
         <mat-list-item>
-          <button class="menu-item" mat-flat-button>
+          <button [routerLink]="['/memberSearch']" routerLinkActive="active" class="menu-item" mat-flat-button>
             <mat-icon>account_circle</mat-icon>
             Members
           </button>
         </mat-list-item>
 
         <mat-list-item>
-          <button class="menu-item" mat-flat-button>
+          <button [routerLink]="['/catalog']" routerLinkActive="active" class="menu-item" mat-flat-button>
             <mat-icon>library_books</mat-icon>
             Items
           </button>
         </mat-list-item>
         <mat-list-item>
-          <button class="menu-item" mat-flat-button>
+          <button [routerLink]="['/authors']" routerLinkActive="active" class="menu-item" mat-flat-button>
             <mat-icon>person</mat-icon>
             Authors
           </button>
         </mat-list-item>
 
         <mat-list-item>
-          <button class="menu-item" mat-flat-button>
+          <button [routerLink]="['/checkouts']" routerLinkActive="active" class="menu-item" mat-flat-button>
             <mat-icon>library_add</mat-icon>
             Checkouts
           </button>
         </mat-list-item>
 
         <mat-list-item>
-          <button class="menu-item" mat-flat-button>
+          <button [routerLink]="['/admin']" routerLinkActive="active" class="menu-item" mat-flat-button>
             <mat-icon>supervisor_account</mat-icon>
             Admin
           </button>
