@@ -19,6 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {
+        // TODO use route to error components for certain errors
         if (error instanceof HttpErrorResponse) {
           if (error.status === (401 || 403)) {
             return throwError(error.statusText);

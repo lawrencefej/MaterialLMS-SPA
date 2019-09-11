@@ -29,6 +29,7 @@ import { CheckoutDetailResolver } from './_resolver/checkout-detail.resolver';
 import { CheckoutListComponent } from './main/checkout/checkout-list/checkout-list.component';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { CommonModule } from '@angular/common';
+import { DataTableComponent } from './data-table/data-table.component';
 import { ErrorinterceptorProvider } from './_services/error.interceptor';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
@@ -45,11 +46,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { MemberAdvancedSearchComponent } from './main/member/member-advanced-search/member-advanced-search.component';
 import { MemberCheckoutsComponent } from './main/member/member-checkouts/member-checkouts.component';
 import { MemberDetailComponent } from './main/member/member-detail/member-detail.component';
@@ -114,6 +118,7 @@ export function tokenGetter() {
       ServerErrorComponent,
       ShortcloseNavComponent,
       TestComponent,
+      DataTableComponent,
    ],
    imports: [
       AppRoutingModule,
@@ -132,8 +137,11 @@ export function tokenGetter() {
       MatMenuModule,
       MatSidenavModule,
       MatSnackBarModule,
-      MatToolbarModule,
+      MatSortModule,
       MatTableModule,
+      MatToolbarModule,
+      MatTooltipModule,
+      MatPaginatorModule,
       MatProgressSpinnerModule,
       ReactiveFormsModule,
       JwtModule.forRoot({

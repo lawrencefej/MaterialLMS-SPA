@@ -41,21 +41,21 @@ export class LoginComponent implements OnInit {
   };
 
   ngOnInit() {
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.returnUrl =
+      this.route.snapshot.queryParams.returnUrl || '/memberSearch  ';
     this.createLoginForm();
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe(() => {
-        this.notification.success('Login Successful');
-      }, error => {
-        this.notification.error(error);
-      }, () => {
-        // TODO fix this navigation
-        this.router.navigate([this.returnUrl]);
-      });
+      this.authService.login(this.loginForm.value).subscribe(
+        () => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.notification.error(error);
+        }
+      );
     }
   }
 

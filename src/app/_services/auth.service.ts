@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { User } from '../_models/user';
 import { Router } from '@angular/router';
+import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -64,7 +65,6 @@ export class AuthService {
     this.currentUser = null;
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
-    // this.alertify.message('logged out');
   }
 
   roleMatch(allowedRoles: {

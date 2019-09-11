@@ -1,0 +1,30 @@
+/* table {
+    width: 80%;
+    margin: 20px auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+} */
+
+/* th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+} */
+
+.full-width-table {
+    width: 100%;
+    /* margin: 20px auto; */
+}
+
+.data-table {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.filter-input {
+    margin-left: 20px;
+}
+
+.create-button {
+    margin-left: 100px;
+}

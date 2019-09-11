@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const allowedRoles = next.firstChild.data['allowedRoles'] as Array<string>;
+    const allowedRoles = next.firstChild.data.allowedRoles as Array<string>;
 
     if (allowedRoles) {
       if (this.authService.loggedIn) {
