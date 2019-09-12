@@ -6,7 +6,7 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-      <a [routerLink]="['/owner/create']" mat-button color="primary" class="create-button">Create Owner</a>
+      <a mat-button color="primary" (click)="openDialog()" class="create-button">Create Owner</a>
   </div>
   <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource">
     <ng-container matColumnDef="title">

@@ -39,21 +39,27 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { LineChartComponent } from './dashboard/charts/line-chart/line-chart.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatNativeDateModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MemberAdvancedSearchComponent } from './main/member/member-advanced-search/member-advanced-search.component';
 import { MemberCheckoutsComponent } from './main/member/member-checkouts/member-checkouts.component';
 import { MemberDetailComponent } from './main/member/member-detail/member-detail.component';
@@ -128,13 +134,19 @@ export function tokenGetter() {
       FormsModule,
       HttpClientModule,
       LayoutModule,
+      MatAutocompleteModule,
       MatButtonModule,
       MatCardModule,
+      MatDatepickerModule,
       MatDialogModule,
+      MatGridListModule,
       MatIconModule,
       MatInputModule,
       MatListModule,
       MatMenuModule,
+      MatNativeDateModule,
+      MatRadioModule,
+      MatSelectModule,
       MatSidenavModule,
       MatSnackBarModule,
       MatSortModule,
@@ -173,6 +185,12 @@ export function tokenGetter() {
       MemberService,
       NotificationService
 
+   ],
+   entryComponents: [
+      MemberEditComponent,
+      AddAuthorComponent,
+      AddAssetComponent,
+      AddAdminComponent
    ],
    bootstrap: [
       AppComponent

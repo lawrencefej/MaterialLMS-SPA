@@ -1,8 +1,10 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
+import { AddAssetComponent } from '../add-asset/add-asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
@@ -22,7 +24,8 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private notify: NotificationService
+    private notify: NotificationService,
+    public dialog: MatDialog
   ) {}
   assets: LibraryAsset[];
   selectedItemPerPage: any;
@@ -79,6 +82,12 @@ export class AssetListComponent implements AfterViewInit, OnInit {
 
   public redirectToDelete = (id: string) => {
     console.log('delete');
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(AddAssetComponent, {
+      width: '640px', disableClose: true
+    });
   }
 
   // editAssetModal(asset: LibraryAsset) {
