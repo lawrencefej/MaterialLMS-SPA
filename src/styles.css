@@ -1,20 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.error-snackbar {
-    background-color: red;
+html, body {
+    height: 100%;
 }
 
-.success-snackbar {
-    background-color: green;
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.warning-snackbar {
-    background-color: orange;
+/* notification */
+
+snack-bar-container {
+    text-align: center;
+    border: solid 1px #ddd;
+    border-radius: 2px;
 }
 
-.message-snackbar {
-    background-color: blue;
+snack-bar-container.success {
+    color: #fff;
+    background: rgba(91, 189, 114, .95);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: solid 1px #ddd;
+    border-radius: 2px;
+}
+
+snack-bar-container.warn {
+    background: #f99157;
+    border-color: #999;
+    color: #000;
+}
+
+snack-bar-container.error {
+    color: #fff;
+    background: rgba(217, 92, 92, .95);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.mat-simple-snackbar-action {
+    color: black !important;
 }
