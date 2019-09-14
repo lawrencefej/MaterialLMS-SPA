@@ -16,13 +16,14 @@ import { NotificationService } from 'src/app/_services/notification.service';
   styleUrls: ['./add-asset.component.css']
 })
 export class AddAssetComponent implements OnInit {
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddAssetComponent>,
-    public notification: NotificationService) { }
+    private dialog: MatDialog,
+    public notification: NotificationService
+  ) {}
 
   loginForm: FormGroup;
   AddAssetForm: FormGroup;
@@ -46,7 +47,12 @@ export class AddAssetComponent implements OnInit {
   }
 
   closeDialog() {
-    this.dialogRef.close();
+    if (this.AddAssetForm.dirty) {
+      this.notification.discardDialog('Are you sure you want to');
+    } else {
+      // this.dialogRef.close();
+      this.dialog.closeAll();
+    }
   }
 
   createLoginForm() {
@@ -69,17 +75,27 @@ export class AddAssetComponent implements OnInit {
     this.AddAssetForm = this.fb.group({
       title: new FormControl('', Validators.compose([Validators.required])),
       author: new FormControl('', Validators.compose([Validators.required])),
-      year: new FormControl('', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(4)])),
-      numberOfCopies: new FormControl('', Validators.compose([Validators.required])),
-      description: new FormControl('', Validators.compose([Validators.required])),
+      year: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(4)
+        ])
+      ),
+      numberOfCopies: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      description: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
       category: new FormControl('', Validators.compose([Validators.required])),
       type: new FormControl('', Validators.compose([Validators.required])),
-      isbn: new FormControl('', Validators.compose([Validators.required])),
+      isbn: new FormControl('', Validators.compose([Validators.required]))
     });
   }
 
-  onSubmit() {
-
-  }
-
+  onSubmit() {}
 }

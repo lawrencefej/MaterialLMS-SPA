@@ -29,6 +29,7 @@ import { CheckoutDetailResolver } from './_resolver/checkout-detail.resolver';
 import { CheckoutListComponent } from './main/checkout/checkout-list/checkout-list.component';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { CommonModule } from '@angular/common';
+import { ConfirmDialogComponent } from './core/confirm-dialog/confirm-dialog.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { ErrorinterceptorProvider } from './_services/error.interceptor';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
@@ -75,6 +76,7 @@ import { NotFoundComponent } from './core/error-pages/not-found/not-found.compon
 import { NotificationService } from './_services/notification.service';
 import { PhotoService } from './_services/photo.service';
 import { PieChartComponent } from './dashboard/charts/pie-chart/pie-chart.component';
+import { PreventUnsavedComponent } from './core/prevent-unsaved/prevent-unsaved.component';
 import { ReportService } from './_services/report.service';
 import { ReportsPanelComponent } from './dashboard/reports-panel/reports-panel.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
@@ -104,6 +106,7 @@ export function tokenGetter() {
       BaseLayoutComponent,
       CheckoutAssetComponent,
       CheckoutListComponent,
+      ConfirmDialogComponent,
       ForgotPasswordComponent,
       HasRoleDirective,
       LineChartComponent,
@@ -118,6 +121,7 @@ export function tokenGetter() {
       MemberSearchComponent,
       NotFoundComponent,
       PieChartComponent,
+      PreventUnsavedComponent,
       ReportsPanelComponent,
       ResetPasswordComponent,
       ResponsiveNavComponent,
@@ -190,7 +194,9 @@ export function tokenGetter() {
       MemberEditComponent,
       AddAuthorComponent,
       AddAssetComponent,
-      AddAdminComponent
+      AddAdminComponent,
+      ConfirmDialogComponent,
+      PreventUnsavedComponent
    ],
    bootstrap: [
       AppComponent

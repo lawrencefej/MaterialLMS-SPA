@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
@@ -8,6 +7,7 @@ import { AddAssetComponent } from '../add-asset/add-asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { NotificationService } from 'src/app/_services/notification.service';
@@ -32,7 +32,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   pagination: Pagination;
   count: number;
   dataSource = new MatTableDataSource<LibraryAsset>();
-  searchString: string;
+  searchString = '';
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -72,16 +72,17 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     this.filterList();
   }
 
-  public redirectToDetails = (id: string) => {
+  public redirectToDetails = () => {
     console.log('details');
   }
 
-  public redirectToUpdate = (id: string) => {
+  public redirectToUpdate = () => {
     console.log('update');
   }
 
-  public redirectToDelete = (id: string) => {
+  public redirectToDelete = () => {
     console.log('delete');
+    this.deleteAsset();
   }
 
   openDialog() {
@@ -141,6 +142,15 @@ export class AssetListComponent implements AfterViewInit, OnInit {
       );
   }
 
+  deleteAsset() {
+    this.notify
+      .confirm('test')
+      .afterClosed()
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+
   // deleteAsset(asset: LibraryAsset) {
   //   this.alertify.confirm(
   //     'Are you sure you want to delete ' + asset.title + '?',
@@ -190,5 +200,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
           this.notify.error(error);
         }
       );
+    this.searchString = '';
   }
 }

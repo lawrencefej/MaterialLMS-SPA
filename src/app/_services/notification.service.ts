@@ -1,39 +1,58 @@
 import { Injectable, NgZone } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../core/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material';
+import { PreventUnsavedComponent } from '../core/prevent-unsaved/prevent-unsaved.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  constructor(public snackBar: MatSnackBar, private zone: NgZone) {}
+  constructor(public snackBar: MatSnackBar, private dialog: MatDialog) {}
   action = 'Dismiss';
 
+  config: MatSnackBarConfig = {
+    duration: 3000,
+    horizontalPosition: 'right',
+    verticalPosition: 'bottom',
+    politeness: 'assertive'
+  };
+
   success(message: string) {
-    this.snackBar.open(message, this.action, {
-      duration: 3000,
-      panelClass: ['success-snackbar']
-    });
+    this.config.panelClass = ['notification', 'success'];
+    this.snackBar.open(message, this.action, this.config);
   }
 
   error(message: string) {
-    this.snackBar.open(message, this.action, {
-      duration: 3000,
-      panelClass: ['error-snackbar']
-    });
+    this.action.fontcolor('black');
+    this.config.panelClass = ['notification', 'error'];
+    this.snackBar.open(message, this.action, this.config);
   }
 
-  warning(message: string) {
-    this.snackBar.open(message, this.action, {
-      duration: 3000,
-      panelClass: ['warning-snackbar']
-    });
+  warn(message: string) {
+    this.config.panelClass = ['notification', 'warn'];
+    this.snackBar.open(message, this.action, this.config);
   }
 
   message(message: string) {
-    this.snackBar.open(message, this.action, {
-      duration: 3000,
-      panelClass: ['message-snackbar']
+    this.config.panelClass = ['notification', 'message'];
+    this.snackBar.open(message, this.action, this.config);
+  }
+
+  confirm(msg: string) {
+    return this.dialog.open(ConfirmDialogComponent, {
+      width: '340px',
+      disableClose: true,
+      data: {
+        message: msg
+      }
+    });
+  }
+
+  discardDialog(msg: string) {
+    this.dialog.open(PreventUnsavedComponent, {
+      width: '340px'
     });
   }
 }
