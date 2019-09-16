@@ -91,9 +91,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(AddAssetComponent, {
-      width: '640px', disableClose: true
-    });
   }
 
   addAsset(asset: LibraryAsset) {
