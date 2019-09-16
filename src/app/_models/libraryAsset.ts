@@ -1,3 +1,6 @@
+import { AssetType } from './assetType';
+import { Author } from './author';
+import { Category } from './category';
 import { Photo } from './photo';
 
 export interface LibraryAsset {
@@ -8,15 +11,18 @@ export interface LibraryAsset {
   cost: number;
   added: Date;
   copiesAvailable: number;
+  numberOfCopies: number;
   description: string;
   photoUrl: string;
   photo?: Photo;
   assetTypeName: string;
-  assetType: string;
+  assetType: AssetType;
+  assetTypeId?: number;
   authorName: string;
   isbn?: string;
   deweyIndex?: string;
-  category?: string;
+  category?: Category;
   categoryId?: number;
   authorId?: number;
+  author: Author;
 }

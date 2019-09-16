@@ -41,3 +41,15 @@ snack-bar-container.error {
 .mat-simple-snackbar-action {
     color: black !important;
 }
+
+/* Main components */
+.main-container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* All tables */
+.full-width-table {
+    width: 100%;
+}
+

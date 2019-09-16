@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+
 import { Checkout } from '../_models/checkout';
+import { Injectable } from '@angular/core';
 import { PaginatedResult } from '../_models/pagination';
+import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -39,7 +40,7 @@ export class CheckoutService {
 
   getCheckoutsForAsset(assetId: number): Observable<Checkout[]> {
     return this.http.get<Checkout[]>(
-      this.baseUrl + '/asset/' + assetId
+      this.baseUrl + 'asset/' + assetId
     );
   }
 

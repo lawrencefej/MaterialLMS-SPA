@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8 data-table">
+<div class="mat-elevation-z8 main-container">
   <div class="filter-input flex">
     <mat-form-field>
       <input matInput [(ngModel)]="searchString" type="text" class="search-input" (blur)="filterList()" (keyup.enter)="filterList()" placeholder="Filter" autocomplete="off">
@@ -31,10 +31,10 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Details </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button matTooltip="Details" color="primary" (click)="redirectToDetails(element.id)">
+        <button mat-icon-button matTooltip="Details" color="primary" [routerLink]="['/catalog/', element.id]" (click)="redirectToDetails(element.id)">
           <mat-icon class="mat-18">reorder</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Update" color="accent" (click)="redirectToUpdate(element.id)">
+        <button mat-icon-button matTooltip="Update" color="accent" (click)="redirectToUpdate(element)">
           <mat-icon class="mat-18">system_update</mat-icon>
         </button>
         <button mat-icon-button matTooltip="Delete" color="warn" (click)="redirectToDelete(element.id)">

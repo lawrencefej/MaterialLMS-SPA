@@ -1,5 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
@@ -7,7 +8,6 @@ import { AddAssetComponent } from '../add-asset/add-asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { NotificationService } from 'src/app/_services/notification.service';
@@ -76,8 +76,13 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     console.log('details');
   }
 
-  public redirectToUpdate = () => {
+  public redirectToUpdate(element) {
     console.log('update');
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = '640px';
+    dialogConfig.data = element;
+    this.dialog.open(AddAssetComponent, dialogConfig);
   }
 
   public redirectToDelete = () => {
@@ -90,25 +95,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
       width: '640px', disableClose: true
     });
   }
-
-  // editAssetModal(asset: LibraryAsset) {
-  //   const initialState = {
-  //     asset
-  //   };
-  //   this.bsModalRef = this.modalService.show(AddAssetComponent, {
-  //     initialState
-  //   });
-  //   this.bsModalRef.content.updatedAsset.subscribe((value: LibraryAsset) => {
-  //     this.updateAsset(value);
-  //   });
-  // }
-
-  // addAssetModal() {
-  //   this.bsModalRef = this.modalService.show(AddAssetComponent);
-  //   this.bsModalRef.content.addedAsset.subscribe((value: LibraryAsset) => {
-  //     this.addAsset(value);
-  //   });
-  // }
 
   addAsset(asset: LibraryAsset) {
     this.assetService.addAuthor(asset).subscribe(
