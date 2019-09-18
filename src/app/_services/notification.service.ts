@@ -1,9 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
-import { ConfirmDialogComponent } from '../core/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material';
-import { PreventUnsavedComponent } from '../core/prevent-unsaved/prevent-unsaved.component';
+import { PreventUnsavedComponent } from '../shared/prevent-unsaved/prevent-unsaved.component';
 
 @Injectable({
   providedIn: 'root'

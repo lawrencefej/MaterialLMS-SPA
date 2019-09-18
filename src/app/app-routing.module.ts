@@ -16,7 +16,7 @@ import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { DataTableComponent } from './data-table/data-table.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { LoginComponent } from './auth/login/login.component';
-import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import { LoginLayoutComponent } from './shared/layout/login-layout/login-layout.component';
 import { MemberAdvancedSearchComponent } from './main/member/member-advanced-search/member-advanced-search.component';
 import { MemberDetailComponent } from './main/member/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
@@ -26,7 +26,7 @@ import { MemberListComponent } from './main/member/member-list/member-list.compo
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberSearchComponent } from './main/member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
-import { ReportsPanelComponent } from './dashboard/reports-panel/reports-panel.component';
+import { ReportsPanelComponent } from './main/dashboard/reports-panel/reports-panel.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 const routes: Routes = [
