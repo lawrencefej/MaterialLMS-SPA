@@ -229,7 +229,6 @@ export class AddAssetComponent implements OnInit, OnDestroy {
   onSubmit() {
     let asset: LibraryAsset;
     asset = this.mapId(asset);
-    console.log(asset);
     if (this.assetForm.valid) {
       if (this.assetForm.controls.id.value) {
         this.updateAsset(asset);

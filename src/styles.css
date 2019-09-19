@@ -27,14 +27,15 @@ snack-bar-container.success {
 }
 
 snack-bar-container.warn {
-    background: #f99157;
+    background: #fd8b2e;
     border-color: #999;
     color: #000;
 }
 
 snack-bar-container.error {
     color: #fff;
-    background: rgba(217, 92, 92, .95);
+    background: rgba(221, 34, 34, 0.95);
+    /* background: rgba(217, 92, 92, .95); */
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
 }
 

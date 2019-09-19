@@ -3,7 +3,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { ActivatedRoute } from '@angular/router';
 import { AddAssetComponent } from '../add-asset/add-asset.component';
-import { AssetService } from 'src/app/_services/asset.service';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
@@ -18,14 +17,12 @@ import { PhotoService } from 'src/app/_services/photo.service';
   styleUrls: ['./asset-detail.component.css']
 })
 export class AssetDetailComponent implements OnInit {
-
   @ViewChild('fileInput', { static: false }) myInputVariable: ElementRef;
   displayedColumns = ['libraryCardId', 'until', 'status'];
   asset: LibraryAsset;
   checkouts: Checkout[];
   dataSource = new MatTableDataSource<Checkout>();
   constructor(
-    private assetService: AssetService,
     private notify: NotificationService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -41,15 +38,18 @@ export class AssetDetailComponent implements OnInit {
   }
 
   getCheckoutsForAsset() {
-    this.checkoutService.getCheckoutsForAsset(this.asset.id).subscribe((checkouts: Checkout[]) => {
-      this.checkouts = checkouts;
-      this.dataSource.data = checkouts;
-    }, error => {
-      this.notify.error(error);
-    });
+    this.checkoutService.getCheckoutsForAsset(this.asset.id).subscribe(
+      (checkouts: Checkout[]) => {
+        this.checkouts = checkouts;
+        this.dataSource.data = checkouts;
+      },
+      error => {
+        this.notify.error(error);
+      }
+    );
   }
 
-  public redirectToUpdate(element: any) {
+  public updateAsset(element: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
@@ -57,10 +57,7 @@ export class AssetDetailComponent implements OnInit {
     this.dialog.open(AddAssetComponent, dialogConfig);
   }
 
-  editAsset(asset: LibraryAsset) {
-  }
-
-  onFileSelected(event) {
+  updatePhoto(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       const fd = new FormData();
@@ -78,6 +75,4 @@ export class AssetDetailComponent implements OnInit {
     }
     this.myInputVariable.nativeElement.value = '';
   }
-
-
 }

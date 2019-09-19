@@ -1,12 +1,13 @@
 <div class="mat-elevation-z8 main-container">
   <div class="filter-input flex">
     <mat-form-field>
-      <input matInput [(ngModel)]="searchString" type="text" class="search-input" (blur)="filterList()" (keyup.enter)="filterList()" placeholder="Filter" autocomplete="off">
+      <input matInput [(ngModel)]="searchString" type="text" class="search-input" (blur)="filterList()"
+        (keyup.enter)="filterList()" placeholder="Filter" autocomplete="off">
       <button mat-button matSuffix mat-icon-button aria-label="clear" *ngIf="searchString" (click)="onSearchClear()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-      <a mat-button color="primary" (click)="openDialog()" class="create-button">Create Owner</a>
+    <a mat-button color="primary" (click)="openAddAssetDialog()" class="create-button">Add New</a>
   </div>
   <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource">
     <ng-container matColumnDef="title">
@@ -31,13 +32,13 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Details </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button matTooltip="Details" color="primary" [routerLink]="['/catalog/', element.id]" (click)="redirectToDetails(element.id)">
+        <button mat-icon-button matTooltip="Details" color="primary" [routerLink]="['/catalog/', element.id]">
           <mat-icon class="mat-18">reorder</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Update" color="accent" (click)="redirectToUpdate(element)">
+        <button mat-icon-button matTooltip="Update" color="accent" (click)="updateAsset(element)">
           <mat-icon class="mat-18">system_update</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Delete" color="warn" (click)="redirectToDelete(element.id)">
+        <button mat-icon-button matTooltip="Delete" color="warn" (click)="deleteAsset(element)">
           <mat-icon class="mat-18">delete</mat-icon>
         </button>
       </td>

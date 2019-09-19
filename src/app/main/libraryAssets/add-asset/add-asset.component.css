@@ -1,28 +1,16 @@
-mat-card {
-    /* max-width: 400px; */
-    /* margin: 2em auto; */
-    text-align: center;
-    /* max-height: 300px; */
-}
-
 .full-width-input {
     width: 100%;
 }
 
-.text-inside {
-    left: 5px;
+button {
+    margin-right: 8px;
+}
+
+.controls-container {
     width: 100%;
-  }
+    padding: 5%;
+}
 
-  button {
-      margin-right: 8px;
-  }
-
-  .controls-container {
-      width: 100%;
-      padding: 5%;
-  }
-
-  .form-buttons {
-      margin: 5px;
-  }
+.form-buttons {
+    margin: 8px;
+}

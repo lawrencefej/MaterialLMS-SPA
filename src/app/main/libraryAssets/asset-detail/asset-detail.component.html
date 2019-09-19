@@ -10,26 +10,26 @@
         <img mat-card-image src="{{asset?.photoUrl || '../../../assets/book.jpg'}}" alt="{{asset.title}}">
       </div>
       <mat-card-actions align="center">
-        <input type="file" style="display: none" #fileInput (change)="onFileSelected($event)">
+        <input type="file" style="display: none" #fileInput (change)="updatePhoto($event)">
         <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">Photo</button>
-        <button mat-raised-button color="accent" type="button" (click)="redirectToUpdate(asset)">Edit
+        <button mat-raised-button color="accent" type="button" (click)="updateAsset(asset)">Edit
           {{asset.assetType}}</button>
       </mat-card-actions>
     </mat-card>
   </div>
   <div fxFlex="70" class="content">
-    <mat-card class="tab-card mat-elevation-z4" >
+    <mat-card class="tab-card mat-elevation-z4">
       <mat-tab-group dynamicHeight>
         <mat-tab label="Details">
           <div class="example-small-box" fxFlexAlign="stretch">
-              <mat-list role="list">
-                  <mat-list-item role="listitem"><b>Year: </b> {{ asset.year}}</mat-list-item>
-                  <mat-list-item role="listitem"><b>Copies Available: </b> {{ asset.copiesAvailable}}</mat-list-item>
-                  <mat-list-item role="listitem"><b>Total Copies: </b> {{ asset.numberOfCopies}}</mat-list-item>
-                  <mat-list-item role="listitem"><b>Location: </b> {{ asset.deweyIndex}}</mat-list-item>
-                  <mat-list-item role="listitem"><b>ISBN: </b> {{ asset.isbn}}</mat-list-item>
-                  <mat-list-item role="listitem"><b>Status: </b> {{ asset.status}}</mat-list-item>
-                </mat-list>
+            <mat-list role="list">
+              <mat-list-item role="listitem"><b>Year: </b> {{ asset.year}}</mat-list-item>
+              <mat-list-item role="listitem"><b>Copies Available: </b> {{ asset.copiesAvailable}}</mat-list-item>
+              <mat-list-item role="listitem"><b>Total Copies: </b> {{ asset.numberOfCopies}}</mat-list-item>
+              <mat-list-item role="listitem"><b>Location: </b> {{ asset.deweyIndex}}</mat-list-item>
+              <mat-list-item role="listitem"><b>ISBN: </b> {{ asset.isbn}}</mat-list-item>
+              <mat-list-item role="listitem"><b>Status: </b> {{ asset.status}}</mat-list-item>
+            </mat-list>
           </div>
         </mat-tab>
         <mat-tab label="Description">

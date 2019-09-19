@@ -81,39 +81,6 @@ export class AssetService {
       );
   }
 
-  // getPaginatedAssets(
-  //   page?,
-  //   itemsPerPage?
-  // ): Observable<PaginatedResult<LibraryAsset[]>> {
-  //   const paginatedResult: PaginatedResult<
-  //     LibraryAsset[]
-  //   > = new PaginatedResult<LibraryAsset[]>();
-
-  //   let params = new HttpParams();
-
-  //   if (page != null && itemsPerPage != null) {
-  //     params = params.append('pagenumber', page);
-  //     params = params.append('pageSize', itemsPerPage);
-  //   }
-
-  //   return this.http
-  //     .get<LibraryAsset[]>(this.baseUrl + 'pagination', {
-  //       observe: 'response',
-  //       params
-  //     })
-  //     .pipe(
-  //       map(response => {
-  //         paginatedResult.result = response.body;
-  //         if (response.headers.get('Pagination') != null) {
-  //           paginatedResult.pagination = JSON.parse(
-  //             response.headers.get('Pagination')
-  //           );
-  //         }
-  //         return paginatedResult;
-  //       })
-  //     );
-  // }
-
   deleteAsset(assetId: number) {
     return this.http.delete(this.baseUrl + assetId);
   }

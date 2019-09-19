@@ -1,12 +1,11 @@
 .Cancel-btn {
-    margin-right: .5em;
-    margin-top: 1em;
-    height: 2.5em;
-    float: right;
+    background-color: rgb(123,138,139);
 }
 
 .Delete-btn {
-    margin-left: .5em;
-    margin-top: 1em;
-    height: 2.5em;
+    background-color: rgb(231,76,60);
+}
+
+button {
+    width: 120px;
 }

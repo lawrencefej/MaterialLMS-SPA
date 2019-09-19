@@ -6,7 +6,6 @@ import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { AddAssetComponent } from '../add-asset/add-asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
-import { AuthService } from 'src/app/_services/auth.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -22,7 +21,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   constructor(
     private assetService: AssetService,
     private route: ActivatedRoute,
-    private router: Router,
     private notify: NotificationService,
     public dialog: MatDialog
   ) {}
@@ -71,11 +69,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     this.filterList();
   }
 
-  public redirectToDetails = () => {
-    console.log('details');
-  }
-
-  public redirectToUpdate(element: any) {
+  public updateAsset(element: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
@@ -83,88 +77,42 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     this.dialog.open(AddAssetComponent, dialogConfig);
   }
 
-  public redirectToDelete = () => {
-    console.log('delete');
-    this.deleteAsset();
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(AddAssetComponent, {
-      width: '640px', disableClose: true
+  openAddAssetDialog() {
+    this.dialog.open(AddAssetComponent, {
+      width: '640px',
+      disableClose: true
     });
   }
 
-  addAsset(asset: LibraryAsset) {
-    this.assetService.addAsset(asset).subscribe(
-      (libraryAsset: LibraryAsset) => {
-        this.notify.success('Item Added Successfully');
-        this.assets.unshift(libraryAsset);
-        asset = libraryAsset;
-      },
-      error => {
-        this.notify.error(error);
-      },
-      () => {
-        this.router.navigate(['/catalog', asset.id]);
-      }
-    );
-  }
-
-  updateAsset(asset: LibraryAsset) {
-    this.assetService
-      .updateAsset(asset)
-      .subscribe(
-        () => {
-          this.notify.success('Updated Successful');
-          const item = this.assets.find(a => a.id === asset.id);
-          const index = this.assets.indexOf(item);
-          this.assets[index] = asset;
-        },
-        error => {
-          this.notify.error(error);
-        }
-      );
-  }
-
-  deleteAsset() {
+  deleteAsset(asset: LibraryAsset) {
     this.notify
-      .confirm('test')
+      .confirm(
+        'Are you sure you sure you want to delete this ' +
+          asset.assetType +
+          ': "' +
+          asset.title +
+          '"'
+      )
       .afterClosed()
       .subscribe(res => {
-        console.log(res);
+        if (res) {
+          this.assetService.deleteAsset(asset.id).subscribe(
+            () => {
+              this.dataSource.data.splice(
+                this.dataSource.data.findIndex(x => x.id === asset.id),
+                1
+              );
+              this.notify.warn(asset.title + ' was deleted successfully');
+              this.paginator.pageIndex = 0;
+              this.loadData();
+            },
+            error => {
+              this.notify.error(error);
+            }
+          );
+        }
       });
   }
-
-  // deleteAsset(asset: LibraryAsset) {
-  //   this.alertify.confirm(
-  //     'Are you sure you want to delete ' + asset.title + '?',
-  //     () => {
-  //       this.assetService.deleteAsset(asset.id).subscribe(
-  //         () => {
-  //           this.assets.splice(
-  //             this.assets.findIndex(u => u.id === asset.id),
-  //             1
-  //           );
-  //           this.alertify.success(asset.title + ' was deleted successfully');
-  //         },
-  //         error => {
-  //           this.alertify.error(error);
-  //         }
-  //       );
-  //     }
-  //   );
-  // }
-
-  // getAsset(id: any) {
-  //   this.assetService.getAsset(id).subscribe(
-  //     (asset: LibraryAsset) => {
-  //       this.editAssetModal(asset);
-  //     },
-  //     error => {
-  //       this.alertify.error(error);
-  //     }
-  //   );
-  // }
 
   loadData() {
     this.pagination.itemsPerPage = this.selectedItemPerPage;
