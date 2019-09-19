@@ -1,6 +1,8 @@
 .photo-container {
-  margin: 20px;
-  max-width: 300px;
+  /* margin-right: 20px; */
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 5%;
 }
 
 b {
@@ -13,4 +15,15 @@ b {
 
 .container {
   margin: 20px;
+}
+
+img {
+  /* border: 4px solid black; */
+  /* max-height: 200px; */
+  max-width: 100%;
+  height: auto;
+  min-height: 200px;
+  /* margin-right: 5px; */
+  padding-right: 10px;
+  border-radius: 5%;
 }

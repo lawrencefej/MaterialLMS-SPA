@@ -9,17 +9,7 @@
         <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="{{asset.title}}"> -->
         <img mat-card-image src="{{asset?.photoUrl || '../../../assets/book.jpg'}}" alt="{{asset.title}}">
       </div>
-      <mat-card-content>
-        <mat-list role="list">
-          <mat-list-item role="listitem"><b>Year: </b> {{ asset.year}}</mat-list-item>
-          <mat-list-item role="listitem"><b>Copies Available: </b> {{ asset.copiesAvailable}}</mat-list-item>
-          <mat-list-item role="listitem"><b>Total Copies: </b> {{ asset.numberOfCopies}}</mat-list-item>
-          <mat-list-item role="listitem"><b>Location: </b> {{ asset.deweyIndex}}</mat-list-item>
-          <mat-list-item role="listitem"><b>ISBN: </b> {{ asset.isbn}}</mat-list-item>
-          <mat-list-item role="listitem"><b>Status: </b> {{ asset.status}}</mat-list-item>
-        </mat-list>
-      </mat-card-content>
-      <mat-card-actions>
+      <mat-card-actions align="center">
         <input type="file" style="display: none" #fileInput (change)="onFileSelected($event)">
         <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">Photo</button>
         <button mat-raised-button color="accent" type="button" (click)="redirectToUpdate(asset)">Edit
@@ -30,6 +20,18 @@
   <div fxFlex="70" class="content">
     <mat-card class="tab-card mat-elevation-z4" >
       <mat-tab-group dynamicHeight>
+        <mat-tab label="Details">
+          <div class="example-small-box" fxFlexAlign="stretch">
+              <mat-list role="list">
+                  <mat-list-item role="listitem"><b>Year: </b> {{ asset.year}}</mat-list-item>
+                  <mat-list-item role="listitem"><b>Copies Available: </b> {{ asset.copiesAvailable}}</mat-list-item>
+                  <mat-list-item role="listitem"><b>Total Copies: </b> {{ asset.numberOfCopies}}</mat-list-item>
+                  <mat-list-item role="listitem"><b>Location: </b> {{ asset.deweyIndex}}</mat-list-item>
+                  <mat-list-item role="listitem"><b>ISBN: </b> {{ asset.isbn}}</mat-list-item>
+                  <mat-list-item role="listitem"><b>Status: </b> {{ asset.status}}</mat-list-item>
+                </mat-list>
+          </div>
+        </mat-tab>
         <mat-tab label="Description">
           <div class="example-small-box" fxFlexAlign="stretch">
             {{asset.description}}
