@@ -1,37 +1,39 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AssetType } from 'src/app/_models/assetType';
-import { AssetTypeService } from 'src/app/_services/asset-type.service';
 import { Author } from 'src/app/_models/author';
-import { AuthorService } from 'src/app/_services/author.service';
 import { Category } from 'src/app/_models/category';
-import { CategoryService } from 'src/app/_services/category.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
-import { NotificationService } from 'src/app/_services/notification.service';
 import { PaginatedResult } from 'src/app/_models/pagination';
+import { AssetTypeService } from 'src/app/_services/asset-type.service';
 import { AssetService } from 'src/app/_services/asset.service';
+import { AuthorService } from 'src/app/_services/author.service';
+import { CategoryService } from 'src/app/_services/category.service';
+import { NotificationService } from 'src/app/_services/notification.service';
 
 @Component({
   selector: 'app-add-asset',
   templateUrl: './add-asset.component.html',
   styleUrls: ['./add-asset.component.css']
 })
-export class AddAssetComponent implements OnInit {
+export class AddAssetComponent implements OnInit, OnDestroy {
   categories: Category[];
   assetTypes: AssetType[];
   authors: Author[];
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: LibraryAsset,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddAssetComponent>,
@@ -57,6 +59,8 @@ export class AddAssetComponent implements OnInit {
     this.getCategories();
     this.isUpdate();
   }
+
+  ngOnDestroy() {}
 
   isUpdate() {
     if (this.data) {
@@ -120,7 +124,9 @@ export class AddAssetComponent implements OnInit {
       (res: PaginatedResult<Author[]>) => {
         this.authors = res.result;
         if (this.data) {
-          this.selectedAuthor = res.result.find(x => x.id === this.data.authorId);
+          this.selectedAuthor = res.result.find(
+            x => x.id === this.data.authorId
+          );
           this.assetForm.controls.author.setValue(this.selectedAuthor);
         }
       },
@@ -135,7 +141,9 @@ export class AddAssetComponent implements OnInit {
       (categories: Category[]) => {
         this.categories = categories;
         if (this.data) {
-          this.selectedCategory = categories.find(x => x.id === this.data.categoryId);
+          this.selectedCategory = categories.find(
+            x => x.id === this.data.categoryId
+          );
           this.assetForm.controls.category.setValue(this.selectedCategory);
         }
       },
@@ -150,7 +158,9 @@ export class AddAssetComponent implements OnInit {
       (assetTypes: AssetType[]) => {
         this.assetTypes = assetTypes;
         if (this.data) {
-          this.selectedAssetType = assetTypes.find(x => x.id === this.data.assetTypeId);
+          this.selectedAssetType = assetTypes.find(
+            x => x.id === this.data.assetTypeId
+          );
           this.assetForm.controls.assetType.setValue(this.selectedAssetType);
           if (this.selectedAssetType.name === 'Book') {
             this.assetForm.controls.isbn.enable();
@@ -163,15 +173,15 @@ export class AddAssetComponent implements OnInit {
     );
   }
 
-  onChanges() {
-    this.assetForm.controls.assetType.valueChanges.subscribe((x: AssetType) => {
-      if (Number(x.id) === this.getBookId()) {
+  onItemChange(value: any) {
+    if (value.id !== null) {
+      if (Number(value.id) === this.getBookId()) {
         this.assetForm.controls.isbn.enable();
       } else {
         this.assetForm.controls.isbn.reset();
         this.assetForm.controls.isbn.disable();
       }
-    });
+    }
   }
 
   getBookId() {
@@ -218,20 +228,57 @@ export class AddAssetComponent implements OnInit {
 
   onSubmit() {
     let asset: LibraryAsset;
-    let author: Author;
+    asset = this.mapId(asset);
+    console.log(asset);
     if (this.assetForm.valid) {
-      if (this.showRevert) {
-        console.log('update');
+      if (this.assetForm.controls.id.value) {
+        this.updateAsset(asset);
       } else {
-        console.log('Add');
+        this.addAsset(asset);
       }
-      asset = this.assetForm.value as LibraryAsset;
-      author = this.assetForm.controls.author.value as Author;
-      asset.authorId = asset.author.id;
-      asset.assetTypeId = asset.assetType.id;
-      asset.categoryId = asset.category.id;
-      // console.log(author);
-      console.log(asset);
     }
+    this.onClose();
+  }
+
+  private mapId(asset: LibraryAsset) {
+    asset = this.assetForm.value as LibraryAsset;
+    asset.authorId = asset.author.id;
+    asset.assetTypeId = asset.assetType.id;
+    asset.categoryId = asset.category.id;
+    return asset;
+  }
+
+  addAsset(asset: LibraryAsset) {
+    this.assetService.addAsset(asset).subscribe(
+      (libraryAsset: LibraryAsset) => {
+        this.notify.success('Item Added Successfully');
+        asset = libraryAsset;
+      },
+      error => {
+        this.notify.error(error);
+      },
+      () => {
+        this.router.navigate(['/catalog', asset.id]);
+      }
+    );
+  }
+
+  updateAsset(asset: LibraryAsset) {
+    this.assetService.updateAsset(asset).subscribe(
+      () => {
+        this.notify.success('Updated Successful');
+      },
+      error => {
+        this.notify.error(error);
+      },
+      () => {
+        this.router.navigate(['/catalog', asset.id]);
+      }
+    );
+  }
+
+  onClose() {
+    this.dialog.closeAll();
+    this.assetForm.reset();
   }
 }

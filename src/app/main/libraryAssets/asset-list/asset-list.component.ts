@@ -23,7 +23,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     private assetService: AssetService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
     private notify: NotificationService,
     public dialog: MatDialog
   ) {}
@@ -76,8 +75,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     console.log('details');
   }
 
-  public redirectToUpdate(element) {
-    console.log('update');
+  public redirectToUpdate(element: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
@@ -91,10 +89,13 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   }
 
   openDialog() {
+    const dialogRef = this.dialog.open(AddAssetComponent, {
+      width: '640px', disableClose: true
+    });
   }
 
   addAsset(asset: LibraryAsset) {
-    this.assetService.addAuthor(asset).subscribe(
+    this.assetService.addAsset(asset).subscribe(
       (libraryAsset: LibraryAsset) => {
         this.notify.success('Item Added Successfully');
         this.assets.unshift(libraryAsset);
@@ -111,7 +112,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
 
   updateAsset(asset: LibraryAsset) {
     this.assetService
-      .updateAsset(this.authService.decodedToken.nameid, asset)
+      .updateAsset(asset)
       .subscribe(
         () => {
           this.notify.success('Updated Successful');

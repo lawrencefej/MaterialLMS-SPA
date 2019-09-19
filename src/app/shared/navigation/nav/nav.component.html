@@ -1,0 +1,47 @@
+<!-- <app-header></app-header>
+<div flexLayout="row" fxFlex>
+  <div fxFlex="15" class="side-bar" >
+    <app-sidebar></app-sidebar>
+  </div>
+  <div fxFlex="85" class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-footer class="footer"></app-footer> -->
+
+<app-header></app-header>
+<div flexLayout="row" fxFlex>
+  <div fxFlex="15" class="side-bar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div fxFlex="85" class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-footer class="footer"></app-footer>
+
+<div class="navigation-container" [class.app-is-mobile]="(isHandset$ | async)">
+  <app-header></app-header>
+
+  <mat-sidenav-container fxFlex="15" class="sidenav-container" [style.marginTop.px]="(isHandset$ | async) ? 56 : 0">
+    <mat-sidenav [opened]="true" #sidenav [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [fixedInViewport]="(isHandset$ | async)" fixedTopGap="56">
+      <mat-card [style.backgroundColor]="'lightgray'">
+        <mat-card-header>
+          <div mat-card-avatar class="avatar"></div>
+
+          <mat-card-title>First Name, Last Name</mat-card-title>
+          <mat-card-subtitle>Admin</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <mat-nav-list>
+        <app-sidebar></app-sidebar>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <app-footer></app-footer>
+</div>

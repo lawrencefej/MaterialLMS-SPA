@@ -33,11 +33,11 @@ export class AssetService {
     return this.http.get<LibraryAsset>(this.baseUrl + 'author/' + authorId);
   }
 
-  addAuthor(asset: LibraryAsset) {
+  addAsset(asset: LibraryAsset) {
     return this.http.post(this.baseUrl, asset);
   }
 
-  updateAsset(id: number, asset: LibraryAsset) {
+  updateAsset(asset: LibraryAsset) {
     return this.http.put(this.baseUrl, asset);
   }
 
