@@ -22,9 +22,9 @@ import { CheckoutDetailResolver } from './_resolver/checkout-detail.resolver';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { DataTableComponent } from './data-table/data-table.component';
 import { ErrorinterceptorProvider } from './_services/error.interceptor';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -53,24 +53,22 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     BaseLayoutComponent,
+    DataTableComponent,
     HasRoleDirective,
     ResponsiveNavComponent,
     ShortcloseNavComponent,
     TestComponent,
-    DataTableComponent
   ],
   imports: [
     AppRoutingModule,
+    AuthModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AuthModule,
     CommonModule,
-    FormsModule,
-    FlexLayoutModule,
+    DashboardModule,
     HttpClientModule,
     LayoutModule,
     MainModule,
-    ReactiveFormsModule,
     SharedModule,
     JwtModule.forRoot({
       config: {
@@ -81,32 +79,32 @@ export function tokenGetter() {
     })
   ],
   providers: [
-    AuthService,
-    ErrorinterceptorProvider,
-    AssetService,
     AdminService,
-    AuthGuard,
-    UserService,
-    AuthorService,
-    ReportService,
     AssetDetailResolver,
     AssetListResolver,
-    MemberListResolver,
-    MemberDetailResolver,
-    CheckoutListResolver,
-    CheckoutDetailResolver,
-    AuthorListResolver,
+    AssetService,
+    AuthGuard,
     AuthorAssetResolver,
-    PhotoService,
+    AuthorListResolver,
+    AuthorService,
+    AuthService,
+    CheckoutDetailResolver,
+    CheckoutListResolver,
+    ErrorinterceptorProvider,
+    MemberDetailResolver,
+    MemberListResolver,
     MemberService,
-    NotificationService
+    NotificationService,
+    PhotoService,
+    ReportService,
+    UserService,
   ],
   entryComponents: [
-    MemberEditComponent,
-    AddAuthorComponent,
-    AddAssetComponent,
     AddAdminComponent,
+    AddAssetComponent,
+    AddAuthorComponent,
     ConfirmDialogComponent,
+    MemberEditComponent,
     PreventUnsavedComponent
   ],
   bootstrap: [AppComponent]

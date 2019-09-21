@@ -7,11 +7,8 @@ import { AssetDetailComponent } from './libraryAssets/asset-detail/asset-detail.
 import { AssetListComponent } from './libraryAssets/asset-list/asset-list.component';
 import { AuthorAssetComponent } from './author/author-asset/author-asset.component';
 import { AuthorListComponent } from './author/author-list/author-list.component';
-import { BarChartComponent } from './dashboard/charts/bar-chart/bar-chart.component';
 import { CheckoutAssetComponent } from './checkout/checkout-asset/checkout-asset.component';
 import { CheckoutListComponent } from './checkout/checkout-list/checkout-list.component';
-import { CommonModule } from '@angular/common';
-import { LineChartComponent } from './dashboard/charts/line-chart/line-chart.component';
 import { MemberAdvancedSearchComponent } from './member/member-advanced-search/member-advanced-search.component';
 import { MemberCheckoutsComponent } from './member/member-checkouts/member-checkouts.component';
 import { MemberDetailComponent } from './member/member-detail/member-detail.component';
@@ -20,7 +17,6 @@ import { MemberHistoryComponent } from './member/member-history/member-history.c
 import { MemberListComponent } from './member/member-list/member-list.component';
 import { MemberSearchComponent } from './member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
-import { PieChartComponent } from './dashboard/charts/pie-chart/pie-chart.component';
 import { ReportsPanelComponent } from './dashboard/reports-panel/reports-panel.component';
 import { SharedModule } from '../shared/shared.module';
 
@@ -35,10 +31,8 @@ import { SharedModule } from '../shared/shared.module';
     AssetListComponent,
     AuthorAssetComponent,
     AuthorListComponent,
-    BarChartComponent,
     CheckoutAssetComponent,
     CheckoutListComponent,
-    LineChartComponent,
     MemberAdvancedSearchComponent,
     MemberCheckoutsComponent,
     MemberDetailComponent,
@@ -46,12 +40,9 @@ import { SharedModule } from '../shared/shared.module';
     MemberHistoryComponent,
     MemberListComponent,
     MemberSearchComponent,
-    PieChartComponent,
     ReportsPanelComponent
   ],
-  imports: [
-    SharedModule,
-  ],
+  imports: [SharedModule],
   exports: [
     AddAdminComponent,
     AddAssetComponent,
@@ -62,10 +53,8 @@ import { SharedModule } from '../shared/shared.module';
     AssetListComponent,
     AuthorAssetComponent,
     AuthorListComponent,
-    BarChartComponent,
     CheckoutAssetComponent,
     CheckoutListComponent,
-    LineChartComponent,
     MemberAdvancedSearchComponent,
     MemberCheckoutsComponent,
     MemberDetailComponent,
@@ -73,8 +62,7 @@ import { SharedModule } from '../shared/shared.module';
     MemberHistoryComponent,
     MemberListComponent,
     MemberSearchComponent,
-    PieChartComponent,
-    ReportsPanelComponent,
+    ReportsPanelComponent
   ]
 })
 export class MainModule {}

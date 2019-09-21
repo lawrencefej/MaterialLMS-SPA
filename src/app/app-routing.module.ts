@@ -13,6 +13,8 @@ import { AuthorListResolver } from './_resolver/author-list.resolver';
 import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component';
 import { CheckoutListComponent } from './main/checkout/checkout-list/checkout-list.component';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
+import { DashboardLayoutComponent } from './shared/layout/dashboard-layout/dashboard-layout.component';
+import { DashboardPanelComponent } from './dashboard/dashboard-panel/dashboard-panel.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -26,7 +28,6 @@ import { MemberListComponent } from './main/member/member-list/member-list.compo
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberSearchComponent } from './main/member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
-import { ReportsPanelComponent } from './main/dashboard/reports-panel/reports-panel.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 const routes: Routes = [
@@ -88,11 +89,16 @@ const routes: Routes = [
         data: { allowedRoles: ['Admin', 'Librarian'] },
         resolve: { author: AuthorAssetResolver }
       },
-      {
-        path: 'dashboard',
-        component: ReportsPanelComponent,
-        data: { allowedRoles: ['Admin'] }
-      }
+    ]
+  },
+  {
+    path: '',
+    component: DashboardLayoutComponent,
+    children: [
+      {path: 'dashboard',
+      component: DashboardPanelComponent,
+      data: {allowedRoles: ['Admin']}
+    }
     ]
   },
   {
