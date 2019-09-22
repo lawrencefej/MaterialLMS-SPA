@@ -64,7 +64,7 @@
               Category is required</mat-error>
           </mat-form-field>
           <mat-form-field class="full-width-input">
-            <mat-select (valueChange)="onItemChange($event)"  placeholder="Type" formControlName="assetType" required>
+            <mat-select (valueChange)="onItemChange($event)" placeholder="Type" formControlName="assetType" required>
               <ng-container *ngFor="let type of assetTypes">
                 <mat-option [value]="type">{{type.name}}</mat-option>
               </ng-container>
@@ -87,6 +87,6 @@
         [disabled]="assetForm.pristine || !assetForm.valid">Submit</button>
       <button mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
       <button mat-raised-button color="accent" type="button" *ngIf="showRevert" (click)="revert()"
-        [disabled]="assetForm.pristine || !assetForm.valid" >Revert</button>
+        [disabled]="assetForm.pristine || !assetForm.valid">Revert</button>
     </div>
   </form>

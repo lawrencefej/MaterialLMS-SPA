@@ -23,7 +23,7 @@ export class MemberSearchComponent implements OnInit {
   ngOnInit() {}
 
   searchMember() {
-    this.memberService.getMemberByCardNumber(this.searchString).subscribe((member: User) => {
+    this.memberService.getMemberByCardNumber(Number(this.searchString)).subscribe((member: User) => {
       if (member != null) {
         this.member = member;
         this.searchString = '';

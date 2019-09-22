@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTable, MatTableDa
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
-import { MemberEditComponent } from '../member-edit/member-edit.component';
+import { MemberComponent } from '../member/member.component';
 import { MemberService } from 'src/app/_services/member.service';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { User } from 'src/app/_models/user';
@@ -66,11 +66,11 @@ export class MemberListComponent implements AfterViewInit, OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
     dialogConfig.data = element;
-    this.dialog.open(MemberEditComponent, dialogConfig);
+    this.dialog.open(MemberComponent, dialogConfig);
   }
 
   openMemberEditDialog() {
-    this.dialog.open(MemberEditComponent, {
+    this.dialog.open(MemberComponent, {
       width: '640px',
       disableClose: true
     });

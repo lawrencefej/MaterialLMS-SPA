@@ -1,15 +1,6 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AssetType } from 'src/app/_models/assetType';
 import { Author } from 'src/app/_models/author';
@@ -23,11 +14,11 @@ import { CategoryService } from 'src/app/_services/category.service';
 import { NotificationService } from 'src/app/_services/notification.service';
 
 @Component({
-  selector: 'app-add-asset',
-  templateUrl: './add-asset.component.html',
-  styleUrls: ['./add-asset.component.css']
+  selector: 'app-asset',
+  templateUrl: './asset.component.html',
+  styleUrls: ['./asset.component.css']
 })
-export class AddAssetComponent implements OnInit, OnDestroy {
+export class AssetComponent implements OnInit {
   categories: Category[];
   assetTypes: AssetType[];
   authors: Author[];
@@ -36,7 +27,7 @@ export class AddAssetComponent implements OnInit, OnDestroy {
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: LibraryAsset,
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<AddAssetComponent>,
+    public dialogRef: MatDialogRef<AssetComponent>,
     private dialog: MatDialog,
     private authorService: AuthorService,
     private assetService: AssetService,
@@ -59,8 +50,6 @@ export class AddAssetComponent implements OnInit, OnDestroy {
     this.getCategories();
     this.isUpdate();
   }
-
-  ngOnDestroy() {}
 
   isUpdate() {
     if (this.data) {

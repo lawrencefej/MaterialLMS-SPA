@@ -4,7 +4,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
-import { AddAssetComponent } from '../add-asset/add-asset.component';
+import { AssetComponent } from '../add-asset/asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
 import { MatPaginator } from '@angular/material/paginator';
@@ -47,17 +47,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     });
   }
 
-  searchAssets(value: string) {
-    this.assetService.searchAsset(value).subscribe(
-      (assets: LibraryAsset[]) => {
-        this.assets = assets;
-      },
-      error => {
-        this.notify.error(error);
-      }
-    );
-  }
-
   filterList() {
     this.searchString.trim().toLocaleLowerCase();
     this.loadData();
@@ -73,11 +62,11 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
     dialogConfig.data = element;
-    this.dialog.open(AddAssetComponent, dialogConfig);
+    this.dialog.open(AssetComponent, dialogConfig);
   }
 
   openAddAssetDialog() {
-    this.dialog.open(AddAssetComponent, {
+    this.dialog.open(AssetComponent, {
       width: '640px',
       disableClose: true
     });

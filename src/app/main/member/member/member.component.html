@@ -1,0 +1,127 @@
+<div div fxLayout="row" fxLayoutAlign="end center">
+  <button mat-button matSuffix mat-icon-button tabIndex="-1" aria-label="clear" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<h3>
+  {{ memberForm.controls['id'].value ? 'Edit Member' : 'Add New Member' }}
+</h3>
+
+<mat-dialog-content>
+  <form fxLayout="column" [formGroup]="memberForm">
+    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="First Name" formControlName="firstName" required />
+        <mat-error *ngFor="let validation of validationMessages.firstName">
+            <mat-error *ngIf="
+                memberForm.get('firstName').hasError(validation.type) &&
+                (memberForm.get('firstName').dirty || memberForm.get('firstName').touched)">
+              {{ validation.message }}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="Last Name" formControlName="lastName" required />
+        <mat-error *ngFor="let validation of validationMessages.lastName">
+            <mat-error *ngIf="
+                memberForm.get('lastName').hasError(validation.type) &&
+                (memberForm.get('lastName').dirty || memberForm.get('lastName').touched)">
+              {{ validation.message }}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="Email" formControlName="email" required />
+        <mat-error *ngFor="let validation of validationMessages.email">
+          <mat-error *ngIf="
+              memberForm.get('email').hasError(validation.type) &&
+              (memberForm.get('email').dirty || memberForm.get('email').touched)">
+            {{ validation.message }}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <span matPrefix>+1 &nbsp;</span>
+        <input matInput type="text" placeholder="Mobile" formControlName="phoneNumber" required />
+        <mat-error *ngFor="let validation of validationMessages.phoneNumber">
+            <mat-error *ngIf="
+                memberForm.get('phoneNumber').hasError(validation.type) &&
+                (memberForm.get('phoneNumber').dirty || memberForm.get('phoneNumber').touched)">
+              {{ validation.message }}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="Address" formControlName="address" required />
+        <mat-error *ngFor="let validation of validationMessages.address">
+            <mat-error *ngIf="
+                memberForm.get('address').hasError(validation.type) &&
+                (memberForm.get('address').dirty || memberForm.get('address').touched)">
+              {{ validation.message }}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="City" formControlName="city" required />
+        <mat-error *ngFor="let validation of validationMessages.city">
+            <mat-error *ngIf="
+                memberForm.get('city').hasError(validation.type) &&
+                (memberForm.get('city').dirty || memberForm.get('city').touched)">
+              {{ validation.message }}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="State" formControlName="state" [matAutocomplete]="auto" required />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+            {{ state.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngFor="let validation of validationMessages.state">
+            <mat-error *ngIf="
+                memberForm.get('state').hasError(validation.type) &&
+                (memberForm.get('state').dirty || memberForm.get('state').touched)">
+              {{ validation.message }}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput type="text" maxlength="5" placeholder="Zipcode" formControlName="zipcode" required />
+        <mat-hint align="end">{{ memberForm.controls['zipcode'].value?.length }} / 5</mat-hint>
+        <mat-error *ngFor="let validation of validationMessages.zipcode">
+            <mat-error *ngIf="
+                memberForm.get('zipcode').hasError(validation.type) &&
+                (memberForm.get('zipcode').dirty || memberForm.get('zipcode').touched)">
+              {{ validation.message }}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+      <div class="add-bottom-padding" fxLayout.lt-sm="column" fxFlex>
+        <mat-radio-group formControlName="gender">
+          <mat-radio-button value="1">Male</mat-radio-button>
+          <mat-radio-button value="2">Female</mat-radio-button>
+          <mat-radio-button value="3">Other</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="button-row" fxFlex>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
+      <button mat-raised-button color="accent" type="button" *ngIf="showRevert" (click)="revert()"
+        [disabled]="memberForm.pristine || !memberForm.valid">Revert</button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>

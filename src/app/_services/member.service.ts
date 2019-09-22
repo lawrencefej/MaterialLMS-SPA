@@ -15,12 +15,12 @@ export class MemberService {
 
   constructor(private http: HttpClient) {}
 
-  getMember(id): Observable<User> {
-    return this.http.get<User>(this.baseUrl + id);
+  getMember(memberId: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + memberId);
   }
 
-  getMemberByCardNumber(id): Observable<User> {
-    return this.http.get<User>(this.baseUrl + 'card/' + id);
+  getMemberByCardNumber(cardNumber: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'card/' + cardNumber);
   }
 
   advancedMemberSearch(params: any): Observable<User[]> {
@@ -40,8 +40,8 @@ export class MemberService {
   }
 
   getPaginatedMembers(
-    page?,
-    itemsPerPage?,
+    page?: number,
+    itemsPerPage?: number,
     orderBy?: string,
     sortDirection?: string,
     searchString?: string
@@ -57,8 +57,8 @@ export class MemberService {
     params = params.append('searchString', searchString);
 
     if (page != null && itemsPerPage != null) {
-      params = params.append('pagenumber', page);
-      params = params.append('pageSize', itemsPerPage);
+      params = params.append('pagenumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
     }
 
     return this.http

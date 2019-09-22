@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { ActivatedRoute } from '@angular/router';
-import { AddAssetComponent } from '../add-asset/add-asset.component';
+import { AssetComponent } from '../add-asset/asset.component';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
@@ -54,7 +54,7 @@ export class AssetDetailComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
     dialogConfig.data = element;
-    this.dialog.open(AddAssetComponent, dialogConfig);
+    this.dialog.open(AssetComponent, dialogConfig);
   }
 
   updatePhoto(event) {

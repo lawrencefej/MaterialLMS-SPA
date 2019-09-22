@@ -15,14 +15,12 @@ import { CheckoutListComponent } from './main/checkout/checkout-list/checkout-li
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { DashboardLayoutComponent } from './shared/layout/dashboard-layout/dashboard-layout.component';
 import { DashboardPanelComponent } from './dashboard/dashboard-panel/dashboard-panel.component';
-import { DataTableComponent } from './data-table/data-table.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LoginLayoutComponent } from './shared/layout/login-layout/login-layout.component';
 import { MemberAdvancedSearchComponent } from './main/member/member-advanced-search/member-advanced-search.component';
 import { MemberDetailComponent } from './main/member/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
-import { MemberEditComponent } from './main/member/member-edit/member-edit.component';
 import { MemberHistoryComponent } from './main/member/member-history/member-history.component';
 import { MemberListComponent } from './main/member/member-list/member-list.component';
 import { MemberListResolver } from './_resolver/member-list.resolver';
@@ -37,13 +35,10 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'memberSearch', pathMatch: 'full' },
-      { path: 'currentitems', component: MemberHistoryComponent },
-      { path: 'profileedit', component: MemberEditComponent },
-      { path: 'memberSearch', component: MemberSearchComponent },
+      { path: '', redirectTo: 'member-search', pathMatch: 'full' },
+      { path: 'current-items', component: MemberHistoryComponent },
+      { path: 'member-search', component: MemberSearchComponent },
       { path: 'advanced-search', component: MemberAdvancedSearchComponent },
-      // TODO remove this below
-      { path: 'data', component: DataTableComponent },
       {
         path: 'catalog',
         component: AssetListComponent,
@@ -106,11 +101,11 @@ const routes: Routes = [
     component: LoginLayoutComponent,
     children: [
       { path: 'login', component: LoginComponent },
-      { path: 'forgotpassword', component: ForgotPasswordComponent },
-      { path: 'resetpassword/:id/:code', component: ResetPasswordComponent }
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'reset-password/:id/:code', component: ResetPasswordComponent }
     ]
   },
-  { path: '**', redirectTo: 'memberSearch', pathMatch: 'full' }
+  { path: '**', redirectTo: 'member-search', pathMatch: 'full' }
 ];
 
 @NgModule({
