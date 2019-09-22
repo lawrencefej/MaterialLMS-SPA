@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../_models/user';
 import { PaginatedResult } from '../_models/pagination';
+import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -40,13 +41,20 @@ export class MemberService {
 
   getPaginatedMembers(
     page?,
-    itemsPerPage?
+    itemsPerPage?,
+    orderBy?: string,
+    sortDirection?: string,
+    searchString?: string
   ): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<
       User[]
     >();
 
     let params = new HttpParams();
+
+    params = params.append('orderBy', orderBy);
+    params = params.append('sortDirection', sortDirection);
+    params = params.append('searchString', searchString);
 
     if (page != null && itemsPerPage != null) {
       params = params.append('pagenumber', page);

@@ -1,9 +1,9 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
+import { ActivatedRoute } from '@angular/router';
 import { AddAssetComponent } from '../add-asset/add-asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
@@ -27,7 +27,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   assets: LibraryAsset[];
   selectedItemPerPage: any;
   pagination: Pagination;
-  count: number;
   dataSource = new MatTableDataSource<LibraryAsset>();
   searchString = '';
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
@@ -132,6 +131,5 @@ export class AssetListComponent implements AfterViewInit, OnInit {
           this.notify.error(error);
         }
       );
-    this.searchString = '';
   }
 }
