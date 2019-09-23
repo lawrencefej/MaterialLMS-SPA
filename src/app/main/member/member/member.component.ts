@@ -27,34 +27,36 @@ export class MemberComponent implements OnInit {
 
   validationMessages = {
     firstName: [
-      {type: 'required', message: 'First Name is required'},
+      { type: 'required', message: 'First Name is required' },
+      { type: 'maxlength', message: 'First Name cannot be more than 25 characters' },
     ],
     lastName: [
-      {type: 'required', message: 'Last Name is required'},
+      { type: 'required', message: 'Last Name is required' },
+      { type: 'maxlength', message: 'Last Name cannot be more than 25 characters' },
     ],
     email: [
-      {type: 'required', message: 'Email is required'},
-      {type: 'email', message: 'Please enter a valid Email'},
+      { type: 'required', message: 'Email is required' },
+      { type: 'email', message: 'Please enter a valid Email' },
     ],
     phoneNumber: [
-      {type: 'required', message: 'Phone Number is required'},
+      { type: 'required', message: 'Phone Number is required' },
     ],
     address: [
-      {type: 'required', message: 'Address is required'},
-      {type: 'maxlength', message: 'Address cannot be more than 100 characters'},
+      { type: 'required', message: 'Address is required' },
+      { type: 'maxlength', message: 'Address cannot be more than 100 characters' },
     ],
     state: [
-      {type: 'required', message: 'State is required'},
+      { type: 'required', message: 'State is required' },
     ],
     city: [
-      {type: 'required', message: 'City is required'},
+      { type: 'required', message: 'City is required' },
     ],
     zipcode: [
-      {type: 'required', message: 'Zipcode is required'},
-      {type: 'pattern', message: 'Please enter a valid Zipcode'},
+      { type: 'required', message: 'Zipcode is required' },
+      { type: 'pattern', message: 'Please enter a valid Zipcode' },
     ],
     gender: [
-      {type: 'required', message: 'Gender is required'},
+      { type: 'required', message: 'Gender is required' },
     ],
   };
 
@@ -73,7 +75,8 @@ export class MemberComponent implements OnInit {
     this.filteredStates = this.memberForm.controls.state.valueChanges
       .pipe(startWith(''),
         map(state => state ? this._filterStates(state) : this.states.slice())
-        );
+      );
+    this.isUpdate();
   }
 
   isUpdate() {
@@ -98,40 +101,16 @@ export class MemberComponent implements OnInit {
 
   populateForm(member: User) {
     this.memberForm = this.fb.group({
-      id: new FormControl(this.member.id),
-      firstName: new FormControl(
-        this.member.firstName,
-        Validators.compose([Validators.required])
-      ),
-      lastName: new FormControl(
-        this.member.lastName,
-        Validators.compose([Validators.required])
-      ),
-      email: new FormControl(
-        this.member.email,
-        Validators.compose([Validators.required])
-      ),
-      phoneNumber: new FormControl(
-        member.phoneNumber,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(4)
-        ])
-      ),
-      address: new FormControl(
-        member.address,
-        Validators.required
-      ),
-      state: new FormControl(
-        member.state,
-        Validators.required
-      ),
-      city: new FormControl(
-        member.city,
-        Validators.compose([Validators.required])
-      ),
-      zipcode: new FormControl(member.zipcode, Validators.required),
+      id: new FormControl(member.id),
+      firstName: new FormControl(member.firstName, Validators.compose([Validators.required, Validators.maxLength(25)])),
+      lastName: new FormControl(member.lastName, Validators.compose([Validators.required, Validators.maxLength(25)])),
+      email: new FormControl(member.email, Validators.compose([Validators.required, Validators.email])),
+      phoneNumber: new FormControl(member.phoneNumber, Validators.compose([Validators.required])),
+      address: new FormControl(member.address, Validators.compose([Validators.required, Validators.maxLength(100)])),
+      state: new FormControl(member.state, Validators.compose([Validators.required])),
+      city: new FormControl(member.city, Validators.compose([Validators.required])),
+      zipcode: new FormControl(member.zipcode, Validators.compose([Validators.required, Validators.pattern('^[0-9]{5}$')])),
+      gender: new FormControl(member.gender, Validators.required),
     });
   }
 
@@ -175,9 +154,9 @@ export class MemberComponent implements OnInit {
 
   addMember(member: User) {
     this.memberService.AddMember(member).subscribe((createdMember: User) => {
-        this.notify.success('Item Added Successfully');
-        member = createdMember;
-      },
+      this.notify.success('Item Added Successfully');
+      member = createdMember;
+    },
       error => {
         this.notify.error(error);
       },

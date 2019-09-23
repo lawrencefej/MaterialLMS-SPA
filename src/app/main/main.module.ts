@@ -1,7 +1,7 @@
 import { AdminComponent } from './admin/admin/admin.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AssetCheckoutComponent } from './libraryAssets/asset-checkout/asset-checkout.component';
-import { AssetComponent } from './libraryAssets/add-asset/asset.component';
+import { AssetComponent } from './libraryAssets/asset/asset.component';
 import { AssetDetailComponent } from './libraryAssets/asset-detail/asset-detail.component';
 import { AssetListComponent } from './libraryAssets/asset-list/asset-list.component';
 import { AuthorAssetComponent } from './author/author-asset/author-asset.component';

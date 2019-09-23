@@ -4,7 +4,7 @@ import { AdminComponent } from './main/admin/admin/admin.component';
 import { AdminService } from './_services/admin.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AssetComponent } from './main/libraryAssets/add-asset/asset.component';
+import { AssetComponent } from './main/libraryAssets/asset/asset.component';
 import { AssetDetailResolver } from './_resolver/asset-detail.resolver';
 import { AssetListResolver } from './_resolver/asset-list.resolver';
 import { AssetService } from './_services/asset.service';

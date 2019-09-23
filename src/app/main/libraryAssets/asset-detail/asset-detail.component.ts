@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { ActivatedRoute } from '@angular/router';
-import { AssetComponent } from '../add-asset/asset.component';
+import { AssetComponent } from '../asset/asset.component';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';

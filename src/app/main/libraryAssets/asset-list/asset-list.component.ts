@@ -4,7 +4,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
-import { AssetComponent } from '../add-asset/asset.component';
+import { AssetComponent } from '../asset/asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
 import { MatPaginator } from '@angular/material/paginator';
