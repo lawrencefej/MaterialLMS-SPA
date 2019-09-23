@@ -6,7 +6,6 @@
         <mat-card-subtitle align="start">{{asset.authorName}}</mat-card-subtitle>
       </mat-card-header>
       <div class="photo-container" align="center">
-        <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="{{asset.title}}"> -->
         <img mat-card-image src="{{asset?.photoUrl || '../../../assets/book.jpg'}}" alt="{{asset.title}}">
       </div>
       <mat-card-actions align="center">
