@@ -29,7 +29,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
   ];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatTable, { static: false }) table: MatTable<User>;
+  // @ViewChild(MatTable, { static: false }) table: MatTable<User>;
 
   constructor(
     private memberService: MemberService,

@@ -16,6 +16,7 @@ import { AuthorComponent } from './main/author/author/author.component';
 import { AuthorListResolver } from './_resolver/author-list.resolver';
 import { AuthorService } from './_services/author.service';
 import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component';
+import { BasketService } from './_services/basket.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CheckoutDetailResolver } from './_resolver/checkout-detail.resolver';
@@ -88,6 +89,7 @@ export function tokenGetter() {
     AuthorListResolver,
     AuthorService,
     AuthService,
+    BasketService,
     CheckoutDetailResolver,
     CheckoutListResolver,
     ErrorinterceptorProvider,

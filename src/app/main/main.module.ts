@@ -7,6 +7,8 @@ import { AssetListComponent } from './libraryAssets/asset-list/asset-list.compon
 import { AuthorAssetComponent } from './author/author-asset/author-asset.component';
 import { AuthorComponent } from './author/author/author.component';
 import { AuthorListComponent } from './author/author-list/author-list.component';
+import { BasketComponent } from './basket/basket/basket.component';
+import { BasketDetailComponent } from './basket/basket-detail/basket-detail.component';
 import { CheckoutAssetComponent } from './checkout/checkout-asset/checkout-asset.component';
 import { CheckoutListComponent } from './checkout/checkout-list/checkout-list.component';
 import { MemberAdvancedSearchComponent } from './member/member-advanced-search/member-advanced-search.component';
@@ -31,6 +33,8 @@ import { SharedModule } from '../shared/shared.module';
     AssetListComponent,
     AuthorAssetComponent,
     AuthorListComponent,
+    BasketComponent,
+    BasketDetailComponent,
     CheckoutAssetComponent,
     CheckoutListComponent,
     MemberAdvancedSearchComponent,
@@ -53,6 +57,8 @@ import { SharedModule } from '../shared/shared.module';
     AssetListComponent,
     AuthorAssetComponent,
     AuthorListComponent,
+    BasketComponent,
+    BasketDetailComponent,
     CheckoutAssetComponent,
     CheckoutListComponent,
     MemberAdvancedSearchComponent,

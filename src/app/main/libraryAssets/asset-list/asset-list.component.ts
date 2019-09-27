@@ -24,7 +24,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     private notify: NotificationService,
     public dialog: MatDialog
   ) {}
-  assets: LibraryAsset[];
   selectedItemPerPage: any;
   pagination: Pagination;
   dataSource = new MatTableDataSource<LibraryAsset>();

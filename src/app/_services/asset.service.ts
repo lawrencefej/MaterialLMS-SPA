@@ -31,6 +31,10 @@ export class AssetService {
     return this.http.post(this.baseUrl, asset);
   }
 
+  searchAsset(name: string): Observable<LibraryAsset[]> {
+    return this.http.get<LibraryAsset[]>(this.baseUrl + 'search?SearchString=' + name);
+  }
+
   updateAsset(asset: LibraryAsset) {
     return this.http.put(this.baseUrl, asset);
   }

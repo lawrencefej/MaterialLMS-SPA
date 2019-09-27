@@ -11,8 +11,8 @@
       <mat-card-actions align="center">
         <input type="file" style="display: none" #fileInput (change)="updatePhoto($event)">
         <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">Photo</button>
-        <button mat-raised-button color="accent" type="button" (click)="updateMember(member)">Edit
-          Member</button>
+        <button mat-raised-button color="accent" type="button" (click)="updateMember(member)">Edit Member</button>
+        <button mat-raised-button color="accent" *ngIf="member.fees > 0" type="button" (click)="updateMember(member)">Pay Fees</button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -31,6 +31,7 @@
               <mat-list-item role="listitem"><b>State: </b> {{ member.state}}</mat-list-item>
               <mat-list-item role="listitem"><b>Zipcode: </b> {{ member.zipcode}}</mat-list-item>
               <mat-list-item role="listitem"><b>Card number: </b> {{ member.libraryCardNumber}}</mat-list-item>
+              <mat-list-item *ngIf="member.fees > 0" [ngStyle]="{color: red}" role="listitem" class="test"><b>Amount Owed: </b> {{ member.fees}}</mat-list-item>
             </mat-list>
           </div>
         </mat-tab>
@@ -62,9 +63,9 @@
             </table>
           </div>
         </mat-tab>
-        <mat-tab label="Checkout Item">
+        <mat-tab *ngIf="member.fees === 0" label="Checkout Item">
           <div class="example-small-box" fxFlexAlign="stretch">
-            {{member.firstName}}
+            <app-checkout-asset [member]="member"></app-checkout-asset>
           </div>
         </mat-tab>
       </mat-tab-group>

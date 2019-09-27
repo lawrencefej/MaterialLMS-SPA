@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CheckoutService {
-  baseUrl = environment.apiUrl + 'checkouts/';
+  private baseUrl = environment.apiUrl + 'checkouts/';
   private checkout = new Subject<Checkout>();
 
   constructor(private http: HttpClient) {}
@@ -46,6 +46,10 @@ export class CheckoutService {
 
   checkoutAsset(checkout: Checkout) {
     return this.http.post(this.baseUrl, checkout);
+  }
+
+  checkoutAssets(checkouts: Checkout[]) {
+    return this.http.post(this.baseUrl, checkouts);
   }
 
   getNewCheckout(): Observable<Checkout> {

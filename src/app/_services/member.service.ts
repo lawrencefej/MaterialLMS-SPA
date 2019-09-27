@@ -23,8 +23,17 @@ export class MemberService {
     return this.http.get<User>(this.baseUrl + 'card/' + cardNumber);
   }
 
-  advancedMemberSearch(params: any): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl + params);
+  // advancedMemberSearch(params: any): Observable<User[]> {
+  //   return this.http.get<User[]>(this.baseUrl + params);
+  // }
+
+  advancedMemberSearch(member: User): Observable<User[]> {
+    let params = new HttpParams();
+
+    params = params.set('firstName', member.firstName);
+    params = params.set('lastName', member.lastName);
+    params = params.set('email', member.email);
+    return this.http.get<User[]>(this.baseUrl + 'advancedSearch', { params });
   }
 
   updateMember(user: User) {
