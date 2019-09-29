@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MatDialog } from '@angular/material/dialog';
+import { MemberComponent } from '../member/member.component';
 import { MemberService } from 'src/app/_services/member.service';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { Router } from '@angular/router';
@@ -17,7 +19,8 @@ export class MemberSearchComponent implements OnInit {
   constructor(
     private memberService: MemberService,
     private notify: NotificationService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {}
@@ -32,6 +35,13 @@ export class MemberSearchComponent implements OnInit {
       this.notify.error('This card does not exist');
     }, error => {
       this.notify.error(error);
+    });
+  }
+
+  openMemberDialog() {
+    this.dialog.open(MemberComponent, {
+      width: '640px',
+      disableClose: true
     });
   }
 

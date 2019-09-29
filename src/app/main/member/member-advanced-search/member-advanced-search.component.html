@@ -43,7 +43,7 @@
         <div fxLayoutAlign="space-between center" class="button-row" fxFlex>
           <button mat-raised-button color="primary" type="submit"
             [disabled]="searchForm.pristine || !searchForm.valid">Submit</button>
-          <button mat-raised-button color="warn" type="button" (click)="onClear()">Clear</button>
+          <button mat-raised-button color="warn" type="button" *ngIf="searchForm.dirty" (click)="onClear()">Clear</button>
         </div>
       </div>
     </form>

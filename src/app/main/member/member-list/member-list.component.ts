@@ -18,7 +18,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
   members: User[];
   selectedItemPerPage: any;
   pagination: Pagination;
-  dataSource = new MatTableDataSource<User>();
+  dataSource = new MatTableDataSource<User>(this.members);
   searchString = '';
   displayedColumns = [
     'libraryCardNumber',
@@ -39,8 +39,9 @@ export class MemberListComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.dataSource.data = data.members.result as User[];
       this.pagination = data.members.pagination;
+      this.members = data.members.result;
+      this.dataSource = new MatTableDataSource<User>(this.members);
     });
   }
 
@@ -83,11 +84,10 @@ export class MemberListComponent implements AfterViewInit, OnInit {
         if (res) {
           this.memberService.deleteMember(member.id).subscribe(
             () => {
-              this.notify.warn(
-                member.libraryCardNumber + ' was deleted successfully'
-              );
-              this.paginator.pageIndex = 0;
-              this.loadData();
+              this.members.splice(this.members.findIndex(x => x.id === member.id),  1);
+              this.notify.warn(member.libraryCardNumber + ' was deleted successfully');
+              this.pagination.totalItems--;
+              this.dataSource = new MatTableDataSource<User>(this.members);
             },
             error => {
               this.notify.error(error);
@@ -107,9 +107,9 @@ export class MemberListComponent implements AfterViewInit, OnInit {
         this.sort.direction.toString(),
         this.searchString
       )
-      .subscribe(
-        (res: PaginatedResult<User[]>) => {
-          this.dataSource.data = res.result as User[];
+      .subscribe((res: PaginatedResult<User[]>) => {
+          this.members = res.result;
+          this.dataSource = new MatTableDataSource<User>(this.members);
         },
         error => {
           this.notify.error(error);

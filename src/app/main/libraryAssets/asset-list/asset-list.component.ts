@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +8,7 @@ import { AssetService } from 'src/app/_services/asset.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { merge } from 'rxjs';
 
@@ -24,19 +24,20 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     private notify: NotificationService,
     public dialog: MatDialog
   ) {}
-  selectedItemPerPage: any;
+  // selectedItemPerPage: any;
   pagination: Pagination;
-  dataSource = new MatTableDataSource<LibraryAsset>();
+  assets: LibraryAsset[];
+  dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
   searchString = '';
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatTable, { static: false }) table: MatTable<LibraryAsset>;
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.pagination = data.assets.pagination;
-      this.dataSource.data = data.assets.result as LibraryAsset[];
+      this.assets = data.assets.result;
+      this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
     });
   }
 
@@ -85,13 +86,10 @@ export class AssetListComponent implements AfterViewInit, OnInit {
         if (res) {
           this.assetService.deleteAsset(asset.id).subscribe(
             () => {
-              this.dataSource.data.splice(
-                this.dataSource.data.findIndex(x => x.id === asset.id),
-                1
-              );
+              this.assets.splice(this.assets.findIndex(x => x.id === asset.id),  1);
               this.notify.warn(asset.title + ' was deleted successfully');
-              this.paginator.pageIndex = 0;
-              this.loadData();
+              this.pagination.totalItems--;
+              this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
             },
             error => {
               this.notify.error(error);
@@ -102,7 +100,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   }
 
   loadData() {
-    this.pagination.itemsPerPage = this.selectedItemPerPage;
+    // this.pagination.itemsPerPage = this.selectedItemPerPage;
     this.assetService
       .getPaginatedAssets(
         this.paginator.pageIndex + 1,
@@ -113,7 +111,8 @@ export class AssetListComponent implements AfterViewInit, OnInit {
       )
       .subscribe(
         (res: PaginatedResult<LibraryAsset[]>) => {
-          this.dataSource.data = res.result as LibraryAsset[];
+          this.assets = res.result;
+          this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
         },
         error => {
           this.notify.error(error);
