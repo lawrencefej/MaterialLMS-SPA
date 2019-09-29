@@ -11,6 +11,7 @@ import { AuthorAssetResolver } from './_resolver/author-asset.resolver';
 import { AuthorListComponent } from './main/author/author-list/author-list.component';
 import { AuthorListResolver } from './_resolver/author-list.resolver';
 import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component';
+import { CanDeactivateGuard } from './_guards/can-deactivate.guard';
 import { CheckoutListComponent } from './main/checkout/checkout-list/checkout-list.component';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { DashboardLayoutComponent } from './shared/layout/dashboard-layout/dashboard-layout.component';
@@ -63,6 +64,7 @@ const routes: Routes = [
       {
         path: 'members/:id',
         component: MemberDetailComponent,
+        canDeactivate: [CanDeactivateGuard],
         data: { allowedRoles: ['Admin', 'Librarian'] },
         resolve: { member: MemberDetailResolver }
       },

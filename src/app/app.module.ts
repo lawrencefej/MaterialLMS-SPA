@@ -19,6 +19,7 @@ import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component
 import { BasketService } from './_services/basket.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { CanDeactivateGuard } from './_guards/can-deactivate.guard';
 import { CheckoutDetailResolver } from './_resolver/checkout-detail.resolver';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { CommonModule } from '@angular/common';
@@ -90,6 +91,7 @@ export function tokenGetter() {
     AuthorService,
     AuthService,
     BasketService,
+    CanDeactivateGuard,
     CheckoutDetailResolver,
     CheckoutListResolver,
     ErrorinterceptorProvider,
