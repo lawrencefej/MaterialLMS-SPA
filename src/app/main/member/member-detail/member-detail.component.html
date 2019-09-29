@@ -11,8 +11,7 @@
       <mat-card-actions align="center">
         <input type="file" style="display: none" #fileInput (change)="updatePhoto($event)">
         <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">Photo</button>
-        <button mat-raised-button color="accent" type="button" (click)="updateMember(member)">Edit Member</button>
-        <button mat-raised-button color="accent" *ngIf="member.fees > 0" type="button" (click)="updateMember(member)">Pay Fees</button>
+        <button mat-raised-button color="accent" type="button" (click)="updateMember(member)">Edit Details</button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -21,18 +20,40 @@
       <mat-tab-group dynamicHeight>
         <mat-tab label="Details">
           <div class="example-small-box" fxFlexAlign="stretch">
-            <mat-list role="list">
-              <mat-list-item role="listitem"><b>Gender: </b> {{ member.gender}}</mat-list-item>
-              <mat-list-item role="listitem"><b>Phone Number: </b> {{ member.phoneNumber}}</mat-list-item>
-              <mat-list-item role="listitem"><b>Member Since: </b> {{ member.created | date: 'longDate'}}
-              </mat-list-item>
-              <mat-list-item role="listitem"><b>Address: </b> {{ member.address}}</mat-list-item>
-              <mat-list-item role="listitem"><b>City: </b> {{ member.city}}</mat-list-item>
-              <mat-list-item role="listitem"><b>State: </b> {{ member.state}}</mat-list-item>
-              <mat-list-item role="listitem"><b>Zipcode: </b> {{ member.zipcode}}</mat-list-item>
-              <mat-list-item role="listitem"><b>Card number: </b> {{ member.libraryCardNumber}}</mat-list-item>
-              <mat-list-item *ngIf="member.fees > 0" [ngStyle]="{color: red}" role="listitem" class="test"><b>Amount Owed: </b> {{ member.fees}}</mat-list-item>
-            </mat-list>
+            <div fxLayout="row wrap">
+              <div class="details" fxLayout="column wrap" fxFlex="40">
+                <div fxLayoutAlign="space-between start">
+                  <div fxFlex><strong>Gender:</strong></div>
+                  <div fxFlex>{{ member.gender}}</div>
+                </div>
+                <div fxLayoutAlign="space-between center">
+                  <div fxFlex><strong>Phone Number:</strong></div>
+                  <div fxFlex>{{ member.phoneNumber}}</div>
+                </div>
+                <div>
+                  <div fxFlex><strong>Member Since:</strong></div>
+                  <div fxFlex>{{ member.created | date: 'longDate'}}</div>
+                </div>
+                <div>
+                  <div fxFlex><strong>Address:</strong></div>
+                  <address fxFlex>{{ member.address}}, {{ member.city}}, {{ member.state}} {{ member.zipcode}}</address>
+                </div>
+                <div>
+                  <div fxFlex><strong>Card Number:</strong></div>
+                  <div fxFlex>{{ member.libraryCardNumber}}</div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="member?.fees > 0">
+                  <div fxFlex><strong>Amount Owed:</strong></div>
+                  <button fxFlex mat-icon-button color="warn" type="button" (click)="payFees(member)"
+                    aria-label="Payment icon-button">
+                    Pay {{member.fees | currency}}
+                    <mat-icon>payment</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="right spacer" fxLayout="row wrap" fxFlex>
+              </div>
+            </div>
           </div>
         </mat-tab>
         <mat-tab label="Current Checkouts">
@@ -63,7 +84,7 @@
             </table>
           </div>
         </mat-tab>
-        <mat-tab *ngIf="member.fees === 0" label="Checkout Item">
+        <mat-tab [disabled]="member.fees > 0" label="Checkout Item">
           <div class="example-small-box" fxFlexAlign="stretch">
             <app-checkout-asset [member]="member"></app-checkout-asset>
           </div>

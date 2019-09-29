@@ -1,5 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
+import {
+  MatDialog,
+  MatDialogConfig,
+  MatTableDataSource
+} from '@angular/material';
 
 import { ActivatedRoute } from '@angular/router';
 import { Checkout } from 'src/app/_models/checkout';
@@ -26,19 +30,17 @@ export class MemberDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private memberService: MemberService,
     public dialog: MatDialog,
     private notify: NotificationService,
     private photoService: PhotoService,
     private feeService: FeeService,
-    private checkoutService: CheckoutService,
+    private checkoutService: CheckoutService
   ) {}
 
   ngOnInit() {
     this.route.data.subscribe(res => {
       this.member = res.member;
     });
-    this.hasFees();
     this.getCheckoutsForMember();
   }
 
@@ -82,22 +84,40 @@ export class MemberDetailComponent implements OnInit {
   }
 
   returnAsset(checkout: Checkout) {
-    this.notify.confirm('Are you sure you want to return ' + checkout.title)
-    .afterClosed().subscribe(res => {
-      if (res) {
-        this.checkoutService.returnAsset(checkout.id).subscribe(() => {
-          this.notify.success(checkout.title + 'was returned successfully');
-          this.getCheckoutsForMember();
-        });
-      }
-    });
+    this.notify
+      .confirm('Are you sure you want to return ' + checkout.title)
+      .afterClosed()
+      .subscribe(res => {
+        if (res) {
+          this.checkoutService.returnAsset(checkout.id).subscribe(
+            () => {
+              this.notify.success(checkout.title + 'was returned successfully');
+              this.getCheckoutsForMember();
+            },
+            error => {
+              this.notify.error(error);
+            }
+          );
+        }
+      });
   }
 
-  hasFees() {
-    if (this.member.fees > 0) {
-      return true;
-    }
-
-    return false;
+  payFees(member: User) {
+    this.notify
+      .confirm('Are you sure you want to pay $' + member.fees)
+      .afterClosed()
+      .subscribe(res => {
+        if (res) {
+          this.feeService.payFees(member.libraryCardNumber).subscribe(
+            () => {
+              this.notify.success('Payment was successful');
+              this.member.fees = 0;
+            },
+            error => {
+              this.notify.error(error);
+            }
+          );
+        }
+      });
   }
 }

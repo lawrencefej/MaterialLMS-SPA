@@ -43,8 +43,16 @@
       </td>
     </ng-container>
 
+    <!-- No Data column -->
+    <ng-container matColumnDef="noData">
+        <td mat-footer-cell *matFooterCellDef colspan="7">
+          No items found at this time &#x2639;. Please refine your search.
+        </td>
+      </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" class="no-data-row"></tr>
   </table>
 
   <mat-paginator #paginator [length]="pagination?.totalItems" [pageIndex]="paginator.pageIndex" [pageSize]="5"

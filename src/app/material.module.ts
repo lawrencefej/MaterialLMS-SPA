@@ -6,6 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -36,6 +37,7 @@ import { NgModule } from '@angular/core';
     MatDatepickerModule,
     MatDialogModule,
     MatDividerModule,
+    MatExpansionModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
@@ -63,6 +65,7 @@ import { NgModule } from '@angular/core';
     MatDatepickerModule,
     MatDialogModule,
     MatDividerModule,
+    MatExpansionModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
