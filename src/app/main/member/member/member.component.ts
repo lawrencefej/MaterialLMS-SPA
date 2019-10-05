@@ -10,6 +10,7 @@ import { MemberService } from 'src/app/_services/member.service';
 import { StateService } from 'src/app/_services/state.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { startWith, map } from 'rxjs/operators';
+import { stateValidator } from 'src/app/shared/validators/state.validator';
 
 @Component({
   selector: 'app-member',
@@ -17,13 +18,12 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./member.component.css']
 })
 export class MemberComponent implements OnInit {
+  stateControl = new FormControl('', Validators.compose([Validators.required, stateValidator]));
   memberForm: FormGroup;
-  selectedState: any;
-  states: State[];
-  state: State;
   member: User;
   showRevert = false;
-  filteredStates: Observable<State[]>;
+  options: string[] = this.stateService.getStates();
+  filteredStates$: Observable<string[]>;
 
   validationMessages = {
     firstName: [
@@ -47,6 +47,11 @@ export class MemberComponent implements OnInit {
     ],
     state: [
       { type: 'required', message: 'State is required' },
+      { type: 'stateValidator', message: 'Please select a valid state' },
+    ],
+    stateControl: [
+      { type: 'required', message: 'State is required' },
+      { type: 'stateValidator', message: 'Please select a valid state' },
     ],
     city: [
       { type: 'required', message: 'City is required' },
@@ -71,12 +76,23 @@ export class MemberComponent implements OnInit {
 
   ngOnInit() {
     this.createMemberForm();
-    this.states = this.stateService.getStates();
-    this.filteredStates = this.memberForm.controls.state.valueChanges
-      .pipe(startWith(''),
-        map(state => state ? this._filterStates(state) : this.states.slice())
+    this.filteredStates$ = this.stateControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filterStates(value))
       );
     this.isUpdate();
+  }
+
+  updateState(value: any) {
+    this.memberForm.markAsDirty();
+    this.memberForm.controls.state.setValue(value.source.value);
+  }
+
+  private _filterStates(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   isUpdate() {
@@ -87,12 +103,6 @@ export class MemberComponent implements OnInit {
     } else {
       this.createMemberForm();
     }
-  }
-
-  private _filterStates(value: string): State[] {
-    const filterValue = value.toLowerCase();
-
-    return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
   revert() {
@@ -107,14 +117,15 @@ export class MemberComponent implements OnInit {
       email: new FormControl(member.email, Validators.compose([Validators.required, Validators.email])),
       phoneNumber: new FormControl(member.phoneNumber, Validators.compose([Validators.required])),
       address: new FormControl(member.address, Validators.compose([Validators.required, Validators.maxLength(100)])),
-      state: new FormControl(member.state, Validators.compose([Validators.required])),
+      state: new FormControl(member.state, Validators.compose([Validators.required, stateValidator])),
       city: new FormControl(member.city, Validators.compose([Validators.required])),
       zipcode: new FormControl(member.zipcode, Validators.compose([Validators.required, Validators.pattern('^[0-9]{5}$')])),
       gender: new FormControl(member.gender, Validators.required),
     });
+    this.stateControl.setValue(member.state);
   }
 
-  displayFn(state: State) {
+  displayFn(state?: State) {
     return state ? state.name : undefined;
   }
 
@@ -134,7 +145,7 @@ export class MemberComponent implements OnInit {
       email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
       phoneNumber: new FormControl('', Validators.compose([Validators.required])),
       address: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100)])),
-      state: new FormControl('', Validators.compose([Validators.required])),
+      state: new FormControl('', Validators.compose([Validators.required, stateValidator])),
       city: new FormControl('', Validators.compose([Validators.required])),
       zipcode: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]{5}$')])),
       gender: new FormControl('', Validators.required),
@@ -184,5 +195,4 @@ export class MemberComponent implements OnInit {
     this.dialog.closeAll();
     this.memberForm.reset();
   }
-
 }

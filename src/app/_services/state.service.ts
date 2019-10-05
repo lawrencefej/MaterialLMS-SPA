@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StateService {
-  private states: any[] = [
+  private statesObject: any[] = [
     { id: 1, name: 'Alabama', region: 'South' },
     { id: 2, name: 'Alaska', region: 'West' },
     { id: 3, name: 'Arizona', region: 'West' },
@@ -56,10 +56,72 @@ export class StateService {
     { id: 50, name: 'Wisconsin', region: 'Midwest' },
     { id: 51, name: 'Wyoming', region: 'West' }
   ];
+  private states: string[] = ['Alaska',
+    'Alabama',
+    'Arkansas',
+    'American Samoa',
+    'Arizona',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'District of Columbia',
+    'Delaware',
+    'Florida',
+    'Georgia',
+    'Guam',
+    'Hawaii',
+    'Iowa',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Massachusetts',
+    'Maryland',
+    'Maine',
+    'Michigan',
+    'Minnesota',
+    'Missouri',
+    'Mississippi',
+    'Montana',
+    'North Carolina',
+    'North Dakota',
+    'Nebraska',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'Nevada',
+    'New York',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Puerto Rico',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Virginia',
+    'Virgin Islands',
+    'Vermont',
+    'Washington',
+    'Wisconsin',
+    'West Virginia',
+    'Wyoming'];
 
-  constructor() {}
+  private tests: string[] = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC',
+    'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA',
+    'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE',
+    'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+    'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY'];
+
+  constructor() { }
 
   getStates() {
     return this.states;
   }
 }
+

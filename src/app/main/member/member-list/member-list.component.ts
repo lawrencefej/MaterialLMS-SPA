@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,6 @@ import { merge } from 'rxjs/internal/observable/merge';
 })
 export class MemberListComponent implements AfterViewInit, OnInit {
   members: User[];
-  selectedItemPerPage: any;
   pagination: Pagination;
   dataSource = new MatTableDataSource<User>(this.members);
   searchString = '';
@@ -98,7 +97,6 @@ export class MemberListComponent implements AfterViewInit, OnInit {
   }
 
   loadData() {
-    this.pagination.itemsPerPage = this.selectedItemPerPage;
     this.memberService
       .getPaginatedMembers(
         this.paginator.pageIndex + 1,

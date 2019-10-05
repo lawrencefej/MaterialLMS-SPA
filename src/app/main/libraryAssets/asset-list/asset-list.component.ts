@@ -24,7 +24,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     private notify: NotificationService,
     public dialog: MatDialog
   ) {}
-  // selectedItemPerPage: any;
   pagination: Pagination;
   assets: LibraryAsset[];
   dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
@@ -100,7 +99,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   }
 
   loadData() {
-    // this.pagination.itemsPerPage = this.selectedItemPerPage;
     this.assetService
       .getPaginatedAssets(
         this.paginator.pageIndex + 1,
@@ -112,6 +110,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
       .subscribe(
         (res: PaginatedResult<LibraryAsset[]>) => {
           this.assets = res.result;
+          this.pagination = res.pagination;
           this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
         },
         error => {

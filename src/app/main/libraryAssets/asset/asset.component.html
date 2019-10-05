@@ -42,8 +42,8 @@
       <mat-grid-tile>
         <div class="controls-container">
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Author" formControlName="author" required [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <input matInput placeholder="Search Author" formControlName="author" required [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" autoActiveFirstOption>
               <mat-option *ngFor="let author of authors" [value]="author">
                 {{author.fullName}}
               </mat-option>
@@ -54,23 +54,25 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width-input">
-            <mat-select placeholder="Category" formControlName="category" required>
-              <ng-container *ngFor="let category of categories">
-                <mat-option [value]="category">{{category.name}}</mat-option>
+            <mat-select [(value)]="selectedCategory" placeholder="Category" formControlName="categoryId" required>
+              <ng-container>
+              <mat-option *ngFor="let category of (categories$ | async)" [value]="category.id"> 
+                {{category.name}}
+              </mat-option>
               </ng-container>
             </mat-select>
             <mat-error
-              *ngIf="assetForm.get('category').hasError('required') && (assetForm.get('category').dirty || assetForm.get('category').touched)">
+              *ngIf="assetForm.get('categoryId').hasError('categoryId') && (assetForm.get('categoryId').dirty || assetForm.get('categoryId').touched)">
               Category is required</mat-error>
           </mat-form-field>
           <mat-form-field class="full-width-input">
-            <mat-select (valueChange)="onItemChange($event)" placeholder="Type" formControlName="assetType" required>
-              <ng-container *ngFor="let type of assetTypes">
-                <mat-option [value]="type">{{type.name}}</mat-option>
+            <mat-select [(value)]="selectedAssetType" (valueChange)="onItemChange($event)" placeholder="Type" formControlName="assetTypeId" required>
+              <ng-container *ngFor="let type of (assetTypes$ | async)">
+                <mat-option [value]="type.id">{{type.name}}</mat-option>
               </ng-container>
             </mat-select>
             <mat-error
-              *ngIf="assetForm.get('category').hasError('required') && (assetForm.get('category').dirty || assetForm.get('category').touched)">
+              *ngIf="assetForm.get('assetTypeId').hasError('required') && (assetForm.get('assetTypeId').dirty || assetForm.get('assetTypeId').touched)">
               Type is required</mat-error>
           </mat-form-field>
           <mat-form-field class="full-width-input">

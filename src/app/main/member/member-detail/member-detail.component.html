@@ -24,11 +24,13 @@
               <div class="details" fxLayout="column wrap" fxFlex="40">
                 <div fxLayoutAlign="space-between start">
                   <div fxFlex><strong>Gender:</strong></div>
-                  <div fxFlex>{{ member.gender}}</div>
+                  <div fxFlex>{{ member.gender | titlecase}}</div>
                 </div>
                 <div fxLayoutAlign="space-between center">
                   <div fxFlex><strong>Phone Number:</strong></div>
-                  <div fxFlex>{{ member.phoneNumber}}</div>
+                  <div fxFlex >
+                    <a [href]="'tel:' + member.phoneNumber"> {{member.phoneNumber | phoneNumber}}</a>
+                  </div>
                 </div>
                 <div>
                   <div fxFlex><strong>Member Since:</strong></div>

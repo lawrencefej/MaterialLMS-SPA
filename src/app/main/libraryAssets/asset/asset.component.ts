@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -6,26 +6,35 @@ import { AssetType } from 'src/app/_models/assetType';
 import { Author } from 'src/app/_models/author';
 import { Category } from 'src/app/_models/category';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
-import { PaginatedResult } from 'src/app/_models/pagination';
 import { AssetTypeService } from 'src/app/_services/asset-type.service';
 import { AssetService } from 'src/app/_services/asset.service';
 import { AuthorService } from 'src/app/_services/author.service';
 import { CategoryService } from 'src/app/_services/category.service';
 import { NotificationService } from 'src/app/_services/notification.service';
+import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-asset',
   templateUrl: './asset.component.html',
   styleUrls: ['./asset.component.css']
 })
-export class AssetComponent implements OnInit {
+export class AssetComponent implements OnInit, OnDestroy {
   categories: Category[];
   assetTypes: AssetType[];
   authors: Author[];
+  assetForm: FormGroup;
+  asset: LibraryAsset;
+  selectedAssetType: AssetType;
+  selectedCategory: any;
+  showRevert = false;
+  categories$: Observable<Category[]>;
+  assetTypes$: Observable<AssetType[]>;
+  subs: Subscription[] = [];
 
   constructor(
-    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: LibraryAsset,
+    private router: Router,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AssetComponent>,
     private dialog: MatDialog,
@@ -34,140 +43,74 @@ export class AssetComponent implements OnInit {
     public notify: NotificationService,
     private assetTypeService: AssetTypeService,
     private categoryService: CategoryService
-  ) {}
+  ) { }
 
-  loginForm: FormGroup;
-  assetForm: FormGroup;
-  asset: LibraryAsset;
-  selectedAssetType: AssetType;
-  selectedCategory: Category;
-  selectedAuthor: Author;
-  showRevert = false;
 
   ngOnInit() {
-    this.getAuthors();
-    this.getAssetTypes();
-    this.getCategories();
+    this.categories$ = this.categoryService.getCategories();
+    this.assetTypes$ = this.assetTypeService.getAssetTypes();
+    this.subs.push(this.categories$.subscribe(_ => (this.categories = _)));
+    this.subs.push(this.assetTypes$.subscribe(_ => (this.assetTypes = _)));
     this.isUpdate();
+    this.getAuthor();
   }
 
   isUpdate() {
-    if (this.data) {
-      this.populateForm(this.data);
-      this.asset = this.data;
-      this.showRevert = true;
-    } else {
+    if (!this.data) {
       this.createAssetForm();
+    } else {
+      if (this.data.id) {
+        this.populateForm(this.data);
+        this.showRevert = true;
+      } else {
+        this.createAssetForm();
+        this.assetForm.controls.author.setValue(this.data.author);
+      }
     }
   }
 
   revert() {
-    this.populateForm(this.asset);
+    this.populateForm(this.data);
   }
 
   populateForm(asset: LibraryAsset) {
     this.assetForm = this.fb.group({
       id: new FormControl(asset.id),
-      title: new FormControl(
-        asset.title,
-        Validators.compose([Validators.required])
-      ),
-      author: new FormControl(
-        asset.authorName,
-        Validators.compose([Validators.required])
-      ),
-      year: new FormControl(
-        asset.year,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(4)
-        ])
-      ),
-      numberOfCopies: new FormControl(
-        asset.numberOfCopies,
-        Validators.required
-      ),
-      copiesAvailable: new FormControl(
-        asset.copiesAvailable,
-        Validators.required
-      ),
-      description: new FormControl(
-        asset.description,
-        Validators.compose([Validators.required])
-      ),
-      category: new FormControl(asset.category, Validators.required),
-      assetType: new FormControl(this.selectedAssetType, Validators.required),
-      assetTypeId: new FormControl(''),
-      categoryId: new FormControl(''),
-      authorId: new FormControl(''),
-      isbn: new FormControl(
-        { value: asset.isbn, disabled: true },
-        Validators.required
-      )
+      title: new FormControl(asset.title, Validators.compose([Validators.required])),
+      author: new FormControl(asset.author, Validators.compose([Validators.required])),
+      authorId: new FormControl(asset.author.id, Validators.compose([Validators.required])),
+      year: new FormControl(asset.year, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(4)])),
+      numberOfCopies: new FormControl(asset.numberOfCopies, Validators.required),
+      copiesAvailable: new FormControl(asset.copiesAvailable, Validators.required),
+      description: new FormControl(asset.description, Validators.compose([Validators.required])),
+      categoryId: new FormControl(asset.category.id, Validators.required),
+      assetTypeId: new FormControl(asset.assetType.id, Validators.required),
+      statusId: new FormControl(asset.assetType.id, Validators.required),
+      isbn: new FormControl({ value: asset.isbn, disabled: true }, Validators.required)
     });
   }
 
-  getAuthors() {
-    this.authorService.getPaginatedAuthors().subscribe(
-      (res: PaginatedResult<Author[]>) => {
-        this.authors = res.result;
-        if (this.data) {
-          this.selectedAuthor = res.result.find(
-            x => x.id === this.data.authorId
-          );
-          this.assetForm.controls.author.setValue(this.selectedAuthor);
-        }
+  getAuthor() {
+    this.assetForm.controls.author.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(value => this.authorService.searchAuthors(value))
+      )
+      .subscribe(data => {
+        this.authors = data;
       },
-      error => {
-        this.notify.error(error);
-      }
-    );
-  }
-
-  getCategories() {
-    this.categoryService.getCategories().subscribe(
-      (categories: Category[]) => {
-        this.categories = categories;
-        if (this.data) {
-          this.selectedCategory = categories.find(
-            x => x.id === this.data.categoryId
-          );
-          this.assetForm.controls.category.setValue(this.selectedCategory);
-        }
-      },
-      error => {
-        this.notify.error(error);
-      }
-    );
-  }
-
-  getAssetTypes() {
-    this.assetTypeService.getCategories().subscribe(
-      (assetTypes: AssetType[]) => {
-        this.assetTypes = assetTypes;
-        if (this.data) {
-          this.selectedAssetType = assetTypes.find(
-            x => x.id === this.data.assetTypeId
-          );
-          this.assetForm.controls.assetType.setValue(this.selectedAssetType);
-          if (this.selectedAssetType.name === 'Book') {
-            this.assetForm.controls.isbn.enable();
-          }
-        }
-      },
-      error => {
-        this.notify.error(error);
-      }
-    );
+        error => {
+          this.notify.error(error);
+        });
   }
 
   onItemChange(value: any) {
     if (value.id !== null) {
-      if (Number(value.id) === this.getBookId()) {
+      if (Number(value) === this.getBookId()) {
         this.assetForm.controls.isbn.enable();
       } else {
-        this.assetForm.controls.isbn.reset();
+        // this.assetForm.controls.isbn.reset();
         this.assetForm.controls.isbn.disable();
       }
     }
@@ -175,6 +118,9 @@ export class AssetComponent implements OnInit {
 
   getBookId() {
     let assetTypeId: AssetType;
+    this.assetTypes$.subscribe(notes => {
+      this.assetTypes = notes;
+    });
     assetTypeId = this.assetTypes.find(x => x.name === 'Book');
     return assetTypeId.id;
   }
@@ -196,44 +142,22 @@ export class AssetComponent implements OnInit {
       id: new FormControl(null),
       title: new FormControl('', Validators.compose([Validators.required])),
       author: new FormControl('', Validators.compose([Validators.required])),
-      year: new FormControl(
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(4)
-        ])
-      ),
+      year: new FormControl('', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(4)])),
       numberOfCopies: new FormControl('', Validators.required),
-      description: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      category: new FormControl('', Validators.required),
-      assetType: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.compose([Validators.required])),
+      categoryId: new FormControl('', Validators.required),
+      assetTypeId: new FormControl('', Validators.required),
       isbn: new FormControl({ value: '', disabled: true }, Validators.required)
     });
   }
 
   onSubmit() {
-    let asset: LibraryAsset;
-    asset = this.mapId(asset);
-    if (this.assetForm.valid) {
       if (this.assetForm.controls.id.value) {
-        this.updateAsset(asset);
+        this.updateAsset(this.assetForm.value);
       } else {
-        this.addAsset(asset);
+        this.addAsset(this.assetForm.value);
       }
-    }
-    this.onClose();
-  }
-
-  private mapId(asset: LibraryAsset) {
-    asset = this.assetForm.value as LibraryAsset;
-    asset.authorId = asset.author.id;
-    asset.assetTypeId = asset.assetType.id;
-    asset.categoryId = asset.category.id;
-    return asset;
+      this.onClose();
   }
 
   addAsset(asset: LibraryAsset) {
@@ -252,6 +176,7 @@ export class AssetComponent implements OnInit {
   }
 
   updateAsset(asset: LibraryAsset) {
+    asset.authorId = asset.author.id;
     this.assetService.updateAsset(asset).subscribe(
       () => {
         this.notify.success('Updated Successful');
@@ -268,5 +193,11 @@ export class AssetComponent implements OnInit {
   onClose() {
     this.dialog.closeAll();
     this.assetForm.reset();
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach(sub => {
+      sub.unsubscribe();
+    });
   }
 }

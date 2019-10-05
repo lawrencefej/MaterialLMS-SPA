@@ -25,7 +25,6 @@ import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { DataTableComponent } from './data-table/data-table.component';
 import { ErrorinterceptorProvider } from './_services/error.interceptor';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { HttpClientModule } from '@angular/common/http';
@@ -55,7 +54,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     BaseLayoutComponent,
-    DataTableComponent,
     HasRoleDirective,
     ResponsiveNavComponent,
     ShortcloseNavComponent,

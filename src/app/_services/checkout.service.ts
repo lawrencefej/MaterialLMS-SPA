@@ -60,9 +60,12 @@ export class CheckoutService {
     this.checkout.next(checkout);
   }
 
-  getPaginatedAuthors(
-    page?,
-    itemsPerPage?
+  getPaginatedCheckouts(
+    page?: number,
+    itemsPerPage?: number,
+    orderBy?: string,
+    sortDirection?: string,
+    searchString?: string
   ): Observable<PaginatedResult<Checkout[]>> {
     const paginatedResult: PaginatedResult<Checkout[]> = new PaginatedResult<
       Checkout[]
@@ -70,13 +73,17 @@ export class CheckoutService {
 
     let params = new HttpParams();
 
+    params = params.append('orderBy', orderBy);
+    params = params.append('sortDirection', sortDirection);
+    params = params.append('searchString', searchString);
+
     if (page != null && itemsPerPage != null) {
-      params = params.append('pagenumber', page);
-      params = params.append('pageSize', itemsPerPage);
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
     }
 
     return this.http
-      .get<Checkout[]>(this.baseUrl + '/pagination', {
+      .get<Checkout[]>(this.baseUrl + 'pagination', {
         observe: 'response',
         params
       })
