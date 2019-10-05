@@ -34,7 +34,9 @@
       [fixedInViewport]="(isHandset$ | async)" fixedTopGap="56">
       <mat-card [style.backgroundColor]="'lightgray'">
         <mat-card-header>
-          <div mat-card-avatar class="avatar"></div>
+          <div mat-card-avatar class="avatar">
+              <img class="profile-picture" src="{{photoUrl || '../../assets/user.png'}}">
+          </div>
 
           <mat-card-title>{{currentUser.firstName}}, {{currentUser.lastName}}</mat-card-title>
           <mat-card-subtitle>{{currentUser.role}}</mat-card-subtitle>

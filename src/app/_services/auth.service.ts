@@ -15,8 +15,9 @@ export class AuthService {
   baseurl = environment.apiUrl + 'auth/';
   decodedToken: any;
   currentUser: Observable<User>;
+  private loggedInUser: User;
   private currentUserSubject: BehaviorSubject<User>;
-  photoUrl = new BehaviorSubject<string>('../../assets/user.png');
+  loggedInUserPhotoUrl = new BehaviorSubject<string>('../../assets/user.png');
 
   constructor(
     private http: HttpClient,
@@ -26,7 +27,11 @@ export class AuthService {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('user'))
     );
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUserSubject.subscribe(x => (this.loggedInUser = x));
+  }
+
+  changeMemberPhoto(photoUrl: string) {
+    this.loggedInUserPhotoUrl.next(photoUrl);
   }
 
   login(model: any) {
@@ -34,10 +39,11 @@ export class AuthService {
       map((response: any) => {
         const user = response;
         if (user && user.token) {
-          localStorage.setItem('token', user.token);
-          localStorage.setItem('user', JSON.stringify(user.user));
-          this.decodedToken = this.jwtHelper.decodeToken(user.token);
-          this.currentUserSubject.next(user.user);
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('user', JSON.stringify(user.user));
+        this.decodedToken = this.jwtHelper.decodeToken(user.token);
+        this.currentUserSubject.next(user.user);
+        this.changeMemberPhoto(this.loggedInUser.photoUrl);
         }
 
         return user.user;
@@ -49,8 +55,8 @@ export class AuthService {
     return this.http.post(this.baseurl + 'auth/register', user);
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  public getLoggedInUser() {
+    return this.currentUserSubject.asObservable();
   }
 
   loggedIn() {
@@ -87,8 +93,8 @@ export class AuthService {
   isAdmin(model: any) {
     if (this.currentUser) {
       if (
-        this.currentUserValue.role === 'Admin' ||
-        this.currentUserValue.role === 'Librarian'
+        this.loggedInUser.role === 'Admin' ||
+        this.loggedInUser.role === 'Librarian'
       ) {
         return true;
       }
@@ -97,11 +103,11 @@ export class AuthService {
   }
 
   sendForgotPasswordLink(model: any) {
-    return this.http.post(this.baseurl + 'forgotpassword', model);
+    return this.http.post(this.baseurl + 'forgot-password', model);
   }
 
   resetPassword(model: any) {
-    return this.http.post(this.baseurl + 'resetpassword', model);
+    return this.http.post(this.baseurl + 'reset-password', model);
   }
 
   isAuthorized(allowedRoles: string[]) {

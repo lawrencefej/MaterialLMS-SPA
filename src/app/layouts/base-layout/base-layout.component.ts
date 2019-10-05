@@ -1,10 +1,7 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/_services/auth.service';
-import { User } from 'src/app/_models/user';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-base-layout',
@@ -12,33 +9,29 @@ import { User } from 'src/app/_models/user';
   styleUrls: ['./base-layout.component.css']
 })
 export class BaseLayoutComponent implements OnInit, OnDestroy {
-  currentUser: User;
-  currentUserSubscription: Subscription;
+  // loggedInUser$: Observable<User>;
+  // currentUser: User;
+  // currentUserSubscription: Subscription;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  // isHandset$: Observable<boolean> = this.breakpointObserver
+  //   .observe(Breakpoints.Handset)
+  //   .pipe(
+  //     map(result => result.matches),
+  //     shareReplay()
+  //   );
 
-  constructor(private breakpointObserver: BreakpointObserver,
-              public authService: AuthService) { }
+  constructor(public authService: AuthService) {
+                // this.loggedInUser$ = this.authService.getLoggedInUser();
+                // this.currentUserSubscription = this.loggedInUser$.subscribe(x => (this.currentUser = x));
+                // console.log(this.currentUser);
+               }
 
-  ngOnInit() {
-    this.currentUserSubscription = this.authService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-      }
-    );
-  }
+  ngOnInit() { }
 
-  ngOnDestroy() {
-    this.currentUserSubscription.unsubscribe();
-  }
+  ngOnDestroy() { }
 
-  logout() {
-    this.authService.logout();
-  }
+  // logout() {
+  //   this.authService.logout();
+  // }
 
 }
