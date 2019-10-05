@@ -19,14 +19,8 @@ export class AssetService {
     return this.http.get<LibraryAsset[]>(this.baseUrl);
   }
 
-  getAsset(id): Observable<LibraryAsset> {
-    return this.http.get<LibraryAsset>(this.baseUrl + id);
-  }
-
-  searchAsset(name): Observable<LibraryAsset[]> {
-    return this.http.get<LibraryAsset[]>(
-      this.baseUrl + 'search?SearchString=' + name
-    );
+  getAsset(assetId: number): Observable<LibraryAsset> {
+    return this.http.get<LibraryAsset>(this.baseUrl + assetId);
   }
 
   getAssetForAuthor(authorId: number): Observable<LibraryAsset> {
@@ -37,13 +31,17 @@ export class AssetService {
     return this.http.post(this.baseUrl, asset);
   }
 
+  searchAsset(name: string): Observable<LibraryAsset[]> {
+    return this.http.get<LibraryAsset[]>(this.baseUrl + 'search?SearchString=' + name);
+  }
+
   updateAsset(asset: LibraryAsset) {
     return this.http.put(this.baseUrl, asset);
   }
 
   getPaginatedAssets(
-    page?,
-    itemsPerPage?,
+    page?: number,
+    itemsPerPage?: number,
     orderBy?: string,
     sortDirection?: string,
     searchString?: string
@@ -59,8 +57,8 @@ export class AssetService {
     params = params.append('searchString', searchString);
 
     if (page != null && itemsPerPage != null) {
-      params = params.append('pageNumber', page);
-      params = params.append('pageSize', itemsPerPage);
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
     }
 
     return this.http

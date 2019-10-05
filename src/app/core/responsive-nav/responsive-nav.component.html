@@ -8,6 +8,7 @@
     <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <img class="profile-picture" src="http://i.pravatar.cc/300">
     </button> -->
+    <app-basket></app-basket>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -33,7 +34,9 @@
       [fixedInViewport]="(isHandset$ | async)" fixedTopGap="56">
       <mat-card [style.backgroundColor]="'lightgray'">
         <mat-card-header>
-          <div mat-card-avatar class="avatar"></div>
+          <div mat-card-avatar class="avatar">
+              <img class="profile-picture" src="{{photoUrl || '../../assets/user.png'}}">
+          </div>
 
           <mat-card-title>{{currentUser.firstName}}, {{currentUser.lastName}}</mat-card-title>
           <mat-card-subtitle>{{currentUser.role}}</mat-card-subtitle>

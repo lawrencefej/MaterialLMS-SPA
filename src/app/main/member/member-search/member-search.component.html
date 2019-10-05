@@ -1,3 +1,23 @@
-<p>
-  member-search works!
-</p>
+<mat-card-actions fxLayoutAlign="center center" class="main-container">
+  <mat-card fxFlex="60" id="card" class="mat-elevation-z4">
+    <mat-card-title fxLayoutAlign="center center">
+      Member Search
+    </mat-card-title>
+    <mat-card-content fxLayoutAlign="center center">
+      <mat-form-field>
+        <span matPrefix>
+          <mat-icon>search</mat-icon>&nbsp;
+        </span>
+        <input matInput placeholder="Card Number">
+      </mat-form-field>
+      <a mat-button color="primary" (click)="openMemberDialog()" class="create-button">Add New</a>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <div fxLayoutAlign="space-around center" class="flex">
+        <a mat-button color="primary" [routerLink]="['/advanced-search']">Advanced Search</a>
+        <a mat-button color="primary" [routerLink]="['/members']">Full List</a>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</mat-card-actions>

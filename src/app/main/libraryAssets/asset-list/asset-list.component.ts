@@ -1,14 +1,14 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
-import { AddAssetComponent } from '../add-asset/add-asset.component';
+import { ActivatedRoute } from '@angular/router';
+import { AssetComponent } from '../asset/asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { merge } from 'rxjs';
 
@@ -24,21 +24,19 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     private notify: NotificationService,
     public dialog: MatDialog
   ) {}
-  assets: LibraryAsset[];
-  selectedItemPerPage: any;
   pagination: Pagination;
-  count: number;
-  dataSource = new MatTableDataSource<LibraryAsset>();
+  assets: LibraryAsset[];
+  dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
   searchString = '';
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatTable, { static: false }) table: MatTable<LibraryAsset>;
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.pagination = data.assets.pagination;
-      this.dataSource.data = data.assets.result as LibraryAsset[];
+      this.assets = data.assets.result;
+      this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
     });
   }
 
@@ -46,17 +44,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     merge(this.paginator.page, this.sort.sortChange).subscribe(() => {
       this.loadData();
     });
-  }
-
-  searchAssets(value: string) {
-    this.assetService.searchAsset(value).subscribe(
-      (assets: LibraryAsset[]) => {
-        this.assets = assets;
-      },
-      error => {
-        this.notify.error(error);
-      }
-    );
   }
 
   filterList() {
@@ -74,11 +61,11 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
     dialogConfig.data = element;
-    this.dialog.open(AddAssetComponent, dialogConfig);
+    this.dialog.open(AssetComponent, dialogConfig);
   }
 
   openAddAssetDialog() {
-    this.dialog.open(AddAssetComponent, {
+    this.dialog.open(AssetComponent, {
       width: '640px',
       disableClose: true
     });
@@ -98,13 +85,10 @@ export class AssetListComponent implements AfterViewInit, OnInit {
         if (res) {
           this.assetService.deleteAsset(asset.id).subscribe(
             () => {
-              this.dataSource.data.splice(
-                this.dataSource.data.findIndex(x => x.id === asset.id),
-                1
-              );
+              this.assets.splice(this.assets.findIndex(x => x.id === asset.id),  1);
               this.notify.warn(asset.title + ' was deleted successfully');
-              this.paginator.pageIndex = 0;
-              this.loadData();
+              this.pagination.totalItems--;
+              this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
             },
             error => {
               this.notify.error(error);
@@ -115,7 +99,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   }
 
   loadData() {
-    this.pagination.itemsPerPage = this.selectedItemPerPage;
     this.assetService
       .getPaginatedAssets(
         this.paginator.pageIndex + 1,
@@ -126,12 +109,13 @@ export class AssetListComponent implements AfterViewInit, OnInit {
       )
       .subscribe(
         (res: PaginatedResult<LibraryAsset[]>) => {
-          this.dataSource.data = res.result as LibraryAsset[];
+          this.assets = res.result;
+          this.pagination = res.pagination;
+          this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
         },
         error => {
           this.notify.error(error);
         }
       );
-    this.searchString = '';
   }
 }

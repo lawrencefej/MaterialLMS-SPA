@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 import { AssetType } from '../_models/assetType';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class AssetTypeService {
     return this.http.get<AssetType>(this.baseUrl + id);
   }
 
-  getCategories(): Observable<AssetType[]> {
+  getAssetTypes(): Observable<AssetType[]> {
     return this.http.get<AssetType[]>(this.baseUrl);
   }
 }
