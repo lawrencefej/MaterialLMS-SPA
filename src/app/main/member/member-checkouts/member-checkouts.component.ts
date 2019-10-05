@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-member-checkouts',
@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./member-checkouts.component.css']
 })
 export class MemberCheckoutsComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {

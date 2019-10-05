@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../_models/user';
 import { PaginatedResult } from '../_models/pagination';
+import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -14,16 +15,25 @@ export class MemberService {
 
   constructor(private http: HttpClient) {}
 
-  getMember(id): Observable<User> {
-    return this.http.get<User>(this.baseUrl + id);
+  getMember(memberId: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + memberId);
   }
 
-  getMemberByCardNumber(id): Observable<User> {
-    return this.http.get<User>(this.baseUrl + 'card/' + id);
+  getMemberByCardNumber(cardNumber: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'card/' + cardNumber);
   }
 
-  advancedMemberSearch(params: any): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl + params);
+  // advancedMemberSearch(params: any): Observable<User[]> {
+  //   return this.http.get<User[]>(this.baseUrl + params);
+  // }
+
+  advancedMemberSearch(member: User): Observable<User[]> {
+    let params = new HttpParams();
+
+    params = params.set('firstName', member.firstName);
+    params = params.set('lastName', member.lastName);
+    params = params.set('email', member.email);
+    return this.http.get<User[]>(this.baseUrl + 'advancedSearch', { params });
   }
 
   updateMember(user: User) {
@@ -39,8 +49,11 @@ export class MemberService {
   }
 
   getPaginatedMembers(
-    page?,
-    itemsPerPage?
+    page?: number,
+    itemsPerPage?: number,
+    orderBy?: string,
+    sortDirection?: string,
+    searchString?: string
   ): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<
       User[]
@@ -48,9 +61,13 @@ export class MemberService {
 
     let params = new HttpParams();
 
+    params = params.append('orderBy', orderBy);
+    params = params.append('sortDirection', sortDirection);
+    params = params.append('searchString', searchString);
+
     if (page != null && itemsPerPage != null) {
-      params = params.append('pagenumber', page);
-      params = params.append('pageSize', itemsPerPage);
+      params = params.append('pagenumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
     }
 
     return this.http

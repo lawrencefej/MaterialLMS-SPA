@@ -41,20 +41,6 @@ h1.example-app-name {
   border-radius: 50%;
 }
 
-/* mat-sidenav {
-      width: 350px;
-      background-color: red;
-  } */
-
-.avatar {
-  background-image: url('http://i.pravatar.cc/300');
-  background-size: cover;
-  max-height: 100%;
-  border: 2px solid white;
-  display: inline;
-  border-radius: 50%;
-}
-
 a:hover, a:active {
   color: #283593;
 }

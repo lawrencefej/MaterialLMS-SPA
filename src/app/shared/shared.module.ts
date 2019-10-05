@@ -13,7 +13,9 @@ import { MaterialModule } from '../material.module';
 import { NavComponent } from './navigation/nav/nav.component';
 import { NgModule } from '@angular/core';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
+import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 import { PreventUnsavedComponent } from './prevent-unsaved/prevent-unsaved.component';
+import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 import { RouterModule } from '@angular/router';
 import { ServerErrorComponent } from './error-pages/server-error/server-error.component';
 import { SidebarComponent } from './navigation/sidebar/sidebar.component';
@@ -28,7 +30,9 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
     LoginLayoutComponent,
     NavComponent,
     NotFoundComponent,
+    PhoneNumberPipe,
     PreventUnsavedComponent,
+    ProgressSpinnerComponent,
     ServerErrorComponent,
     SidebarComponent
   ],
@@ -55,7 +59,9 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
     MaterialModule,
     NavComponent,
     NotFoundComponent,
+    PhoneNumberPipe,
     PreventUnsavedComponent,
+    ProgressSpinnerComponent,
     ReactiveFormsModule,
     ServerErrorComponent,
     SidebarComponent

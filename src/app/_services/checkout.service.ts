@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CheckoutService {
-  baseUrl = environment.apiUrl + 'checkouts/';
+  private baseUrl = environment.apiUrl + 'checkouts/';
   private checkout = new Subject<Checkout>();
 
   constructor(private http: HttpClient) {}
@@ -25,7 +25,7 @@ export class CheckoutService {
   }
 
   getCheckoutsForMember(userId: number): Observable<Checkout[]> {
-    return this.http.get<Checkout[]>(this.baseUrl + '/user/' + userId);
+    return this.http.get<Checkout[]>(this.baseUrl + 'user/' + userId);
   }
 
   searchCheckouts(searchString: string): Observable<Checkout[]> {
@@ -48,6 +48,10 @@ export class CheckoutService {
     return this.http.post(this.baseUrl, checkout);
   }
 
+  checkoutAssets(checkouts: Checkout[]) {
+    return this.http.post(this.baseUrl, checkouts);
+  }
+
   getNewCheckout(): Observable<Checkout> {
     return this.checkout.asObservable();
   }
@@ -56,9 +60,12 @@ export class CheckoutService {
     this.checkout.next(checkout);
   }
 
-  getPaginatedAuthors(
-    page?,
-    itemsPerPage?
+  getPaginatedCheckouts(
+    page?: number,
+    itemsPerPage?: number,
+    orderBy?: string,
+    sortDirection?: string,
+    searchString?: string
   ): Observable<PaginatedResult<Checkout[]>> {
     const paginatedResult: PaginatedResult<Checkout[]> = new PaginatedResult<
       Checkout[]
@@ -66,13 +73,17 @@ export class CheckoutService {
 
     let params = new HttpParams();
 
+    params = params.append('orderBy', orderBy);
+    params = params.append('sortDirection', sortDirection);
+    params = params.append('searchString', searchString);
+
     if (page != null && itemsPerPage != null) {
-      params = params.append('pagenumber', page);
-      params = params.append('pageSize', itemsPerPage);
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
     }
 
     return this.http
-      .get<Checkout[]>(this.baseUrl + '/pagination', {
+      .get<Checkout[]>(this.baseUrl + 'pagination', {
         observe: 'response',
         params
       })

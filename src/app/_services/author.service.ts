@@ -1,12 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  switchMap
+} from 'rxjs/operators';
+
 import { Author } from '../_models/author';
-import { LibraryAsset } from '../_models/libraryAsset';
-import { PaginatedResult } from '../_models/pagination';
 import { Checkout } from '../_models/checkout';
-import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { LibraryAsset } from '../_models/libraryAsset';
+import { Observable } from 'rxjs';
+import { PaginatedResult } from '../_models/pagination';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +22,7 @@ export class AuthorService {
 
   constructor(private http: HttpClient) {}
 
-  getAuthor(id): Observable<Author> {
+  getAuthor(id: string): Observable<Author> {
     return this.http.get<Author>(this.baseUrl + id);
   }
 
@@ -24,7 +30,7 @@ export class AuthorService {
     return this.http.get<Author[]>(this.baseUrl);
   }
 
-  searchAuthors(searchString): Observable<Author[]> {
+  searchAuthors(searchString: string): Observable<Author[]> {
     return this.http.get<Author[]>(
       this.baseUrl + 'search?SearchString=' + searchString
     );
@@ -45,8 +51,11 @@ export class AuthorService {
   }
 
   getPaginatedAuthors(
-    page?,
-    itemsPerPage?
+    page?: number,
+    itemsPerPage?: number,
+    orderBy?: string,
+    sortDirection?: string,
+    searchString?: string
   ): Observable<PaginatedResult<Author[]>> {
     const paginatedResult: PaginatedResult<Author[]> = new PaginatedResult<
       Author[]
@@ -54,9 +63,13 @@ export class AuthorService {
 
     let params = new HttpParams();
 
+    params = params.append('orderBy', orderBy);
+    params = params.append('sortDirection', sortDirection);
+    params = params.append('searchString', searchString);
+
     if (page != null && itemsPerPage != null) {
-      params = params.append('pagenumber', page);
-      params = params.append('pageSize', itemsPerPage);
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
     }
 
     return this.http

@@ -1,11 +1,10 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AddAdminComponent } from './main/admin/add-admin/add-admin.component';
-import { AddAssetComponent } from './main/libraryAssets/add-asset/add-asset.component';
-import { AddAuthorComponent } from './main/author/add-author/add-author.component';
+import { AdminComponent } from './main/admin/admin/admin.component';
 import { AdminService } from './_services/admin.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AssetComponent } from './main/libraryAssets/asset/asset.component';
 import { AssetDetailResolver } from './_resolver/asset-detail.resolver';
 import { AssetListResolver } from './_resolver/asset-list.resolver';
 import { AssetService } from './_services/asset.service';
@@ -13,25 +12,27 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './_services/auth.service';
 import { AuthorAssetResolver } from './_resolver/author-asset.resolver';
+import { AuthorComponent } from './main/author/author/author.component';
 import { AuthorListResolver } from './_resolver/author-list.resolver';
 import { AuthorService } from './_services/author.service';
 import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component';
+import { BasketService } from './_services/basket.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { CanDeactivateGuard } from './_guards/can-deactivate.guard';
 import { CheckoutDetailResolver } from './_resolver/checkout-detail.resolver';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { DataTableComponent } from './data-table/data-table.component';
 import { ErrorinterceptorProvider } from './_services/error.interceptor';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MainModule } from './main/main.module';
+import { MemberComponent } from './main/member/member/member.component';
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
-import { MemberEditComponent } from './main/member/member-edit/member-edit.component';
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberService } from './_services/member.service';
 import { NgModule } from '@angular/core';
@@ -53,7 +54,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     BaseLayoutComponent,
-    DataTableComponent,
     HasRoleDirective,
     ResponsiveNavComponent,
     ShortcloseNavComponent,
@@ -88,6 +88,8 @@ export function tokenGetter() {
     AuthorListResolver,
     AuthorService,
     AuthService,
+    BasketService,
+    CanDeactivateGuard,
     CheckoutDetailResolver,
     CheckoutListResolver,
     ErrorinterceptorProvider,
@@ -100,11 +102,11 @@ export function tokenGetter() {
     UserService,
   ],
   entryComponents: [
-    AddAdminComponent,
-    AddAssetComponent,
-    AddAuthorComponent,
+    AdminComponent,
+    AssetComponent,
+    AuthorComponent,
     ConfirmDialogComponent,
-    MemberEditComponent,
+    MemberComponent,
     PreventUnsavedComponent
   ],
   bootstrap: [AppComponent]

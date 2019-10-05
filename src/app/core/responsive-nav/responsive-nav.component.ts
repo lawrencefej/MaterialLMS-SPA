@@ -12,7 +12,10 @@ import { User } from 'src/app/_models/user';
   styleUrls: ['./responsive-nav.component.css']
 })
 export class ResponsiveNavComponent implements OnInit, OnDestroy {
+  loggedInUser$: Observable<User>;
   currentUser: User;
+  // TODO Fix on refresh persistence
+  photoUrl: string;
   currentUserSubscription: Subscription;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -25,14 +28,13 @@ export class ResponsiveNavComponent implements OnInit, OnDestroy {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService
-  ) {}
+  ) {
+    this.loggedInUser$ = this.authService.getLoggedInUser();
+    this.currentUserSubscription = this.loggedInUser$.subscribe(x => (this.currentUser = x));
+  }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-      }
-    );
+    this.authService.loggedInUserPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   ngOnDestroy() {
