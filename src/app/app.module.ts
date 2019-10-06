@@ -1,4 +1,4 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AdminComponent } from './main/admin/admin/admin.component';
 import { AdminService } from './_services/admin.service';
@@ -25,11 +25,12 @@ import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { ErrorinterceptorProvider } from './_services/error.interceptor';
+import { ErrorInterceptor } from './_services/error.interceptor';
 import { HasRoleDirective } from './_directives/hasRole.directive';
-import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LayoutModule } from '@angular/cdk/layout';
+import { LoaderInterceptor } from './_services/loader-interceptor';
+import { LoaderService } from './_services/loader.service';
 import { MainModule } from './main/main.module';
 import { MemberComponent } from './main/member/member/member.component';
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
@@ -92,7 +93,8 @@ export function tokenGetter() {
     CanDeactivateGuard,
     CheckoutDetailResolver,
     CheckoutListResolver,
-    ErrorinterceptorProvider,
+    // ErrorinterceptorProvider,
+    LoaderService,
     MemberDetailResolver,
     MemberListResolver,
     MemberService,
@@ -100,6 +102,8 @@ export function tokenGetter() {
     PhotoService,
     ReportService,
     UserService,
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   entryComponents: [
     AdminComponent,
