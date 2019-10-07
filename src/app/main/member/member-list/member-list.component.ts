@@ -19,13 +19,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
   pagination: Pagination;
   dataSource = new MatTableDataSource<User>(this.members);
   searchString = '';
-  displayedColumns = [
-    'libraryCardNumber',
-    'firstName',
-    'lastName',
-    'email',
-    'actions'
-  ];
+  displayedColumns = ['libraryCardNumber', 'firstName', 'lastName', 'email', 'actions'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
@@ -68,7 +62,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
     this.dialog.open(MemberComponent, dialogConfig);
   }
 
-  openMemberEditDialog() {
+  openAddMemberDialog() {
     this.dialog.open(MemberComponent, {
       width: '640px',
       disableClose: true
@@ -83,7 +77,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
         if (res) {
           this.memberService.deleteMember(member.id).subscribe(
             () => {
-              this.members.splice(this.members.findIndex(x => x.id === member.id),  1);
+              this.members.splice(this.members.findIndex(x => x.id === member.id), 1);
               this.notify.warn(member.libraryCardNumber + ' was deleted successfully');
               this.pagination.totalItems--;
               this.dataSource = new MatTableDataSource<User>(this.members);
@@ -105,7 +99,8 @@ export class MemberListComponent implements AfterViewInit, OnInit {
         this.sort.direction.toString(),
         this.searchString
       )
-      .subscribe((res: PaginatedResult<User[]>) => {
+      .subscribe(
+        (res: PaginatedResult<User[]>) => {
           this.members = res.result;
           this.dataSource = new MatTableDataSource<User>(this.members);
         },

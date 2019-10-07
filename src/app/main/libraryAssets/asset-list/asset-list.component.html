@@ -1,7 +1,8 @@
 <div class="mat-elevation-z8 main-container">
   <div class="filter-input flex">
     <mat-form-field>
-      <input matInput [(ngModel)]="searchString" type="text" class="search-input" (keyup.enter)="filterList()" placeholder="Filter" autocomplete="off">
+      <input matInput [(ngModel)]="searchString" type="text" class="search-input" (keyup.enter)="filterList()"
+        placeholder="Filter" autocomplete="off">
       <button mat-button matSuffix mat-icon-button aria-label="clear" *ngIf="searchString" (click)="onSearchClear()">
         <mat-icon>close</mat-icon>
       </button>
@@ -45,14 +46,15 @@
 
     <!-- No Data column -->
     <ng-container matColumnDef="noData">
-        <td mat-footer-cell *matFooterCellDef colspan="7">
-          No items found at this time &#x2639;. Please refine your search.
-        </td>
-      </ng-container>
+      <td mat-footer-cell *matFooterCellDef colspan="7">
+        No items found at this time &#x2639;. Please refine your search.
+      </td>
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <tr mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" class="no-data-row"></tr>
+    <tr mat-footer-row *matFooterRowDef="['noData']"
+      [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" class="no-data-row"></tr>
   </table>
 
   <mat-paginator #paginator [length]="pagination?.totalItems" [pageIndex]="paginator.pageIndex" [pageSize]="5"
