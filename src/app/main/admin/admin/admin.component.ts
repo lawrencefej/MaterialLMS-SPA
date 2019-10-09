@@ -60,7 +60,7 @@ export class AdminComponent implements OnInit {
 
   createUserForm() {
     this.userForm = this.fb.group({
-      id: new FormControl(null),
+      id: new FormControl(0),
       firstName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
       lastName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
       email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
@@ -97,7 +97,7 @@ export class AdminComponent implements OnInit {
 
   closeDialog() {
     if (this.userForm.dirty) {
-      this.notify.discardDialog('Are you sure you want to');
+      this.notify.discardDialog('Are you sure you want to delete this user');
     } else {
       this.dialog.closeAll();
     }
@@ -119,7 +119,7 @@ export class AdminComponent implements OnInit {
       (createdMember: User) => {
         user = createdMember;
         this.dialogRef.close(createdMember);
-        this.notify.success('Item Added Successfully');
+        this.notify.success('User Added Successfully');
       },
       error => {
         this.notify.error(error);

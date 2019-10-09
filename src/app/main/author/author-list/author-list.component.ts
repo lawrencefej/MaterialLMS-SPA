@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
@@ -52,11 +52,24 @@ export class AuthorListComponent implements AfterViewInit, OnInit {
     this.filterList();
   }
 
+  private getDialogConfig() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = '440px';
+
+    return dialogConfig;
+  }
+
+  updateAuthor(element: any) {
+    const dialogConfig = this.getDialogConfig();
+    dialogConfig.data = element;
+    this.dialog.open(AuthorComponent, dialogConfig);
+  }
+
   openAddAuthorDialog() {
-    this.dialog.open(AuthorComponent, {
-      width: '640px',
-      disableClose: true
-    });
+    const dialogConfig = this.getDialogConfig();
+
+    this.dialog.open(AuthorComponent, dialogConfig);
   }
 
   loadData() {

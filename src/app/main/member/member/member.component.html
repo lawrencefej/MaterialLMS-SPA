@@ -1,10 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <h3>
-    {{ memberForm.controls['id'].value ? 'Edit Member' : 'Add New Member' }}
-  </h3>
+<div fxLayout="row" fxLayoutAlign="end center">
   <button mat-button matSuffix mat-icon-button tabIndex="-1" aria-label="clear" (click)="closeDialog()">
     <mat-icon>close</mat-icon>
   </button>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+  <h2>
+    {{ memberForm.controls['id'].value ? 'Edit Member' : 'Add New Member' }}
+  </h2>
 </div>
 
 <mat-dialog-content>

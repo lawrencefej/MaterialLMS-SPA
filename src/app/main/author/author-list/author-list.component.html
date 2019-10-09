@@ -25,6 +25,9 @@
           <button mat-icon-button matTooltip="Details" color="primary" [routerLink]="['/authors/', element.id]">
             <mat-icon class="mat-18">reorder</mat-icon>
           </button>
+          <button mat-icon-button matTooltip="Update" color="accent" (click)="updateAuthor(element)">
+            <mat-icon class="mat-18">system_update</mat-icon>
+          </button>
         </td>
       </ng-container>
   

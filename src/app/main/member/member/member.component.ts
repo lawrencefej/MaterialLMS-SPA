@@ -105,7 +105,7 @@ export class MemberComponent implements OnInit {
 
   createMemberForm() {
     this.memberForm = this.fb.group({
-      id: new FormControl(null),
+      id: new FormControl(0),
       firstName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
       lastName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
       email: new FormControl('', Validators.compose([Validators.required, Validators.email])),

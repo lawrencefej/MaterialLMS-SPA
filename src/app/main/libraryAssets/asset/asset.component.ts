@@ -32,6 +32,33 @@ export class AssetComponent implements OnInit, OnDestroy {
   assetTypes$: Observable<AssetType[]>;
   subs: Subscription[] = [];
 
+  validationMessages = {
+    title: [
+      { type: 'required', message: 'Title is required' },
+      { type: 'maxlength', message: 'Title cannot be more than 25 characters' }
+    ],
+    author: [
+      { type: 'required', message: 'Author is required' },
+      { type: 'maxlength', message: 'Author cannot be more than 25 characters' }
+    ],
+    year: [
+      { type: 'required', message: 'Year is required' },
+      { type: 'pattern', message: 'Please enter a valid year' }
+    ],
+    numberOfCopies: [{ type: 'required', message: 'Number of copies is required' }],
+    description: [
+      { type: 'required', message: 'Description is required' },
+      { type: 'maxlength', message: 'description cannot be more than 500 characters' }
+    ],
+    categoryId: [
+      { type: 'required', message: 'Category is required' },
+    ],
+    assetTypeId: [
+      { type: 'required', message: 'Type is required' },
+    ],
+    isbn: [{ type: 'required', message: 'ISBN is required' }],
+  };
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: LibraryAsset,
     private router: Router,
@@ -74,15 +101,15 @@ export class AssetComponent implements OnInit, OnDestroy {
 
   createAssetForm() {
     this.assetForm = this.fb.group({
-      id: new FormControl(null),
-      title: new FormControl('', Validators.compose([Validators.required])),
+      id: new FormControl(0),
+      title: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
       author: new FormControl('', Validators.compose([Validators.required])),
       year: new FormControl(
         '',
-        Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(4)])
+        Validators.compose([Validators.required, Validators.pattern('^[0-9]{4}$')])
       ),
       numberOfCopies: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.compose([Validators.required])),
+      description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(500)])),
       categoryId: new FormControl('', Validators.required),
       assetTypeId: new FormControl('', Validators.required),
       isbn: new FormControl({ value: '', disabled: true }, Validators.required)
@@ -91,7 +118,7 @@ export class AssetComponent implements OnInit, OnDestroy {
   populateForm(asset: LibraryAsset) {
     this.assetForm = this.fb.group({
       id: new FormControl(asset.id),
-      title: new FormControl(asset.title, Validators.compose([Validators.required])),
+      title: new FormControl(asset.title, Validators.compose([Validators.required, Validators.maxLength(25)])),
       author: new FormControl(asset.author, Validators.compose([Validators.required])),
       authorId: new FormControl(asset.author.id, Validators.compose([Validators.required])),
       year: new FormControl(
@@ -100,7 +127,7 @@ export class AssetComponent implements OnInit, OnDestroy {
       ),
       numberOfCopies: new FormControl(asset.numberOfCopies, Validators.required),
       copiesAvailable: new FormControl(asset.copiesAvailable, Validators.required),
-      description: new FormControl(asset.description, Validators.compose([Validators.required])),
+      description: new FormControl(asset.description, Validators.compose([Validators.required, Validators.maxLength(500)])),
       categoryId: new FormControl(asset.category.id, Validators.required),
       assetTypeId: new FormControl(asset.assetType.id, Validators.required),
       statusId: new FormControl(asset.assetType.id, Validators.required),
@@ -109,6 +136,7 @@ export class AssetComponent implements OnInit, OnDestroy {
   }
 
   getAuthor() {
+    // TODO validate author input
     this.assetForm.controls.author.valueChanges
       .pipe(
         debounceTime(500),

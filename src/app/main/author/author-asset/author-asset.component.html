@@ -1,6 +1,6 @@
 <div fxLayoutAlign="center center">
   <h2>
-    Items by {{author.firstName}}, {{author.lastName}}
+    Items by {{author.firstName | titlecase}}, {{author.lastName | titlecase}}
  </h2>
 </div>
 
@@ -49,7 +49,7 @@
       <!-- No Data column -->
       <ng-container matColumnDef="noData">
           <td mat-footer-cell *matFooterCellDef colspan="7">
-            No items found at this time &#x2639;. Please refine your search.
+            No items found for this author &#x2639;.
           </td>
         </ng-container>
   
