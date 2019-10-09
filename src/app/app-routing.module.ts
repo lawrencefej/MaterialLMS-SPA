@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AdminListResolver } from './_resolver/admin-list.resolver';
 import { AdminPanelComponent } from './main/admin/admin-panel/admin-panel.component';
 import { AssetDetailComponent } from './main/libraryAssets/asset-detail/asset-detail.component';
 import { AssetDetailResolver } from './_resolver/asset-detail.resolver';
@@ -53,7 +54,8 @@ const routes: Routes = [
       {
         path: 'admin',
         component: AdminPanelComponent,
-        data: { allowedRoles: ['Admin'] }
+        data: { allowedRoles: ['Admin'] },
+        resolve: {admins: AdminListResolver}
       },
       {
         path: 'members',
