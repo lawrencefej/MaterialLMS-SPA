@@ -1,6 +1,7 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AdminComponent } from './main/admin/admin/admin.component';
+import { AdminListResolver } from './_resolver/admin-list.resolver';
 import { AdminService } from './_services/admin.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -81,6 +82,7 @@ export function tokenGetter() {
   ],
   providers: [
     AdminService,
+    AdminListResolver,
     AssetDetailResolver,
     AssetListResolver,
     AssetService,

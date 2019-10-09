@@ -28,59 +28,54 @@ export class MemberComponent implements OnInit {
   validationMessages = {
     firstName: [
       { type: 'required', message: 'First Name is required' },
-      { type: 'maxlength', message: 'First Name cannot be more than 25 characters' },
+      { type: 'maxlength', message: 'First Name cannot be more than 25 characters' }
     ],
     lastName: [
       { type: 'required', message: 'Last Name is required' },
-      { type: 'maxlength', message: 'Last Name cannot be more than 25 characters' },
+      { type: 'maxlength', message: 'Last Name cannot be more than 25 characters' }
     ],
     email: [
       { type: 'required', message: 'Email is required' },
-      { type: 'email', message: 'Please enter a valid Email' },
+      { type: 'email', message: 'Please enter a valid Email' }
     ],
-    phoneNumber: [
-      { type: 'required', message: 'Phone Number is required' },
-    ],
+    phoneNumber: [{ type: 'required', message: 'Phone Number is required' }],
     address: [
       { type: 'required', message: 'Address is required' },
-      { type: 'maxlength', message: 'Address cannot be more than 100 characters' },
+      { type: 'maxlength', message: 'Address cannot be more than 100 characters' }
     ],
     state: [
       { type: 'required', message: 'State is required' },
-      { type: 'stateValidator', message: 'Please select a valid state' },
+      { type: 'stateValidator', message: 'Please select a valid state' }
     ],
     stateControl: [
       { type: 'required', message: 'State is required' },
-      { type: 'stateValidator', message: 'Please select a valid state' },
+      { type: 'stateValidator', message: 'Please select a valid state' }
     ],
-    city: [
-      { type: 'required', message: 'City is required' },
-    ],
+    city: [{ type: 'required', message: 'City is required' }],
     zipcode: [
       { type: 'required', message: 'Zipcode is required' },
-      { type: 'pattern', message: 'Please enter a valid Zipcode' },
+      { type: 'pattern', message: 'Please enter a valid Zipcode' }
     ],
-    gender: [
-      { type: 'required', message: 'Gender is required' },
-    ],
+    gender: [{ type: 'required', message: 'Gender is required' }]
   };
 
-  constructor(private router: Router,
-              @Inject(MAT_DIALOG_DATA) public data: User,
-              private fb: FormBuilder,
-              public dialogRef: MatDialogRef<MemberComponent>,
-              private dialog: MatDialog,
-              private stateService: StateService,
-              public notify: NotificationService,
-              private memberService: MemberService) { }
+  constructor(
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: User,
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<MemberComponent>,
+    private dialog: MatDialog,
+    private stateService: StateService,
+    public notify: NotificationService,
+    private memberService: MemberService
+  ) {}
 
   ngOnInit() {
     this.createMemberForm();
-    this.filteredStates$ = this.stateControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filterStates(value))
-      );
+    this.filteredStates$ = this.stateControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterStates(value))
+    );
     this.isUpdate();
   }
 
@@ -88,7 +83,6 @@ export class MemberComponent implements OnInit {
     this.memberForm.markAsDirty();
     this.memberForm.controls.state.setValue(value.source.value);
   }
-
   private _filterStates(value: string): string[] {
     const filterValue = value.toLowerCase();
 
@@ -109,6 +103,21 @@ export class MemberComponent implements OnInit {
     this.populateForm(this.member);
   }
 
+  createMemberForm() {
+    this.memberForm = this.fb.group({
+      id: new FormControl(null),
+      firstName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
+      lastName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
+      email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
+      phoneNumber: new FormControl('', Validators.compose([Validators.required])),
+      address: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100)])),
+      state: new FormControl('', Validators.compose([Validators.required, stateValidator])),
+      city: new FormControl('', Validators.compose([Validators.required])),
+      zipcode: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]{5}$')])),
+      gender: new FormControl('', Validators.required)
+    });
+  }
+
   populateForm(member: User) {
     this.memberForm = this.fb.group({
       id: new FormControl(member.id),
@@ -119,8 +128,11 @@ export class MemberComponent implements OnInit {
       address: new FormControl(member.address, Validators.compose([Validators.required, Validators.maxLength(100)])),
       state: new FormControl(member.state, Validators.compose([Validators.required, stateValidator])),
       city: new FormControl(member.city, Validators.compose([Validators.required])),
-      zipcode: new FormControl(member.zipcode, Validators.compose([Validators.required, Validators.pattern('^[0-9]{5}$')])),
-      gender: new FormControl(member.gender, Validators.required),
+      zipcode: new FormControl(
+        member.zipcode,
+        Validators.compose([Validators.required, Validators.pattern('^[0-9]{5}$')])
+      ),
+      gender: new FormControl(member.gender, Validators.required)
     });
     this.stateControl.setValue(member.state);
   }
@@ -137,42 +149,24 @@ export class MemberComponent implements OnInit {
     }
   }
 
-  createMemberForm() {
-    this.memberForm = this.fb.group({
-      id: new FormControl(null),
-      firstName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
-      lastName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
-      email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
-      phoneNumber: new FormControl('', Validators.compose([Validators.required])),
-      address: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100)])),
-      state: new FormControl('', Validators.compose([Validators.required, stateValidator])),
-      city: new FormControl('', Validators.compose([Validators.required])),
-      zipcode: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]{5}$')])),
-      gender: new FormControl('', Validators.required),
-    });
-  }
-
   onSubmit() {
-    if (this.memberForm.valid) {
-      if (this.memberForm.controls.id.value) {
-        this.updateMember(this.memberForm.value);
-      } else {
-        this.addMember(this.memberForm.value);
-      }
+    if (this.memberForm.controls.id.value) {
+      this.updateMember(this.memberForm.value);
+    } else {
+      this.addMember(this.memberForm.value);
     }
-    this.onClose();
   }
 
   addMember(member: User) {
-    this.memberService.AddMember(member).subscribe((createdMember: User) => {
-      this.notify.success('Item Added Successfully');
-      member = createdMember;
-    },
+    this.memberService.AddMember(member).subscribe(
+      (createdMember: User) => {
+        member = createdMember;
+        this.dialogRef.close();
+        this.router.navigate(['/members', member.id]);
+        this.notify.success('Item Added Successfully');
+      },
       error => {
         this.notify.error(error);
-      },
-      () => {
-        this.router.navigate(['/members', member.id]);
       }
     );
   }
@@ -180,19 +174,13 @@ export class MemberComponent implements OnInit {
   updateMember(member: User) {
     this.memberService.updateMember(member).subscribe(
       () => {
+        this.dialogRef.close();
+        this.router.navigate(['/members', member.id]);
         this.notify.success('Updated Successful');
       },
       error => {
         this.notify.error(error);
-      },
-      () => {
-        this.router.navigate(['/members', member.id]);
       }
     );
-  }
-
-  onClose() {
-    this.dialog.closeAll();
-    this.memberForm.reset();
   }
 }

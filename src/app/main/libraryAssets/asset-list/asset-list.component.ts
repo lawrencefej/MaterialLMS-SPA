@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
@@ -53,19 +53,24 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     this.filterList();
   }
 
-  public updateAsset(element: any) {
+  private getDialogConfig() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
+
+    return dialogConfig;
+  }
+
+  public updateAsset(element: any) {
+    const dialogConfig = this.getDialogConfig();
     dialogConfig.data = element;
     this.dialog.open(AssetComponent, dialogConfig);
   }
 
   openAddAssetDialog() {
-    this.dialog.open(AssetComponent, {
-      width: '640px',
-      disableClose: true
-    });
+    const dialogConfig = this.getDialogConfig();
+
+    this.dialog.open(AssetComponent, dialogConfig);
   }
 
   deleteAsset(asset: LibraryAsset) {
@@ -101,7 +106,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
       .subscribe(
         (res: PaginatedResult<LibraryAsset[]>) => {
           this.assets = res.result;
-          // this.pagination = res.pagination;
           this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
         },
         error => {

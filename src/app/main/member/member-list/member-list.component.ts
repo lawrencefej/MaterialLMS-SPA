@@ -54,19 +54,24 @@ export class MemberListComponent implements AfterViewInit, OnInit {
     this.filterList();
   }
 
-  public updateMember(element: any) {
+  private getDialogConfig() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
+
+    return dialogConfig;
+  }
+
+  updateMember(element: any) {
+    const dialogConfig = this.getDialogConfig();
     dialogConfig.data = element;
     this.dialog.open(MemberComponent, dialogConfig);
   }
 
   openAddMemberDialog() {
-    this.dialog.open(MemberComponent, {
-      width: '640px',
-      disableClose: true
-    });
+    const dialogConfig = this.getDialogConfig();
+
+    this.dialog.open(MemberComponent, dialogConfig);
   }
 
   deleteAsset(member: User) {
@@ -78,7 +83,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
           this.memberService.deleteMember(member.id).subscribe(
             () => {
               this.members.splice(this.members.findIndex(x => x.id === member.id), 1);
-              this.notify.warn(member.libraryCardNumber + ' was deleted successfully');
+              this.notify.success('Member was deleted successfully');
               this.pagination.totalItems--;
               this.dataSource = new MatTableDataSource<User>(this.members);
             },
