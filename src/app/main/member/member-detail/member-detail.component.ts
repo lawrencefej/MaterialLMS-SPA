@@ -8,7 +8,6 @@ import { Observable, of } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
 import { BasketService } from 'src/app/_services/basket.service';
-import { CanComponentDeactivate } from 'src/app/_guards/can-deactivate.guard';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
 import { FeeService } from 'src/app/_services/fee.service';
@@ -23,7 +22,7 @@ import { User } from 'src/app/_models/user';
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css']
 })
-export class MemberDetailComponent implements OnInit, CanComponentDeactivate {
+export class MemberDetailComponent implements OnInit {
   @ViewChild('fileInput', { static: false }) myInputVariable: ElementRef;
   displayedColumns = ['title', 'until', 'status', 'action'];
   member: User;

@@ -1,15 +1,15 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { PerventUnsavedChangesGuard } from './pervent-unsaved-changes.guard';
+import { PreventUnsavedChangesGuard } from './prevent-unsaved-changes.guard';
 
 describe('PerventUnsavedChangesGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PerventUnsavedChangesGuard]
+      providers: [PreventUnsavedChangesGuard]
     });
   });
 
-  it('should ...', inject([PerventUnsavedChangesGuard], (guard: PerventUnsavedChangesGuard) => {
+  it('should ...', inject([PreventUnsavedChangesGuard], (guard: PreventUnsavedChangesGuard) => {
     expect(guard).toBeTruthy();
   }));
 });

@@ -100,25 +100,20 @@ export class AuthService {
     return this.http.post(this.baseurl + 'reset-password', model);
   }
 
-  // isAuthorized(allowedRoles: string[]) {
-  //   // if (allowedRoles === undefined || allowedRoles.length === 0) {
-  //   //   return true;
-  //   // }
+  isAuthorized(allowedRoles: string[]) {
+    // get token from local storage or state management
+    const token = localStorage.getItem('token');
 
-  //   // get token from local storage or state management
-  //   const token = localStorage.getItem('token');
+    // decode token to read the payload details
+    const decodeToken = this.jwtHelper.decodeToken(token);
 
-  //   // decode token to read the payload details
-  //   const decodeToken = this.jwtHelper.decodeToken(token);
+    // check if it was decoded successfully, if not the token is not valid, deny access
+    if (!decodeToken) {
+      console.log('Invalid token');
+      return false;
+    }
 
-  //   // check if it was decoded successfully, if not the token is not valid, deny access
-  //   if (!decodeToken) {
-  //     console.log('Invalid token');
-  //     return false;
-  //   }
-
-  //   // check if the user roles is in the list of allowed roles, return true if allowed and false if not allowed
-  //   // return allowedRoles.includes(decodeToken['role']);
-  //   return allowedRoles.includes(decodeToken.role);
-  // }
+    // check if the user roles is in the list of allowed roles, return true if allowed and false if not allowed
+    return allowedRoles.includes(decodeToken.role);
+  }
 }
