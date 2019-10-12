@@ -40,7 +40,3 @@ h1.example-app-name {
   display: inline;
   border-radius: 50%;
 }
-
-a:hover, a:active {
-  color: #283593;
-}

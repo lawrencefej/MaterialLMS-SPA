@@ -35,7 +35,8 @@
       <mat-card [style.backgroundColor]="'lightgray'">
         <mat-card-header>
           <div mat-card-avatar class="avatar">
-            <img class="profile-picture" src="{{photoUrl || '../../assets/user.png'}}">
+            <!-- <img class="profile-picture" src="{{photoUrl || '../../assets/user.png'}}"> -->
+            <img class="profile-picture" src="{{currentUser.photoUrl || '../../assets/user.png'}}">
           </div>
 
           <mat-card-title>{{currentUser.firstName}}, {{currentUser.lastName}}</mat-card-title>
@@ -52,4 +53,5 @@
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+  <app-footer></app-footer>
 </div>

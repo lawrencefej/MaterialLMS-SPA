@@ -18,23 +18,18 @@ export class ResponsiveNavComponent implements OnInit, OnDestroy {
   photoUrl: string;
   currentUserSubscription: Subscription;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    public authService: AuthService
-  ) {
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {
     this.loggedInUser$ = this.authService.getLoggedInUser();
     this.currentUserSubscription = this.loggedInUser$.subscribe(x => (this.currentUser = x));
   }
 
   ngOnInit() {
-    this.authService.loggedInUserPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+    this.authService.loggedInUserPhotoUrl.subscribe(photoUrl => (this.photoUrl = photoUrl));
   }
 
   ngOnDestroy() {

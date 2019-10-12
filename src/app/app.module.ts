@@ -27,7 +27,6 @@ import { CommonModule } from '@angular/common';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ErrorInterceptor } from './_services/error.interceptor';
-import { HasRoleDirective } from './_directives/hasRole.directive';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LayoutModule } from '@angular/cdk/layout';
 import { LoaderInterceptor } from './_services/loader-interceptor';
@@ -45,7 +44,6 @@ import { ReportService } from './_services/report.service';
 import { ResponsiveNavComponent } from './core/responsive-nav/responsive-nav.component';
 import { SharedModule } from './shared/shared.module';
 import { ShortcloseNavComponent } from './shortclose-nav/shortclose-nav.component';
-import { TestComponent } from './core/test/test.component';
 import { UserService } from './_services/user.service';
 
 export function tokenGetter() {
@@ -53,13 +51,12 @@ export function tokenGetter() {
 }
 
 @NgModule({
+  exports: [],
   declarations: [
     AppComponent,
     BaseLayoutComponent,
-    HasRoleDirective,
     ResponsiveNavComponent,
     ShortcloseNavComponent,
-    TestComponent,
   ],
   imports: [
     AppRoutingModule,
