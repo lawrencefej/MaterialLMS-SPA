@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminComponent } from '../admin/admin.component';
 import { AdminService } from 'src/app/_services/admin.service';
 import { NotificationService } from 'src/app/_services/notification.service';
+import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
 
 @Component({
@@ -16,6 +17,7 @@ export class AdminPanelComponent implements OnInit {
   users: User[];
   dataSource: MatTableDataSource<User>;
   displayedColumns = ['firstName', 'lastName', 'email', 'role', 'actions'];
+  paginationOptions = new Pagination();
   // Set to true to fix pagination issue.
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

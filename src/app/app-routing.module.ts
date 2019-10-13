@@ -28,6 +28,7 @@ import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberSearchComponent } from './main/member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { UserProfileComponent } from './main/user/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -85,7 +86,12 @@ const routes: Routes = [
         component: AuthorAssetComponent,
         data: { allowedRoles: ['Admin', 'Librarian'] },
         resolve: { author: AuthorAssetResolver }
-      }
+      },
+      {
+        path: 'user-profile',
+        component: UserProfileComponent,
+        // resolve: { author: AuthorAssetResolver }
+      },
     ]
   },
   {

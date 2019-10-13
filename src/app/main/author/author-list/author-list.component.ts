@@ -20,6 +20,7 @@ export class AuthorListComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource<Author>(this.authors);
   searchString = '';
   displayedColumns = ['firstName', 'lastName', 'actions', ];
+  paginationOptions = new Pagination();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 

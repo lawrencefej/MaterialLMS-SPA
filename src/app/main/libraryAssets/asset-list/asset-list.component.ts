@@ -20,6 +20,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
   searchString = '';
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
+  paginationOptions = new Pagination();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   constructor(

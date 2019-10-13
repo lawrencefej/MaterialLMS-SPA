@@ -20,6 +20,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource<User>(this.members);
   searchString = '';
   displayedColumns = ['libraryCardNumber', 'firstName', 'lastName', 'email', 'actions'];
+  paginationOptions = new Pagination();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 

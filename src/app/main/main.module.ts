@@ -21,6 +21,7 @@ import { MemberSearchComponent } from './member/member-search/member-search.comp
 import { NgModule } from '@angular/core';
 import { ReportsPanelComponent } from './dashboard/reports-panel/reports-panel.component';
 import { SharedModule } from '../shared/shared.module';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { SharedModule } from '../shared/shared.module';
     MemberHistoryComponent,
     MemberListComponent,
     MemberSearchComponent,
-    ReportsPanelComponent
+    ReportsPanelComponent,
+    UserProfileComponent
   ],
   imports: [SharedModule],
   exports: [

@@ -8,6 +8,7 @@ import { Author } from 'src/app/_models/author';
 import { AuthorService } from 'src/app/_services/author.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
 import { NotificationService } from 'src/app/_services/notification.service';
+import { Pagination } from 'src/app/_models/pagination';
 
 @Component({
   selector: 'app-author-asset',
@@ -19,6 +20,7 @@ export class AuthorAssetComponent implements OnInit {
   assets: LibraryAsset[];
   dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
+  paginationOptions = new Pagination();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
