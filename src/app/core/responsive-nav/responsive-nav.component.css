@@ -40,3 +40,7 @@ h1.example-app-name {
   display: inline;
   border-radius: 50%;
 }
+
+.navbar-logo :hover {
+  cursor: pointer;
+}
