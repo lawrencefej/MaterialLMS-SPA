@@ -1,18 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  switchMap
-} from 'rxjs/operators';
 
 import { Author } from '../_models/author';
 import { Checkout } from '../_models/checkout';
 import { Injectable } from '@angular/core';
 import { LibraryAsset } from '../_models/libraryAsset';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { PaginatedResult } from '../_models/pagination';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'

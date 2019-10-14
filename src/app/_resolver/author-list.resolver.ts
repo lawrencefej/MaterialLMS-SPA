@@ -1,11 +1,12 @@
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
 
 import { Author } from '../_models/author';
 import { AuthorService } from '../_services/author.service';
 import { Injectable } from '@angular/core';
 import { NotificationService } from '../_services/notification.service';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable()
 export class AuthorListResolver implements Resolve<Author[]> {
@@ -18,7 +19,7 @@ export class AuthorListResolver implements Resolve<Author[]> {
   resolve(route: ActivatedRouteSnapshot): Observable<Author[]> {
     return this.authorService.getPaginatedAuthors(this.pageNumber, this.pageSize, '', '', '')
     .pipe(
-      catchError(error => {
+      catchError(() => {
         this.notify.error('Problem retrieving data');
         this.router.navigate(['/memberSearch']);
         return of(null);

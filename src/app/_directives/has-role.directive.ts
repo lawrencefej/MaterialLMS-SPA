@@ -1,7 +1,8 @@
 import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from '../_services/auth.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from '../_models/user';
 
 @Directive({

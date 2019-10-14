@@ -1,11 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
 
 import { Checkout } from '../_models/checkout';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 import { PaginatedResult } from '../_models/pagination';
+import { Subject } from 'rxjs/internal/Subject';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'

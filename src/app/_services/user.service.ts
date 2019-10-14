@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
-import { User } from '../_models/user';
+
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 import { PaginatedResult } from '../_models/pagination';
-import { map } from 'rxjs/operators';
+import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'

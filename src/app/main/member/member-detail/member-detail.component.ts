@@ -1,21 +1,19 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogConfig,
-  MatTableDataSource
-} from '@angular/material';
-import { Observable, of } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { ActivatedRoute } from '@angular/router';
 import { BasketService } from 'src/app/_services/basket.service';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
 import { FeeService } from 'src/app/_services/fee.service';
+import { MatTableDataSource } from '@angular/material/table';
 import { MemberComponent } from '../member/member.component';
 import { NotificationService } from 'src/app/_services/notification.service';
+import { Observable } from 'rxjs/internal/Observable';
 import { Photo } from 'src/app/_models/photo';
 import { PhotoService } from 'src/app/_services/photo.service';
 import { User } from 'src/app/_models/user';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-member-detail',

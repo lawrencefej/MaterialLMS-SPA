@@ -2,10 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/_services/admin.service';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { User } from 'src/app/_models/user';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { Role } from 'src/app/_models/role';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin',
@@ -97,7 +97,7 @@ export class AdminComponent implements OnInit {
 
   closeDialog() {
     if (this.userForm.dirty) {
-      this.notify.discardDialog('Are you sure you want to delete this user');
+      this.notify.discardDialog('Are you sure you want to delete this user?');
     } else {
       this.dialog.closeAll();
     }

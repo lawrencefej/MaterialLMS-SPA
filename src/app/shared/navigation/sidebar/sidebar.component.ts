@@ -1,8 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
+import { shareReplay } from 'rxjs/internal/operators/shareReplay';
 
 @Component({
   selector: 'app-sidebar',

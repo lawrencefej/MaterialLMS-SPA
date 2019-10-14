@@ -17,9 +17,8 @@ export class BarChartComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
 
-  constructor() {}
-
-  ngOnInit() {
-    this.barChartData = [{ data: [] }];
+  constructor() {
   }
+
+  ngOnInit() {}
 }

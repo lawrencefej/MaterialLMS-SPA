@@ -1,8 +1,8 @@
-import { Injectable, NgZone } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material';
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PreventUnsavedComponent } from '../shared/prevent-unsaved/prevent-unsaved.component';
 
 @Injectable({
@@ -50,7 +50,7 @@ export class NotificationService {
     });
   }
 
-  discardDialog(msg: string) {
+  discardDialog(message: string) {
     this.dialog.open(PreventUnsavedComponent, {
       width: '340px'
     });

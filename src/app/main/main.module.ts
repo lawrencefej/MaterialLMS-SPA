@@ -15,11 +15,9 @@ import { MemberAdvancedSearchComponent } from './member/member-advanced-search/m
 import { MemberCheckoutsComponent } from './member/member-checkouts/member-checkouts.component';
 import { MemberComponent } from './member/member/member.component';
 import { MemberDetailComponent } from './member/member-detail/member-detail.component';
-import { MemberHistoryComponent } from './member/member-history/member-history.component';
 import { MemberListComponent } from './member/member-list/member-list.component';
 import { MemberSearchComponent } from './member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
-import { ReportsPanelComponent } from './dashboard/reports-panel/reports-panel.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
@@ -42,35 +40,33 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     MemberCheckoutsComponent,
     MemberDetailComponent,
     MemberComponent,
-    MemberHistoryComponent,
     MemberListComponent,
     MemberSearchComponent,
-    ReportsPanelComponent,
     UserProfileComponent
   ],
   imports: [SharedModule],
   exports: [
-    AdminComponent,
-    AssetComponent,
-    AuthorComponent,
-    AdminPanelComponent,
-    AssetCheckoutComponent,
-    AssetDetailComponent,
-    AssetListComponent,
-    AuthorAssetComponent,
-    AuthorListComponent,
+    // AdminComponent,
+    // AssetComponent,
+    // AuthorComponent,
+    // AdminPanelComponent,
+    // AssetCheckoutComponent,
+    // AssetDetailComponent,
+    // AssetListComponent,
+    // AuthorAssetComponent,
+    // AuthorListComponent,
     BasketComponent,
     BasketDetailComponent,
-    CheckoutAssetComponent,
-    CheckoutListComponent,
-    MemberAdvancedSearchComponent,
-    MemberCheckoutsComponent,
-    MemberDetailComponent,
-    MemberComponent,
-    MemberHistoryComponent,
-    MemberListComponent,
-    MemberSearchComponent,
-    ReportsPanelComponent
+    // CheckoutAssetComponent,
+    // CheckoutListComponent,
+    // MemberAdvancedSearchComponent,
+    // MemberCheckoutsComponent,
+    // MemberDetailComponent,
+    // MemberComponent,
+    // MemberHistoryComponent,
+    // MemberListComponent,
+    // MemberSearchComponent,
+    // ReportsPanelComponent
   ]
 })
 export class MainModule {}

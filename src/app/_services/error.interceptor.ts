@@ -6,17 +6,15 @@ import {
   HttpInterceptor,
   HttpRequest
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
 
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {
         // TODO use route to error components for certain errors

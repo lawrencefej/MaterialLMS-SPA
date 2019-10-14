@@ -11,8 +11,11 @@ import { AssetService } from 'src/app/_services/asset.service';
 import { AuthorService } from 'src/app/_services/author.service';
 import { CategoryService } from 'src/app/_services/category.service';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-asset',
@@ -50,13 +53,9 @@ export class AssetComponent implements OnInit, OnDestroy {
       { type: 'required', message: 'Description is required' },
       { type: 'maxlength', message: 'description cannot be more than 500 characters' }
     ],
-    categoryId: [
-      { type: 'required', message: 'Category is required' },
-    ],
-    assetTypeId: [
-      { type: 'required', message: 'Type is required' },
-    ],
-    isbn: [{ type: 'required', message: 'ISBN is required' }],
+    categoryId: [{ type: 'required', message: 'Category is required' }],
+    assetTypeId: [{ type: 'required', message: 'Type is required' }],
+    isbn: [{ type: 'required', message: 'ISBN is required' }]
   };
 
   constructor(
@@ -104,10 +103,7 @@ export class AssetComponent implements OnInit, OnDestroy {
       id: new FormControl(0),
       title: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(25)])),
       author: new FormControl('', Validators.compose([Validators.required])),
-      year: new FormControl(
-        '',
-        Validators.compose([Validators.required, Validators.pattern('^[0-9]{4}$')])
-      ),
+      year: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]{4}$')])),
       numberOfCopies: new FormControl('', Validators.required),
       description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(500)])),
       categoryId: new FormControl('', Validators.required),
@@ -127,7 +123,10 @@ export class AssetComponent implements OnInit, OnDestroy {
       ),
       numberOfCopies: new FormControl(asset.numberOfCopies, Validators.required),
       copiesAvailable: new FormControl(asset.copiesAvailable, Validators.required),
-      description: new FormControl(asset.description, Validators.compose([Validators.required, Validators.maxLength(500)])),
+      description: new FormControl(
+        asset.description,
+        Validators.compose([Validators.required, Validators.maxLength(500)])
+      ),
       categoryId: new FormControl(asset.category.id, Validators.required),
       assetTypeId: new FormControl(asset.assetType.id, Validators.required),
       statusId: new FormControl(asset.assetType.id, Validators.required),

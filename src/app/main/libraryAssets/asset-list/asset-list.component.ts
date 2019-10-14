@@ -1,13 +1,16 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
 import { AssetComponent } from '../asset/asset.component';
 import { AssetService } from 'src/app/_services/asset.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { merge } from 'rxjs';
+import { merge } from 'rxjs/internal/observable/merge';
 
 @Component({
   selector: 'app-asset-list',

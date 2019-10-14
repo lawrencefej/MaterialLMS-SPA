@@ -10,23 +10,25 @@ export class ShortcloseNavComponent implements OnInit {
   contentMargin = 240;
 
   task: string[] = [
-    'Clearning out my closet', 'Take out trash bins', 'Wash car', 'Tank up the motorcycles', 'Go for flight training'
-  ]
+    'Clearning out my closet',
+    'Take out trash bins',
+    'Wash car',
+    'Tank up the motorcycles',
+    'Go for flight training'
+  ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onToolbarMenuToggle() {
     console.log('On toolbar toggled', this.isMenuOpen);
     this.isMenuOpen = !this.isMenuOpen;
 
-    if(!this.isMenuOpen) {
+    if (!this.isMenuOpen) {
       this.contentMargin = 70;
     } else {
       this.contentMargin = 240;
     }
   }
-
 }

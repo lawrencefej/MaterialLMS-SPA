@@ -1,10 +1,12 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/_services/auth.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from 'src/app/_models/user';
+import { map } from 'rxjs/internal/operators/map';
+import { shareReplay } from 'rxjs/internal/operators/shareReplay';
 
 @Component({
   selector: 'app-responsive-nav',

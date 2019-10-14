@@ -1,11 +1,12 @@
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
 
 import { AdminService } from '../_services/admin.service';
 import { Injectable } from '@angular/core';
 import { NotificationService } from '../_services/notification.service';
+import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../_models/user';
-import { catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable()
 export class AdminListResolver implements Resolve<User[]> {

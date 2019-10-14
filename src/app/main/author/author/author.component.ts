@@ -2,10 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { Author } from 'src/app/_models/author';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { AuthorService } from 'src/app/_services/author.service';
 import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-author',

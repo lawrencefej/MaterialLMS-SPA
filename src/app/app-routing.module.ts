@@ -22,7 +22,6 @@ import { LoginLayoutComponent } from './shared/layout/login-layout/login-layout.
 import { MemberAdvancedSearchComponent } from './main/member/member-advanced-search/member-advanced-search.component';
 import { MemberDetailComponent } from './main/member/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
-import { MemberHistoryComponent } from './main/member/member-history/member-history.component';
 import { MemberListComponent } from './main/member/member-list/member-list.component';
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberSearchComponent } from './main/member/member-search/member-search.component';
@@ -38,7 +37,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'member-search', pathMatch: 'full' },
-      { path: 'current-items', component: MemberHistoryComponent },
       { path: 'member-search', component: MemberSearchComponent },
       { path: 'advanced-search', component: MemberAdvancedSearchComponent },
       {
@@ -90,7 +88,6 @@ const routes: Routes = [
       {
         path: 'user-profile',
         component: UserProfileComponent,
-        // resolve: { author: AuthorAssetResolver }
       },
     ]
   },

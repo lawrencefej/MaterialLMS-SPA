@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { ActivatedRoute } from '@angular/router';
 import { AssetComponent } from '../../libraryAssets/asset/asset.component';
@@ -7,6 +7,9 @@ import { AssetService } from 'src/app/_services/asset.service';
 import { Author } from 'src/app/_models/author';
 import { AuthorService } from 'src/app/_services/author.service';
 import { LibraryAsset } from 'src/app/_models/libraryAsset';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { Pagination } from 'src/app/_models/pagination';
 

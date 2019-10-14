@@ -1,12 +1,12 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
+import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class AuthService {
   currentUser: Observable<User>;
   private loggedInUser: User;
   private currentUserSubject: BehaviorSubject<User>;
-  loggedInUserPhotoUrl = new BehaviorSubject<string>('../../assets/user.png');
+  loggedInUserPhotoUrl = new BehaviorSubject<string>('/src/assets/img/user.png');
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));

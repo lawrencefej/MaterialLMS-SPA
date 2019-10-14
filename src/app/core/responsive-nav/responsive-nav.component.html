@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <div class="navbar-logo" routerLink="/member-search">
-      <img src="{{'../../assets/lmsnavlogo.png'}}">
+      <img src="{{'../../../assets/img/lmsnavlogo.png'}}">
     </div>
     <span class="toolbar-spacer"></span>
     <app-basket></app-basket>
@@ -34,7 +34,7 @@
       <mat-card [style.backgroundColor]="'lightgray'">
         <mat-card-header>
           <div mat-card-avatar class="avatar">
-            <img class="profile-picture" src="{{currentUser.photoUrl || '../../assets/user.png'}}">
+            <img class="profile-picture" src="{{currentUser.photoUrl || '../../../assets/img/user.png'}}">
           </div>
 
           <mat-card-title>{{currentUser.firstName}}, {{currentUser.lastName}}</mat-card-title>

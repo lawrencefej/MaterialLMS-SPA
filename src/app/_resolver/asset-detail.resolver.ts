@@ -1,22 +1,25 @@
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
 
 import { AssetService } from '../_services/asset.service';
 import { Injectable } from '@angular/core';
 import { LibraryAsset } from '../_models/libraryAsset';
-import { catchError } from 'rxjs/operators';
+import { NotificationService } from '../_services/notification.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable()
 export class AssetDetailResolver implements Resolve<LibraryAsset> {
   constructor(
     private assetService: AssetService,
-    private router: Router
+    private router: Router,
+    private notify: NotificationService
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<LibraryAsset> {
     return this.assetService.getAsset(route.params.id).pipe(
       catchError(error => {
-        // this.alertify.error('Problem retrieving data');
+        this.notify.error('Problem retrieving data');
         this.router.navigate(['/catalog']);
         return of(null);
       })

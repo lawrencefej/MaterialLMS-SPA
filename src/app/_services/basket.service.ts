@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Checkout } from '../_models/checkout';
 import { Injectable } from '@angular/core';
 import { NotificationService } from './notification.service';
