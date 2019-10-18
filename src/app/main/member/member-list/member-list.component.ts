@@ -10,7 +10,7 @@ import { MemberComponent } from '../member/member.component';
 import { MemberService } from 'src/app/_services/member.service';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { User } from 'src/app/_models/user';
-import { merge } from 'rxjs/internal/observable/merge';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-member-list',

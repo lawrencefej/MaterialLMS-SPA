@@ -11,11 +11,10 @@ import { AssetService } from 'src/app/_services/asset.service';
 import { AuthorService } from 'src/app/_services/author.service';
 import { CategoryService } from 'src/app/_services/category.service';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
-import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-asset',
@@ -42,7 +41,8 @@ export class AssetComponent implements OnInit, OnDestroy {
     ],
     author: [
       { type: 'required', message: 'Author is required' },
-      { type: 'maxlength', message: 'Author cannot be more than 25 characters' }
+      { type: 'maxlength', message: 'Author cannot be more than 25 characters' },
+      { type: 'authorError', message: 'Please select a valid author' }
     ],
     year: [
       { type: 'required', message: 'Year is required' },
@@ -78,6 +78,7 @@ export class AssetComponent implements OnInit, OnDestroy {
     this.subs.push(this.assetTypes$.subscribe(_ => (this.assetTypes = _)));
     this.isUpdate();
     this.getAuthor();
+    this.authorChanges();
   }
 
   isUpdate() {
@@ -134,8 +135,15 @@ export class AssetComponent implements OnInit, OnDestroy {
     });
   }
 
+  authorChanges() {
+    this.assetForm.controls.author.valueChanges.subscribe((author: Author) => {
+      if (author.id === undefined) {
+        this.assetForm.controls.author.setErrors({ authorError: true });
+      }
+    });
+  }
+
   getAuthor() {
-    // TODO validate author input
     this.assetForm.controls.author.valueChanges
       .pipe(
         debounceTime(500),
@@ -164,8 +172,8 @@ export class AssetComponent implements OnInit, OnDestroy {
 
   getBookId() {
     let assetTypeId: AssetType;
-    this.assetTypes$.subscribe(notes => {
-      this.assetTypes = notes;
+    this.assetTypes$.subscribe(types => {
+      this.assetTypes = types;
     });
     assetTypeId = this.assetTypes.find(x => x.name === 'Book');
     return assetTypeId.id;
@@ -177,7 +185,7 @@ export class AssetComponent implements OnInit, OnDestroy {
 
   closeDialog() {
     if (this.assetForm.dirty) {
-      this.notify.discardDialog('Are you sure you want to');
+      this.notify.discardDialog('Are you sure you want to discard these changes');
     } else {
       this.dialog.closeAll();
     }
