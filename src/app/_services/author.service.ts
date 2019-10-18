@@ -4,7 +4,7 @@ import { Author } from '../_models/author';
 import { Checkout } from '../_models/checkout';
 import { Injectable } from '@angular/core';
 import { LibraryAsset } from '../_models/libraryAsset';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/internal/operators/map';

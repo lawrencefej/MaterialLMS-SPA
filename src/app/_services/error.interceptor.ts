@@ -6,11 +6,10 @@ import {
   HttpInterceptor,
   HttpRequest
 } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { throwError } from 'rxjs/internal/observable/throwError';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

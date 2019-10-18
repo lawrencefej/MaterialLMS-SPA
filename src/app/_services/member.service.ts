@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';

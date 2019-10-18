@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 
 import { Injectable } from '@angular/core';
 import { LoaderService } from './loader.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/internal/operators/finalize';
 
 @Injectable()

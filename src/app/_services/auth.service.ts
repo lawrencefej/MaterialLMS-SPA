@@ -1,8 +1,8 @@
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
@@ -66,31 +66,6 @@ export class AuthService {
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
-
-  // roleMatch(allowedRoles: { forEach: (arg0: (element: any) => void) => void }): boolean {
-  //   let isMatch = false;
-  //   // const userRoles = this.decodedToken.role as Array<string>;
-  //   const userRoles = this.jwtHelper.decodeToken(localStorage.getItem('token')) as Array<string>;
-  //   allowedRoles.forEach(element => {
-  //     if (userRoles.includes(element)) {
-  //       isMatch = true;
-  //       return;
-  //     }
-  //   });
-  //   return isMatch;
-  // }
-
-  // isAdmin(model: any) {
-  //   if (this.currentUser) {
-  //     if (
-  //       this.loggedInUser.role === 'Admin' ||
-  //       this.loggedInUser.role === 'Librarian'
-  //     ) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
 
   sendForgotPasswordLink(model: any) {
     return this.http.post(this.baseurl + 'forgot-password', model);

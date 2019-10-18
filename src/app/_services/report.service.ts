@@ -1,7 +1,7 @@
 import { ChartModel } from '../_models/chartModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { TotalsReport } from '../_models/totalsReport';
 import { environment } from 'src/environments/environment';
 
