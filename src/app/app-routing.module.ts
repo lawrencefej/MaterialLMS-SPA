@@ -14,7 +14,6 @@ import { AuthorListResolver } from './_resolver/author-list.resolver';
 import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component';
 import { CheckoutListComponent } from './main/checkout/checkout-list/checkout-list.component';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
-import { DashboardLayoutComponent } from './shared/layout/dashboard-layout/dashboard-layout.component';
 import { DashboardPanelComponent } from './dashboard/dashboard-panel/dashboard-panel.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -86,16 +85,21 @@ const routes: Routes = [
         resolve: { author: AuthorAssetResolver }
       },
       {
+        path: 'dashboard',
+        component: DashboardPanelComponent,
+        data: { allowedRoles: ['Admin'] },
+      },
+      {
         path: 'user-profile',
         component: UserProfileComponent,
       },
     ]
   },
-  {
-    path: '',
-    component: DashboardLayoutComponent,
-    children: [{ path: 'dashboard', component: DashboardPanelComponent, data: { allowedRoles: ['Admin'] } }]
-  },
+  // {
+  //   path: '',
+  //   component: DashboardLayoutComponent,
+  //   children: [{ path: 'dashboard', component: DashboardPanelComponent, data: { allowedRoles: ['Admin'] } }]
+  // },
   {
     path: '',
     component: LoginLayoutComponent,
