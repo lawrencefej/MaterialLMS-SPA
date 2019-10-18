@@ -86,7 +86,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
           this.assetService.deleteAsset(asset.id).subscribe(
             () => {
               this.assets.splice(this.assets.findIndex(x => x.id === asset.id), 1);
-              this.notify.warn(asset.title + ' was deleted successfully');
+              this.notify.warn('Item was deleted successfully');
               this.pagination.totalItems--;
               this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
             },

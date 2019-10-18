@@ -82,11 +82,7 @@ export class AuthorAssetComponent implements OnInit {
   deleteAsset(asset: LibraryAsset) {
     this.notify
       .confirm(
-        'Are you sure you sure you want to delete this ' +
-          asset.assetType +
-          ': "' +
-          asset.title +
-          '"'
+        'Are you sure you sure you want to delete this item'
       )
       .afterClosed()
       .subscribe(res => {
@@ -94,7 +90,7 @@ export class AuthorAssetComponent implements OnInit {
           this.assetService.deleteAsset(asset.id).subscribe(
             () => {
               this.assets.splice(this.assets.findIndex(x => x.id === asset.id),  1);
-              this.notify.warn(asset.title + ' was deleted successfully');
+              this.notify.warn('Item was deleted successfully');
               this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
