@@ -79,7 +79,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
 
   deleteAsset(asset: LibraryAsset) {
     this.notify
-      .confirm('Are you sure you sure you want to delete this ' + asset.assetType + ': "' + asset.title + '"')
+      .confirm('Are you sure you sure you want to delete this item')
       .afterClosed()
       .subscribe(res => {
         if (res) {

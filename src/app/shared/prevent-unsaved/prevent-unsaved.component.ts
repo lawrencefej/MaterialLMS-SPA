@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-prevent-unsaved',
@@ -7,11 +7,13 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./prevent-unsaved.component.css']
 })
 export class PreventUnsavedComponent implements OnInit {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<PreventUnsavedComponent>
+  ) {}
 
-  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<PreventUnsavedComponent>) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   cancel() {
     this.dialogRef.close();
@@ -20,5 +22,4 @@ export class PreventUnsavedComponent implements OnInit {
   discard() {
     this.dialog.closeAll();
   }
-
 }
