@@ -64,52 +64,40 @@ export class DashboardPanelComponent implements OnInit {
           }
         ];
       });
-      this.dailyActivityLabel = checkouts.data.map(
-        (a: { name: any }) => a.name
-      );
+      this.dailyActivityLabel = checkouts.data.map((a: { name: any }) => a.name);
     });
   }
 
   getMonthlyActivity() {
-    this.reportService
-      .getCheckoutByMonth()
-      .subscribe((checkouts: ChartModel) => {
-        this.reportService
-          .getReturnsByMonth()
-          .subscribe((returns: ChartModel) => {
-            this.monthlyActivityData = [
-              {
-                data: checkouts.data.map((a: { count: any }) => a.count),
-                label: checkouts.label
-              },
-              {
-                data: returns.data.map((a: { count: any }) => a.count),
-                label: returns.label
-              }
-            ];
-          });
-        this.monthlyActivityLabel = checkouts.data.map(
-          (a: { name: any }) => a.name
-        );
+    this.reportService.getCheckoutByMonth().subscribe((checkouts: ChartModel) => {
+      this.reportService.getReturnsByMonth().subscribe((returns: ChartModel) => {
+        this.monthlyActivityData = [
+          {
+            data: checkouts.data.map((a: { count: any }) => a.count),
+            label: checkouts.label
+          },
+          {
+            data: returns.data.map((a: { count: any }) => a.count),
+            label: returns.label
+          }
+        ];
       });
+      this.monthlyActivityLabel = checkouts.data.map((a: { name: any }) => a.name);
+    });
   }
 
   getAssetTypeDistribution() {
-    this.reportService
-      .getAssetDistribution()
-      .subscribe((chartModel: ChartModel) => {
-        this.assetTypeDistributionData = chartModel.data.map(a => a.count);
-        this.assetTypeDistributionLabel = chartModel.data.map(a => a.name);
-      });
+    this.reportService.getAssetDistribution().subscribe((chartModel: ChartModel) => {
+      this.assetTypeDistributionData = chartModel.data.map(a => a.count);
+      this.assetTypeDistributionLabel = chartModel.data.map(a => a.name);
+    });
   }
 
   getCategoryDistribution() {
-    this.reportService
-      .getCategoryDistribution()
-      .subscribe((chartModel: ChartModel) => {
-        this.categoryDistributionData = chartModel.data.map(a => a.count);
-        this.categoryDistributionLabel = chartModel.data.map(a => a.name);
-      });
+    this.reportService.getCategoryDistribution().subscribe((chartModel: ChartModel) => {
+      this.categoryDistributionData = chartModel.data.map(a => a.count);
+      this.categoryDistributionLabel = chartModel.data.map(a => a.name);
+    });
   }
 
   getTotals() {

@@ -1,11 +1,12 @@
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
 
 import { AssetService } from '../_services/asset.service';
 import { Injectable } from '@angular/core';
 import { LibraryAsset } from '../_models/libraryAsset';
 import { NotificationService } from '../_services/notification.service';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable()
 export class AssetListResolver implements Resolve<LibraryAsset[]> {

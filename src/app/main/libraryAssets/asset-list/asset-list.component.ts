@@ -10,7 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { merge } from 'rxjs';
+import { merge } from 'rxjs/internal/observable/merge';
 
 @Component({
   selector: 'app-asset-list',
@@ -18,19 +18,20 @@ import { merge } from 'rxjs';
   styleUrls: ['./asset-list.component.css']
 })
 export class AssetListComponent implements AfterViewInit, OnInit {
+  assets: LibraryAsset[];
+  pagination: Pagination;
+  dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
+  searchString = '';
+  displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
+  paginationOptions = new Pagination();
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   constructor(
     private assetService: AssetService,
     private route: ActivatedRoute,
     private notify: NotificationService,
     public dialog: MatDialog
   ) {}
-  pagination: Pagination;
-  assets: LibraryAsset[];
-  dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
-  searchString = '';
-  displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -56,37 +57,36 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     this.filterList();
   }
 
-  public updateAsset(element: any) {
+  private getDialogConfig() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
+
+    return dialogConfig;
+  }
+
+  public updateAsset(element: any) {
+    const dialogConfig = this.getDialogConfig();
     dialogConfig.data = element;
     this.dialog.open(AssetComponent, dialogConfig);
   }
 
   openAddAssetDialog() {
-    this.dialog.open(AssetComponent, {
-      width: '640px',
-      disableClose: true
-    });
+    const dialogConfig = this.getDialogConfig();
+
+    this.dialog.open(AssetComponent, dialogConfig);
   }
 
   deleteAsset(asset: LibraryAsset) {
     this.notify
-      .confirm(
-        'Are you sure you sure you want to delete this ' +
-          asset.assetType +
-          ': "' +
-          asset.title +
-          '"'
-      )
+      .confirm('Are you sure you sure you want to delete this item')
       .afterClosed()
       .subscribe(res => {
         if (res) {
           this.assetService.deleteAsset(asset.id).subscribe(
             () => {
-              this.assets.splice(this.assets.findIndex(x => x.id === asset.id),  1);
-              this.notify.warn(asset.title + ' was deleted successfully');
+              this.assets.splice(this.assets.findIndex(x => x.id === asset.id), 1);
+              this.notify.warn('Item was deleted successfully');
               this.pagination.totalItems--;
               this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
             },
@@ -110,7 +110,6 @@ export class AssetListComponent implements AfterViewInit, OnInit {
       .subscribe(
         (res: PaginatedResult<LibraryAsset[]>) => {
           this.assets = res.result;
-          this.pagination = res.pagination;
           this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
         },
         error => {

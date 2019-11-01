@@ -1,8 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
+import { shareReplay } from 'rxjs/internal/operators/shareReplay';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,16 +11,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  roles = ['Admin'];
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
 
-  ngOnInit() {
-  }
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
+  ngOnInit() {}
 }

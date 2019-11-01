@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AdminListResolver } from './_resolver/admin-list.resolver';
 import { AdminPanelComponent } from './main/admin/admin-panel/admin-panel.component';
 import { AssetDetailComponent } from './main/libraryAssets/asset-detail/asset-detail.component';
 import { AssetDetailResolver } from './_resolver/asset-detail.resolver';
@@ -11,10 +12,8 @@ import { AuthorAssetResolver } from './_resolver/author-asset.resolver';
 import { AuthorListComponent } from './main/author/author-list/author-list.component';
 import { AuthorListResolver } from './_resolver/author-list.resolver';
 import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component';
-import { CanDeactivateGuard } from './_guards/can-deactivate.guard';
 import { CheckoutListComponent } from './main/checkout/checkout-list/checkout-list.component';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
-import { DashboardLayoutComponent } from './shared/layout/dashboard-layout/dashboard-layout.component';
 import { DashboardPanelComponent } from './dashboard/dashboard-panel/dashboard-panel.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -22,12 +21,13 @@ import { LoginLayoutComponent } from './shared/layout/login-layout/login-layout.
 import { MemberAdvancedSearchComponent } from './main/member/member-advanced-search/member-advanced-search.component';
 import { MemberDetailComponent } from './main/member/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
-import { MemberHistoryComponent } from './main/member/member-history/member-history.component';
 import { MemberListComponent } from './main/member/member-list/member-list.component';
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberSearchComponent } from './main/member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { UserProfileComponent } from './main/user/user-profile/user-profile.component';
+import { UserProfileResolver } from './_resolver/user-profile.resolver';
 
 const routes: Routes = [
   {
@@ -37,7 +37,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'member-search', pathMatch: 'full' },
-      { path: 'current-items', component: MemberHistoryComponent },
       { path: 'member-search', component: MemberSearchComponent },
       { path: 'advanced-search', component: MemberAdvancedSearchComponent },
       {
@@ -53,7 +52,8 @@ const routes: Routes = [
       {
         path: 'admin',
         component: AdminPanelComponent,
-        data: { allowedRoles: ['Admin'] }
+        data: { allowedRoles: ['Admin'] },
+        resolve: { admins: AdminListResolver }
       },
       {
         path: 'members',
@@ -64,7 +64,6 @@ const routes: Routes = [
       {
         path: 'members/:id',
         component: MemberDetailComponent,
-        canDeactivate: [CanDeactivateGuard],
         data: { allowedRoles: ['Admin', 'Librarian'] },
         resolve: { member: MemberDetailResolver }
       },
@@ -86,16 +85,16 @@ const routes: Routes = [
         data: { allowedRoles: ['Admin', 'Librarian'] },
         resolve: { author: AuthorAssetResolver }
       },
-    ]
-  },
-  {
-    path: '',
-    component: DashboardLayoutComponent,
-    children: [
-      {path: 'dashboard',
-      component: DashboardPanelComponent,
-      data: {allowedRoles: ['Admin']}
-    }
+      {
+        path: 'dashboard',
+        component: DashboardPanelComponent,
+        data: { allowedRoles: ['Admin'] }
+      },
+      {
+        path: 'user-profile',
+        component: UserProfileComponent,
+        resolve: {user: UserProfileResolver}
+      }
     ]
   },
   {

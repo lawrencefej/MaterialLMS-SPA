@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 import { ChartModel } from '../_models/chartModel';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { TotalsReport } from '../_models/totalsReport';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

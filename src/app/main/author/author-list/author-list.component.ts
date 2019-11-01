@@ -1,11 +1,14 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
 import { Author } from 'src/app/_models/author';
 import { AuthorComponent } from '../author/author.component';
 import { AuthorService } from 'src/app/_services/author.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { merge } from 'rxjs/internal/observable/merge';
 
@@ -19,14 +22,17 @@ export class AuthorListComponent implements AfterViewInit, OnInit {
   pagination: Pagination;
   dataSource = new MatTableDataSource<Author>(this.authors);
   searchString = '';
-  displayedColumns = ['firstName', 'lastName', 'actions', ];
+  displayedColumns = ['firstName', 'lastName', 'actions'];
+  paginationOptions = new Pagination();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  constructor(private authorService: AuthorService,
-              private route: ActivatedRoute,
-              private notify: NotificationService,
-              public dialog: MatDialog) { }
+  constructor(
+    private authorService: AuthorService,
+    private route: ActivatedRoute,
+    private notify: NotificationService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -52,11 +58,24 @@ export class AuthorListComponent implements AfterViewInit, OnInit {
     this.filterList();
   }
 
+  private getDialogConfig() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = '440px';
+
+    return dialogConfig;
+  }
+
+  updateAuthor(element: any) {
+    const dialogConfig = this.getDialogConfig();
+    dialogConfig.data = element;
+    this.dialog.open(AuthorComponent, dialogConfig);
+  }
+
   openAddAuthorDialog() {
-    this.dialog.open(AuthorComponent, {
-      width: '640px',
-      disableClose: true
-    });
+    const dialogConfig = this.getDialogConfig();
+
+    this.dialog.open(AuthorComponent, dialogConfig);
   }
 
   loadData() {

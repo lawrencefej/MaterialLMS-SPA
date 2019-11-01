@@ -5,7 +5,7 @@ import { Checkout } from '../_models/checkout';
 import { Injectable } from '@angular/core';
 import { PaginatedResult } from '../_models/pagination';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'

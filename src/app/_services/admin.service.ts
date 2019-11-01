@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
 import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
   constructor(private http: HttpClient) {}
-  baseUrl = environment.apiUrl + 'admin';
+  baseUrl = environment.apiUrl + 'admin/';
 
   getAdmins() {
     return this.http.get<User[]>(this.baseUrl);

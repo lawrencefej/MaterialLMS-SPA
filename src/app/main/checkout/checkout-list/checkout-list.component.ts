@@ -1,12 +1,14 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { merge } from 'rxjs';
+import { merge } from 'rxjs/internal/observable/merge';
 
 @Component({
   selector: 'app-checkout-list',
@@ -20,16 +22,19 @@ export class CheckoutListComponent implements AfterViewInit, OnInit {
   searchString = '';
   displayedColumns = ['title', 'libraryCardId', 'since', 'until', 'dateReturned', 'status'];
   checkoutFilters = [
-    {id: 1, name: 'All', value: 'all'},
-    {id: 2, name: 'Checked Out', value: 'checkedOut'},
-    {id: 3, name: 'Returned', value: 'returned'},
+    { id: 1, name: 'All', value: 'all' },
+    { id: 2, name: 'Checked Out', value: 'checkedOut' },
+    { id: 3, name: 'Returned', value: 'returned' }
   ];
+  paginationOptions = new Pagination();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  constructor(private checkoutService: CheckoutService,
-              private route: ActivatedRoute,
-              private notify: NotificationService, ) { }
+  constructor(
+    private checkoutService: CheckoutService,
+    private route: ActivatedRoute,
+    private notify: NotificationService
+  ) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -70,5 +75,4 @@ export class CheckoutListComponent implements AfterViewInit, OnInit {
         }
       );
   }
-
 }
