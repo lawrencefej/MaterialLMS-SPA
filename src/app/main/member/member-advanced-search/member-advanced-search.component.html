@@ -43,7 +43,8 @@
         <div fxLayoutAlign="space-between center" class="button-row" fxFlex>
           <button mat-raised-button color="primary" type="submit"
             [disabled]="searchForm.pristine || !searchForm.valid">Submit</button>
-          <button mat-raised-button color="warn" type="button" *ngIf="searchForm.dirty" (click)="onClear()">Clear</button>
+          <button mat-raised-button color="warn" type="button" *ngIf="searchForm.dirty"
+            (click)="onClear()">Clear</button>
         </div>
       </div>
     </form>
@@ -55,7 +56,7 @@
         <mat-expansion-panel-header fxLayoutAlign="center center">
           <mat-panel-title>
             {{i+1}}. &nbsp;
-            <img mat-card-avatar src="{{member.photoUrl || '../../../assets/book.jpg'}}" alt="..."> &nbsp;
+            <img mat-card-avatar src="{{member.photoUrl || '../../../assets/img/book.jpg'}}" alt="..."> &nbsp;
             {{member?.firstName}}, {{member?.lastName}}
           </mat-panel-title>
           <mat-panel-description>

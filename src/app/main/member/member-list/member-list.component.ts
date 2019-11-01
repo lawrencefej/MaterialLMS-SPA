@@ -1,13 +1,16 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 import { ActivatedRoute } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { MemberComponent } from '../member/member.component';
 import { MemberService } from 'src/app/_services/member.service';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { User } from 'src/app/_models/user';
-import { merge } from 'rxjs/internal/observable/merge';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-member-list',
@@ -19,13 +22,8 @@ export class MemberListComponent implements AfterViewInit, OnInit {
   pagination: Pagination;
   dataSource = new MatTableDataSource<User>(this.members);
   searchString = '';
-  displayedColumns = [
-    'libraryCardNumber',
-    'firstName',
-    'lastName',
-    'email',
-    'actions'
-  ];
+  displayedColumns = ['libraryCardNumber', 'firstName', 'lastName', 'email', 'actions'];
+  paginationOptions = new Pagination();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
@@ -60,19 +58,24 @@ export class MemberListComponent implements AfterViewInit, OnInit {
     this.filterList();
   }
 
-  public updateMember(element: any) {
+  private getDialogConfig() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
+
+    return dialogConfig;
+  }
+
+  updateMember(element: any) {
+    const dialogConfig = this.getDialogConfig();
     dialogConfig.data = element;
     this.dialog.open(MemberComponent, dialogConfig);
   }
 
-  openMemberEditDialog() {
-    this.dialog.open(MemberComponent, {
-      width: '640px',
-      disableClose: true
-    });
+  openAddMemberDialog() {
+    const dialogConfig = this.getDialogConfig();
+
+    this.dialog.open(MemberComponent, dialogConfig);
   }
 
   deleteAsset(member: User) {
@@ -83,8 +86,8 @@ export class MemberListComponent implements AfterViewInit, OnInit {
         if (res) {
           this.memberService.deleteMember(member.id).subscribe(
             () => {
-              this.members.splice(this.members.findIndex(x => x.id === member.id),  1);
-              this.notify.warn(member.libraryCardNumber + ' was deleted successfully');
+              this.members.splice(this.members.findIndex(x => x.id === member.id), 1);
+              this.notify.success('Member was deleted successfully');
               this.pagination.totalItems--;
               this.dataSource = new MatTableDataSource<User>(this.members);
             },
@@ -105,7 +108,8 @@ export class MemberListComponent implements AfterViewInit, OnInit {
         this.sort.direction.toString(),
         this.searchString
       )
-      .subscribe((res: PaginatedResult<User[]>) => {
+      .subscribe(
+        (res: PaginatedResult<User[]>) => {
           this.members = res.result;
           this.dataSource = new MatTableDataSource<User>(this.members);
         },

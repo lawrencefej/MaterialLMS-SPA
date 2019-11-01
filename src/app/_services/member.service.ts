@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +22,6 @@ export class MemberService {
   getMemberByCardNumber(cardNumber: number): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'card/' + cardNumber);
   }
-
-  // advancedMemberSearch(params: any): Observable<User[]> {
-  //   return this.http.get<User[]>(this.baseUrl + params);
-  // }
 
   advancedMemberSearch(member: User): Observable<User[]> {
     let params = new HttpParams();
@@ -55,9 +51,7 @@ export class MemberService {
     sortDirection?: string,
     searchString?: string
   ): Observable<PaginatedResult<User[]>> {
-    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<
-      User[]
-    >();
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
 
     let params = new HttpParams();
 
@@ -79,9 +73,7 @@ export class MemberService {
         map(response => {
           paginatedResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
-            paginatedResult.pagination = JSON.parse(
-              response.headers.get('Pagination')
-            );
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
           }
           return paginatedResult;
         })

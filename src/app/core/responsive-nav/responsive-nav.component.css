@@ -41,6 +41,6 @@ h1.example-app-name {
   border-radius: 50%;
 }
 
-a:hover, a:active {
-  color: #283593;
+.navbar-logo :hover {
+  cursor: pointer;
 }

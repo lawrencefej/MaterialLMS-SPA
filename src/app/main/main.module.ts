@@ -15,14 +15,15 @@ import { MemberAdvancedSearchComponent } from './member/member-advanced-search/m
 import { MemberCheckoutsComponent } from './member/member-checkouts/member-checkouts.component';
 import { MemberComponent } from './member/member/member.component';
 import { MemberDetailComponent } from './member/member-detail/member-detail.component';
-import { MemberHistoryComponent } from './member/member-history/member-history.component';
 import { MemberListComponent } from './member/member-list/member-list.component';
 import { MemberSearchComponent } from './member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
-import { ReportsPanelComponent } from './dashboard/reports-panel/reports-panel.component';
 import { SharedModule } from '../shared/shared.module';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { UserProfileEditComponent } from './user/user-profile-edit/user-profile-edit.component';
 
 @NgModule({
+  exports: [BasketComponent, BasketDetailComponent],
   declarations: [
     AdminComponent,
     AssetComponent,
@@ -41,34 +42,17 @@ import { SharedModule } from '../shared/shared.module';
     MemberCheckoutsComponent,
     MemberDetailComponent,
     MemberComponent,
-    MemberHistoryComponent,
     MemberListComponent,
     MemberSearchComponent,
-    ReportsPanelComponent
+    UserProfileComponent,
+    UserProfileEditComponent,
   ],
   imports: [SharedModule],
-  exports: [
+  entryComponents: [
     AdminComponent,
     AssetComponent,
     AuthorComponent,
-    AdminPanelComponent,
-    AssetCheckoutComponent,
-    AssetDetailComponent,
-    AssetListComponent,
-    AuthorAssetComponent,
-    AuthorListComponent,
-    BasketComponent,
-    BasketDetailComponent,
-    CheckoutAssetComponent,
-    CheckoutListComponent,
-    MemberAdvancedSearchComponent,
-    MemberCheckoutsComponent,
-    MemberDetailComponent,
     MemberComponent,
-    MemberHistoryComponent,
-    MemberListComponent,
-    MemberSearchComponent,
-    ReportsPanelComponent
-  ]
+    UserProfileEditComponent]
 })
 export class MainModule {}

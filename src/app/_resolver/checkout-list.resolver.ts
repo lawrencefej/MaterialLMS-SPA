@@ -1,11 +1,12 @@
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
 
 import { Checkout } from '../_models/checkout';
 import { CheckoutService } from '../_services/checkout.service';
 import { Injectable } from '@angular/core';
 import { NotificationService } from '../_services/notification.service';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable()
 export class CheckoutListResolver implements Resolve<Checkout[]> {

@@ -7,7 +7,7 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <a mat-button color="primary" (click)="openMemberEditDialog()" class="create-button">Add New</a>
+    <a mat-button color="primary" (click)="openAddMemberDialog()" class="create-button">Add New</a>
   </div>
   <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource">
     <ng-container matColumnDef="libraryCardNumber">
@@ -53,10 +53,11 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <tr mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" class="no-data-row"></tr>
+    <tr mat-footer-row *matFooterRowDef="['noData']"
+      [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" class="no-data-row"></tr>
   </table>
 
-  <mat-paginator #paginator [length]="pagination?.totalItems" [pageIndex]="paginator.pageIndex" [pageSize]="5"
-    [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+  <mat-paginator #paginator [length]="pagination?.totalItems" [pageIndex]="paginator.pageIndex"
+    [pageSizeOptions]="paginationOptions.pageSizeOptions" showFirstLastButtons>
   </mat-paginator>
 </div>

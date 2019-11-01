@@ -14,10 +14,7 @@ export class MemberAdvancedSearchComponent implements OnInit {
   searchForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    email: new FormControl(
-      '',
-      Validators.compose([Validators.required, Validators.email])
-    )
+    email: new FormControl('', Validators.compose([Validators.required, Validators.email]))
   });
 
   validationMessages = {
@@ -43,10 +40,7 @@ export class MemberAdvancedSearchComponent implements OnInit {
 
   members: User[] = [];
 
-  constructor(
-    private memberService: MemberService,
-    private notify: NotificationService
-  ) {}
+  constructor(private memberService: MemberService, private notify: NotificationService) {}
 
   ngOnInit() {}
 
@@ -57,10 +51,11 @@ export class MemberAdvancedSearchComponent implements OnInit {
           if (members.length > 0) {
             this.members = members;
             this.searchForm.reset();
+            this.searchForm.controls.firstName.setErrors(null);
+            this.searchForm.controls.lastName.setErrors(null);
+            this.searchForm.controls.email.setErrors(null);
           } else {
-            this.notify.warn(
-              'No members were found. Please refine your search and try again'
-            );
+            this.notify.warn('No members were found. Please refine your search and try again');
           }
         },
         error => {

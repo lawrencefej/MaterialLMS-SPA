@@ -3,23 +3,18 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>MaterialLMS-SPA</span>
+    <div class="navbar-logo" routerLink="/member-search">
+      <img src="{{'../../../assets/img/lmsnavlogo.png'}}">
+    </div>
     <span class="toolbar-spacer"></span>
-    <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <img class="profile-picture" src="http://i.pravatar.cc/300">
-    </button> -->
     <app-basket></app-basket>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item [routerLink]="['/user-profile']">
         <mat-icon>person</mat-icon>
         <span>Profile</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>settings_application</mat-icon>
-        <span>Settings</span>
       </button>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">
@@ -35,11 +30,11 @@
       <mat-card [style.backgroundColor]="'lightgray'">
         <mat-card-header>
           <div mat-card-avatar class="avatar">
-              <img class="profile-picture" src="{{photoUrl || '../../assets/user.png'}}">
+            <img class="profile-picture" src="{{photoUrl || '../../../assets/img/user.png'}}">
           </div>
 
-          <mat-card-title>{{currentUser.firstName}}, {{currentUser.lastName}}</mat-card-title>
-          <mat-card-subtitle>{{currentUser.role}}</mat-card-subtitle>
+          <mat-card-title>{{loggedInUser.firstName}}, {{loggedInUser.lastName}}</mat-card-title>
+          <mat-card-subtitle>{{loggedInUser.role}}</mat-card-subtitle>
         </mat-card-header>
       </mat-card>
       <mat-nav-list>
@@ -48,7 +43,9 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
+      <app-progress-spinner></app-progress-spinner>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+  <app-footer></app-footer>
 </div>

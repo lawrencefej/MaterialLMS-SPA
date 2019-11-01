@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
 
 import { BasketService } from 'src/app/_services/basket.service';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
 import { NotificationService } from 'src/app/_services/notification.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-basket',

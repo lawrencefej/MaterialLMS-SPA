@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';

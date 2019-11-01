@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ChartModel } from 'src/app/_models/chartModel';
 import { Color } from 'ng2-charts';

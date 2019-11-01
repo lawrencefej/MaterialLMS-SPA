@@ -1,17 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogConfig,
-  MatTableDataSource
-} from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, of } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
 import { BasketService } from 'src/app/_services/basket.service';
-import { CanComponentDeactivate } from 'src/app/_guards/can-deactivate.guard';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
 import { FeeService } from 'src/app/_services/fee.service';
+import { MatTableDataSource } from '@angular/material/table';
 import { MemberComponent } from '../member/member.component';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { Photo } from 'src/app/_models/photo';
@@ -23,7 +19,7 @@ import { User } from 'src/app/_models/user';
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css']
 })
-export class MemberDetailComponent implements OnInit, CanComponentDeactivate {
+export class MemberDetailComponent implements OnInit {
   @ViewChild('fileInput', { static: false }) myInputVariable: ElementRef;
   displayedColumns = ['title', 'until', 'status', 'action'];
   member: User;
@@ -54,7 +50,7 @@ export class MemberDetailComponent implements OnInit, CanComponentDeactivate {
 
   canDeactivate() {
     if (this.basketItems.length > 0) {
-      this.notify.warn('The Basket has to be empty before you can leave this page');
+      this.notify.warn('The Member Basket has to be empty before you can leave this page');
       return false;
     } else {
       return true;

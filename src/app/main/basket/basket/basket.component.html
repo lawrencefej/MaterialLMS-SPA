@@ -10,7 +10,7 @@
 <mat-menu #menu="matMenu" class="mat">
   <mat-list>
     <mat-list-item *ngFor="let item of basketItems">
-      <img matListAvatar src="{{item.asset.photoUrl || '../../../assets/book.jpg'}}" alt="...">
+      <img matListAvatar src="{{item.asset.photoUrl || '../../../assets/img/book.jpg'}}" alt="...">
       <h3 matLine> {{item.asset.title}} </h3>
       <p matLine>
         <span> {{item.asset.authorName}} </span>
