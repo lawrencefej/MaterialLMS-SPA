@@ -20,8 +20,10 @@ import { MemberSearchComponent } from './member/member-search/member-search.comp
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { UserProfileEditComponent } from './user/user-profile-edit/user-profile-edit.component';
 
 @NgModule({
+  exports: [BasketComponent, BasketDetailComponent],
   declarations: [
     AdminComponent,
     AssetComponent,
@@ -42,31 +44,15 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     MemberComponent,
     MemberListComponent,
     MemberSearchComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserProfileEditComponent,
   ],
   imports: [SharedModule],
-  exports: [
-    // AdminComponent,
-    // AssetComponent,
-    // AuthorComponent,
-    // AdminPanelComponent,
-    // AssetCheckoutComponent,
-    // AssetDetailComponent,
-    // AssetListComponent,
-    // AuthorAssetComponent,
-    // AuthorListComponent,
-    BasketComponent,
-    BasketDetailComponent,
-    // CheckoutAssetComponent,
-    // CheckoutListComponent,
-    // MemberAdvancedSearchComponent,
-    // MemberCheckoutsComponent,
-    // MemberDetailComponent,
-    // MemberComponent,
-    // MemberHistoryComponent,
-    // MemberListComponent,
-    // MemberSearchComponent,
-    // ReportsPanelComponent
-  ]
+  entryComponents: [
+    AdminComponent,
+    AssetComponent,
+    AuthorComponent,
+    MemberComponent,
+    UserProfileEditComponent]
 })
 export class MainModule {}

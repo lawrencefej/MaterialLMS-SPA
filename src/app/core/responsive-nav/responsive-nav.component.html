@@ -16,10 +16,6 @@
         <mat-icon>person</mat-icon>
         <span>Profile</span>
       </button>
-      <!-- <button mat-menu-item>
-        <mat-icon>settings_application</mat-icon>
-        <span>Settings</span>
-      </button> -->
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
@@ -34,11 +30,11 @@
       <mat-card [style.backgroundColor]="'lightgray'">
         <mat-card-header>
           <div mat-card-avatar class="avatar">
-            <img class="profile-picture" src="{{currentUser.photoUrl || '../../../assets/img/user.png'}}">
+            <img class="profile-picture" src="{{photoUrl || '../../../assets/img/user.png'}}">
           </div>
 
-          <mat-card-title>{{currentUser.firstName}}, {{currentUser.lastName}}</mat-card-title>
-          <mat-card-subtitle>{{currentUser.role}}</mat-card-subtitle>
+          <mat-card-title>{{loggedInUser.firstName}}, {{loggedInUser.lastName}}</mat-card-title>
+          <mat-card-subtitle>{{loggedInUser.role}}</mat-card-subtitle>
         </mat-card-header>
       </mat-card>
       <mat-nav-list>

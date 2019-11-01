@@ -27,6 +27,7 @@ import { MemberSearchComponent } from './main/member/member-search/member-search
 import { NgModule } from '@angular/core';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { UserProfileComponent } from './main/user/user-profile/user-profile.component';
+import { UserProfileResolver } from './_resolver/user-profile.resolver';
 
 const routes: Routes = [
   {
@@ -87,19 +88,15 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardPanelComponent,
-        data: { allowedRoles: ['Admin'] },
+        data: { allowedRoles: ['Admin'] }
       },
       {
         path: 'user-profile',
         component: UserProfileComponent,
-      },
+        resolve: {user: UserProfileResolver}
+      }
     ]
   },
-  // {
-  //   path: '',
-  //   component: DashboardLayoutComponent,
-  //   children: [{ path: 'dashboard', component: DashboardPanelComponent, data: { allowedRoles: ['Admin'] } }]
-  // },
   {
     path: '',
     component: LoginLayoutComponent,

@@ -66,5 +66,9 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
     ReactiveFormsModule,
     RouterModule
   ],
+  entryComponents: [
+    ConfirmDialogComponent,
+    PreventUnsavedComponent,
+  ]
 })
 export class SharedModule {}

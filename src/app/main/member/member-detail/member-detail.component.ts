@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Observable, of } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
 import { BasketService } from 'src/app/_services/basket.service';
@@ -9,11 +10,9 @@ import { FeeService } from 'src/app/_services/fee.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MemberComponent } from '../member/member.component';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { Photo } from 'src/app/_models/photo';
 import { PhotoService } from 'src/app/_services/photo.service';
 import { User } from 'src/app/_models/user';
-import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-member-detail',
@@ -51,7 +50,7 @@ export class MemberDetailComponent implements OnInit {
 
   canDeactivate() {
     if (this.basketItems.length > 0) {
-      this.notify.warn('The Basket has to be empty before you can leave this page');
+      this.notify.warn('The Member Basket has to be empty before you can leave this page');
       return false;
     } else {
       return true;

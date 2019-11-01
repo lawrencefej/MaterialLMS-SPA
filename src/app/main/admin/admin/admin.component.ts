@@ -6,6 +6,8 @@ import { User } from 'src/app/_models/user';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { Role } from 'src/app/_models/role';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { UserService } from 'src/app/_services/user.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -45,12 +47,14 @@ export class AdminComponent implements OnInit {
   roles: Role[] = [{ id: 1, name: 'Librarian' }, { id: 2, name: 'Admin' }];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: User,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AdminComponent>,
     private dialog: MatDialog,
     public notify: NotificationService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private userService: UserService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -108,7 +112,7 @@ export class AdminComponent implements OnInit {
       this.userForm.controls.firstName.enable();
       this.userForm.controls.lastName.enable();
       this.userForm.controls.email.enable();
-      this.updateUser(this.userForm.value);
+      this.updateUserRole(this.userForm.value);
     } else {
       this.addUser(this.userForm.value);
     }
@@ -127,7 +131,7 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  updateUser(user: User) {
+  updateUserRole(user: User) {
     this.adminService.updateUser(user).subscribe(
       () => {
         this.dialogRef.close(user);

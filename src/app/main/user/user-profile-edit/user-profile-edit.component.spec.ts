@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ShortcloseNavComponent } from './shortclose-nav.component';
+import { UserProfileEditComponent } from './user-profile-edit.component';
 
-describe('ShortcloseNavComponent', () => {
-  let component: ShortcloseNavComponent;
-  let fixture: ComponentFixture<ShortcloseNavComponent>;
+describe('UserProfileEditComponent', () => {
+  let component: UserProfileEditComponent;
+  let fixture: ComponentFixture<UserProfileEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShortcloseNavComponent ]
+      declarations: [ UserProfileEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShortcloseNavComponent);
+    fixture = TestBed.createComponent(UserProfileEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-
+import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
@@ -13,19 +12,24 @@ import { map } from 'rxjs/internal/operators/map';
 })
 export class AuthService {
   baseurl = environment.apiUrl + 'auth/';
+  jwtHelper = new JwtHelperService();
+  loggedInUser: User;
   decodedToken: any;
-  currentUser: Observable<User>;
-  private loggedInUser: User;
-  private currentUserSubject: BehaviorSubject<User>;
-  loggedInUserPhotoUrl = new BehaviorSubject<string>('/src/assets/img/user.png');
+  private loggedInUserSubject = new BehaviorSubject<User>(null);
+  loggedInUser$ = this.loggedInUserSubject.asObservable();
+  private photoUrl = new BehaviorSubject<string>('../../assets/user.png');
+  currentPhotoUrl = this.photoUrl.asObservable();
 
-  constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-    this.currentUserSubject.subscribe(x => (this.loggedInUser = x));
+  constructor(private http: HttpClient, private router: Router) {
+    this.loggedInUser$.subscribe(user => this.loggedInUser = user);
   }
 
   changeMemberPhoto(photoUrl: string) {
-    this.loggedInUserPhotoUrl.next(photoUrl);
+    this.photoUrl.next(photoUrl);
+  }
+
+  changeUserDetails(user: User) {
+    this.loggedInUserSubject.next(user);
   }
 
   login(model: any) {
@@ -36,7 +40,7 @@ export class AuthService {
           localStorage.setItem('token', user.token);
           localStorage.setItem('user', JSON.stringify(user.user));
           this.decodedToken = this.jwtHelper.decodeToken(user.token);
-          this.currentUserSubject.next(user.user);
+          this.changeUserDetails(user.user);
           this.changeMemberPhoto(this.loggedInUser.photoUrl);
         }
 
@@ -49,10 +53,6 @@ export class AuthService {
     return this.http.post(this.baseurl + 'auth/register', user);
   }
 
-  public getLoggedInUser() {
-    return this.currentUserSubject.asObservable();
-  }
-
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
@@ -62,8 +62,6 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.decodedToken = null;
-    this.currentUser = null;
-    this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
 

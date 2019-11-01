@@ -42,7 +42,7 @@ import { PreventUnsavedComponent } from './shared/prevent-unsaved/prevent-unsave
 import { ReportService } from './_services/report.service';
 import { ResponsiveNavComponent } from './core/responsive-nav/responsive-nav.component';
 import { SharedModule } from './shared/shared.module';
-import { ShortcloseNavComponent } from './shortclose-nav/shortclose-nav.component';
+import { UserProfileResolver } from './_resolver/user-profile.resolver';
 import { UserService } from './_services/user.service';
 
 export function tokenGetter() {
@@ -55,7 +55,6 @@ export function tokenGetter() {
     AppComponent,
     BaseLayoutComponent,
     ResponsiveNavComponent,
-    ShortcloseNavComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -90,7 +89,6 @@ export function tokenGetter() {
     BasketService,
     CheckoutDetailResolver,
     CheckoutListResolver,
-    // ErrorinterceptorProvider,
     LoaderService,
     MemberDetailResolver,
     MemberListResolver,
@@ -98,17 +96,12 @@ export function tokenGetter() {
     NotificationService,
     PhotoService,
     ReportService,
+    UserProfileResolver,
     UserService,
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   entryComponents: [
-    AdminComponent,
-    AssetComponent,
-    AuthorComponent,
-    ConfirmDialogComponent,
-    MemberComponent,
-    PreventUnsavedComponent
   ],
   bootstrap: [AppComponent]
 })

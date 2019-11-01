@@ -144,7 +144,7 @@ export class MemberComponent implements OnInit {
 
   closeDialog() {
     if (this.memberForm.dirty) {
-      this.notify.discardDialog('Are you sure you want to');
+      this.notify.discardDialog('Are you sure you want to discard these changes');
     } else {
       this.dialog.closeAll();
     }

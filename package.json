@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "build-prod": "ng build --prod",
     "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer ../LibraryManagementAPI/LibraryManagementSystem/wwwroot/stats-es2015.json",
     "analyze-dev": "ng build --stats-json && webpack-bundle-analyzer ../LibraryManagementAPI/LibraryManagementSystem/wwwroot/stats-es2015.json"
   },

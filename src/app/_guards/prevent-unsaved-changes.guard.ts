@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class PreventUnsavedChangesGuard implements CanActivate {
   canActivate(
-    // TODO is this needed?
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

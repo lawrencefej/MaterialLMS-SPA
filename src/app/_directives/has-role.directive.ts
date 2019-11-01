@@ -8,20 +8,17 @@ import { User } from '../_models/user';
 @Directive({
   selector: '[appHasRole]'
 })
-export class HasRoleDirective implements OnInit, OnDestroy {
+export class HasRoleDirective implements OnInit {
   @Input() appHasRole: string[];
   isVisible = false;
-  loggedInUser$: Observable<User>;
   currentUser: User;
-  currentUserSubscription: Subscription;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
     private authService: AuthService
   ) {
-    this.loggedInUser$ = this.authService.getLoggedInUser();
-    this.currentUserSubscription = this.loggedInUser$.subscribe(x => (this.currentUser = x));
+    this.authService.loggedInUser$.subscribe(user => this.currentUser = user);
   }
 
   ngOnInit() {
@@ -48,9 +45,5 @@ export class HasRoleDirective implements OnInit, OnDestroy {
       this.isVisible = false;
       this.viewContainerRef.clear();
     }
-  }
-
-  ngOnDestroy() {
-    this.currentUserSubscription.unsubscribe();
   }
 }
