@@ -9,17 +9,23 @@ import {
 import { Observable, throwError } from 'rxjs';
 
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError } from 'rxjs/internal/operators/catchError';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  constructor(private router: Router) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {
-        // TODO use route to error components for certain errors
         if (error instanceof HttpErrorResponse) {
           if (error.status === (401 || 403)) {
             return throwError(error.statusText);
+          }
+
+          if (error.status === 500) {
+            // console.log(error.error);
+            this.router.navigate(['/server-error']);
           }
           const applicationError = error.headers.get('Application-Error');
           if (applicationError) {

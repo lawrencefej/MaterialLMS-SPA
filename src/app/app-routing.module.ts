@@ -26,6 +26,7 @@ import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberSearchComponent } from './main/member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { ServerErrorComponent } from './shared/error-pages/server-error/server-error.component';
 import { UserProfileComponent } from './main/user/user-profile/user-profile.component';
 import { UserProfileResolver } from './_resolver/user-profile.resolver';
 
@@ -94,7 +95,7 @@ const routes: Routes = [
         path: 'user-profile',
         component: UserProfileComponent,
         resolve: {user: UserProfileResolver}
-      }
+      },
     ]
   },
   {
@@ -102,10 +103,12 @@ const routes: Routes = [
     component: LoginLayoutComponent,
     children: [
       { path: 'login', component: LoginComponent },
+      { path: 'server-error', component: ServerErrorComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'reset-password/:id/:code', component: ResetPasswordComponent }
     ]
   },
+  {path: 'server-error', component: ServerErrorComponent},
   { path: '**', redirectTo: 'member-search', pathMatch: 'full' }
 ];
 
