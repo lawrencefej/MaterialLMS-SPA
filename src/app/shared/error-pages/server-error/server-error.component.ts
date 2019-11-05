@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-server-error',
   templateUrl: './server-error.component.html',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServerErrorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  onClick() {
+    this.router.navigate(['/']);
   }
 
 }

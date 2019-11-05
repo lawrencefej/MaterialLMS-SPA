@@ -1,8 +1,13 @@
-<section fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="30px">
-  <div fxFlex class="error-title">
-    <p>500 Server Error :(</p>
+<div fxLayout="column" fxLayoutAlign="center center" class="container">
+  <div class="mat-display-4">
+    OOPS! &#x2639;
   </div>
-  <div fxFlex class="error-message">
-    <p>Opps! looks like something went wrong, Please try again later.</p>
+  <div fxFlex class="error-title mat-h1">
+    <p>500 Server Error</p>
   </div>
-</section>
+  <div fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="20px" class="error-message">
+    <div FxFlex>Looks like something went wrong with the server, Please try again later or contact your administrator.
+    </div>
+    <button fxFlex mat-raised-button color="primary" (click)="onClick()">Go To Homepage</button>
+  </div>
+</div>

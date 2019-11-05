@@ -1,9 +1,9 @@
-.error-title {
-    font-size: 50px;
-    color: #f44336;
+.container {
+    margin: auto;
+    margin-top: 5%;
+    color: #3f51b5;
 }
 
-.error-message {
-    font-size: 20px;
-    color: #3f51b5;
+.error-title {
+    color: #f44336;
 }

@@ -11,7 +11,7 @@ import { AuthorAssetComponent } from './main/author/author-asset/author-asset.co
 import { AuthorAssetResolver } from './_resolver/author-asset.resolver';
 import { AuthorListComponent } from './main/author/author-list/author-list.component';
 import { AuthorListResolver } from './_resolver/author-list.resolver';
-import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component';
+import { BaseLayoutComponent } from './shared/layout/base-layout/base-layout.component';
 import { CheckoutListComponent } from './main/checkout/checkout-list/checkout-list.component';
 import { CheckoutListResolver } from './_resolver/checkout-list.resolver';
 import { DashboardPanelComponent } from './dashboard/dashboard-panel/dashboard-panel.component';
@@ -25,6 +25,7 @@ import { MemberListComponent } from './main/member/member-list/member-list.compo
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberSearchComponent } from './main/member/member-search/member-search.component';
 import { NgModule } from '@angular/core';
+import { NotFoundComponent } from './shared/error-pages/not-found/not-found.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ServerErrorComponent } from './shared/error-pages/server-error/server-error.component';
 import { UserProfileComponent } from './main/user/user-profile/user-profile.component';
@@ -86,6 +87,10 @@ const routes: Routes = [
         data: { allowedRoles: ['Admin', 'Librarian'] },
         resolve: { author: AuthorAssetResolver }
       },
+      // {
+      //   path: 'dashboard',
+      //   loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+      // },
       {
         path: 'dashboard',
         component: DashboardPanelComponent,
@@ -94,8 +99,8 @@ const routes: Routes = [
       {
         path: 'user-profile',
         component: UserProfileComponent,
-        resolve: {user: UserProfileResolver}
-      },
+        resolve: { user: UserProfileResolver }
+      }
     ]
   },
   {
@@ -104,12 +109,14 @@ const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'server-error', component: ServerErrorComponent },
+      { path: 'not-found-error', component: NotFoundComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'reset-password/:id/:code', component: ResetPasswordComponent }
     ]
   },
-  {path: 'server-error', component: ServerErrorComponent},
-  { path: '**', redirectTo: 'member-search', pathMatch: 'full' }
+  // { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'server-error', component: ServerErrorComponent },
+  { path: '**', redirectTo: 'not-found-error', pathMatch: 'full' }
 ];
 
 @NgModule({

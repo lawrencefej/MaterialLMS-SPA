@@ -1,18 +1,23 @@
+import { AuthRoutingModule } from './auth.routing';
+import { CommonModule } from '@angular/common';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
+import { MaterialModule } from '../material.module';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     ForgotPasswordComponent,
     LoginComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
   ],
   imports: [
-    SharedModule,
-
+    ReactiveFormsModule,
+    MaterialModule,
+    CommonModule,
+    AuthRoutingModule,
   ],
   exports: [
     ForgotPasswordComponent,
