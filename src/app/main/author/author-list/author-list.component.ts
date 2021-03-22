@@ -24,8 +24,8 @@ export class AuthorListComponent implements AfterViewInit, OnInit {
   searchString = '';
   displayedColumns = ['firstName', 'lastName', 'actions'];
   paginationOptions = new Pagination();
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private authorService: AuthorService,

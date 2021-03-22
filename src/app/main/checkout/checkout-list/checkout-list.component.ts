@@ -27,8 +27,8 @@ export class CheckoutListComponent implements AfterViewInit, OnInit {
     { id: 3, name: 'Returned', value: 'returned' }
   ];
   paginationOptions = new Pagination();
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private checkoutService: CheckoutService,

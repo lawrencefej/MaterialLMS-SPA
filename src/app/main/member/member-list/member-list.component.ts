@@ -24,8 +24,8 @@ export class MemberListComponent implements AfterViewInit, OnInit {
   searchString = '';
   displayedColumns = ['libraryCardNumber', 'firstName', 'lastName', 'email', 'actions'];
   paginationOptions = new Pagination();
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private memberService: MemberService,

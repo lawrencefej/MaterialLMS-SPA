@@ -24,8 +24,8 @@ export class AuthorAssetComponent implements OnInit {
   dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
   paginationOptions = new Pagination();
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private authorService: AuthorService,
