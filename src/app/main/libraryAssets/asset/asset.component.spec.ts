@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AssetComponent } from './asset.component';
 import { By } from '@angular/platform-browser';
@@ -10,7 +10,7 @@ describe('AddAssetComponent', () => {
   let component: AssetComponent;
   let fixture: ComponentFixture<AssetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AssetComponent ]
     })
