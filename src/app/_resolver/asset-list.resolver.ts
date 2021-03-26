@@ -1,12 +1,11 @@
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 import { AssetService } from '../_services/asset.service';
 import { Injectable } from '@angular/core';
 import { LibraryAsset } from '../_models/libraryAsset';
 import { NotificationService } from '../_services/notification.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { of } from 'rxjs/internal/observable/of';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AssetListResolver implements Resolve<LibraryAsset[]> {
@@ -14,7 +13,7 @@ export class AssetListResolver implements Resolve<LibraryAsset[]> {
   pageSize = 5;
   constructor(
     private assetService: AssetService,
-    private  notify: NotificationService,
+    private notify: NotificationService,
     private router: Router
   ) {}
 
@@ -22,7 +21,7 @@ export class AssetListResolver implements Resolve<LibraryAsset[]> {
     return this.assetService
       .getPaginatedAssets(this.pageNumber, this.pageSize, '', '', '')
       .pipe(
-        catchError(error => {
+        catchError((error) => {
           this.notify.error('Problem retrieving data');
           this.router.navigate(['/memberSearch']);
           return of(null);

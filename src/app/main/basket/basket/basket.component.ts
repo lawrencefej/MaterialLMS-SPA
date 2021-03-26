@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 import { BasketService } from 'src/app/_services/basket.service';
 import { Checkout } from 'src/app/_models/checkout';
 import { CheckoutService } from 'src/app/_services/checkout.service';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.css']
+  styleUrls: ['./basket.component.css'],
 })
 export class BasketComponent implements OnInit {
   public basketItems$: Observable<Checkout[]> = of([]);
@@ -22,7 +21,7 @@ export class BasketComponent implements OnInit {
     private notify: NotificationService
   ) {
     this.basketItems$ = this.basketService.getItemsInBasket();
-    this.basketItems$.subscribe(_ => (this.basketItems = _));
+    this.basketItems$.subscribe((_) => (this.basketItems = _));
   }
 
   ngOnInit() {}
@@ -41,7 +40,7 @@ export class BasketComponent implements OnInit {
         this.notify.success('checked out successfully');
         this.clearBasket();
       },
-      error => {
+      (error) => {
         this.notify.error(error);
       }
     );

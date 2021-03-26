@@ -16,11 +16,11 @@ import { Pagination } from 'src/app/_models/pagination';
 @Component({
   selector: 'app-author-asset',
   templateUrl: './author-asset.component.html',
-  styleUrls: ['./author-asset.component.css']
+  styleUrls: ['./author-asset.component.css'],
 })
 export class AuthorAssetComponent implements OnInit {
   author: Author;
-  assets: LibraryAsset[];
+  assets: LibraryAsset[] = [];
   dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
   paginationOptions = new Pagination();
@@ -36,7 +36,7 @@ export class AuthorAssetComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.author = data.author;
     });
     this.getAssets();
@@ -50,7 +50,7 @@ export class AuthorAssetComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
-      error => {
+      (error) => {
         this.notify.error(error);
       }
     );
@@ -69,7 +69,7 @@ export class AuthorAssetComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.width = '640px';
     dialogConfig.data = {
-      author: this.author
+      author: this.author,
     };
     this.dialog.open(AssetComponent, dialogConfig);
   }
@@ -90,17 +90,22 @@ export class AuthorAssetComponent implements OnInit {
     this.notify
       .confirm('Are you sure you sure you want to delete this item')
       .afterClosed()
-      .subscribe(res => {
+      .subscribe((res) => {
         if (res) {
           this.assetService.deleteAsset(asset.id).subscribe(
             () => {
-              this.assets.splice(this.assets.findIndex(x => x.id === asset.id), 1);
+              this.assets.splice(
+                this.assets.findIndex((x) => x.id === asset.id),
+                1
+              );
               this.notify.warn('Item was deleted successfully');
-              this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
+              this.dataSource = new MatTableDataSource<LibraryAsset>(
+                this.assets
+              );
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
             },
-            error => {
+            (error) => {
               this.notify.error(error);
             }
           );

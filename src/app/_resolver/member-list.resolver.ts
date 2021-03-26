@@ -1,12 +1,11 @@
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { MemberService } from './../_services/member.service';
 import { NotificationService } from '../_services/notification.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../_models/user';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { of } from 'rxjs/internal/observable/of';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class MemberListResolver implements Resolve<User[]> {

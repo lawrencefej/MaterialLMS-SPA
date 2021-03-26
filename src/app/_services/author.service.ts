@@ -7,10 +7,10 @@ import { LibraryAsset } from '../_models/libraryAsset';
 import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthorService {
   baseUrl = environment.apiUrl + 'author/';
@@ -70,10 +70,10 @@ export class AuthorService {
     return this.http
       .get<Checkout[]>(this.baseUrl + 'pagination', {
         observe: 'response',
-        params
+        params,
       })
       .pipe(
-        map(response => {
+        map((response) => {
           paginatedResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
             paginatedResult.pagination = JSON.parse(

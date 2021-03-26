@@ -1,14 +1,14 @@
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators/';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   baseurl = environment.apiUrl + 'auth/';
@@ -21,7 +21,7 @@ export class AuthService {
   currentPhotoUrl = this.photoUrl.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
-    this.loggedInUser$.subscribe(user => this.loggedInUser = user);
+    this.loggedInUser$.subscribe((user) => (this.loggedInUser = user));
   }
 
   changeMemberPhoto(photoUrl: string) {

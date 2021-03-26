@@ -1,10 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-prevent-unsaved',
   templateUrl: './prevent-unsaved.component.html',
-  styleUrls: ['./prevent-unsaved.component.css']
+  styleUrls: ['./prevent-unsaved.component.css'],
 })
 export class PreventUnsavedComponent implements OnInit {
   constructor(

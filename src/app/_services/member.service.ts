@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MemberService {
   baseUrl = environment.apiUrl + 'member/';
@@ -51,7 +51,9 @@ export class MemberService {
     sortDirection?: string,
     searchString?: string
   ): Observable<PaginatedResult<User[]>> {
-    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<
+      User[]
+    >();
 
     let params = new HttpParams();
 
@@ -67,13 +69,15 @@ export class MemberService {
     return this.http
       .get<User[]>(this.baseUrl + 'pagination', {
         observe: 'response',
-        params
+        params,
       })
       .pipe(
-        map(response => {
+        map((response) => {
           paginatedResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
-            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
           }
           return paginatedResult;
         })
