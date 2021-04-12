@@ -27,6 +27,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { LoaderInterceptor } from './_services/loader-interceptor';
 import { LoaderService } from './_services/loader.service';
 import { MainModule } from './main/main.module';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -70,19 +71,7 @@ export function tokenGetter() {
     MatMenuModule,
     MatCardModule,
     MatListModule,
-    // ConfirmDialogComponent,
-    // DashboardLayoutComponent,
-    // DefaultLayoutComponent,
-    // FooterComponent,
-    // HasRoleDirective,
-    // HeaderComponent,
-    // LoginLayoutComponent,
-    // NotFoundComponent,
-    // PhoneNumberPipe,
-    // PreventUnsavedComponent,
-    // ProgressSpinnerComponent,
-    // ServerErrorComponent,
-    // SidebarComponent,
+    MatButtonModule,
     SharedModule,
     JwtModule.forRoot({
       config: {
