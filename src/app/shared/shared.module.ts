@@ -10,7 +10,12 @@ import { FooterComponent } from './navigation/footer/footer.component';
 import { HasRoleDirective } from '../_directives/has-role.directive';
 import { HeaderComponent } from './navigation/header/header.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
-import { MaterialModule } from '../material.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { PhoneNumberPipe } from './pipes/phone-number.pipe';
@@ -33,14 +38,14 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
     HasRoleDirective,
     HeaderComponent,
     LoginLayoutComponent,
-    MaterialModule,
+    // MaterialModule,
     NotFoundComponent,
     PhoneNumberPipe,
     PreventUnsavedComponent,
     ProgressSpinnerComponent,
     ReactiveFormsModule,
     ServerErrorComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -55,20 +60,22 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
     PreventUnsavedComponent,
     ProgressSpinnerComponent,
     ServerErrorComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     AppRoutingModule,
     CommonModule,
     FlexLayoutModule,
     FormsModule,
-    MaterialModule,
+    // MyMaterialModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatListModule,
+    MatToolbarModule,
+    MatDialogModule,
   ],
-  entryComponents: [
-    ConfirmDialogComponent,
-    PreventUnsavedComponent,
-  ]
+  entryComponents: [ConfirmDialogComponent, PreventUnsavedComponent],
 })
 export class SharedModule {}

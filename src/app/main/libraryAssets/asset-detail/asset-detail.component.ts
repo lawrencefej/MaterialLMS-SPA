@@ -17,7 +17,7 @@ import { PhotoService } from 'src/app/_services/photo.service';
   styleUrls: ['./asset-detail.component.css']
 })
 export class AssetDetailComponent implements OnInit {
-  @ViewChild('fileInput', { static: false }) myInputVariable: ElementRef;
+  @ViewChild('fileInput') myInputVariable: ElementRef;
   displayedColumns = ['libraryCardId', 'until', 'status'];
   asset: LibraryAsset;
   checkouts: Checkout[];

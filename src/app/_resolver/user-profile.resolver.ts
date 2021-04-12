@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { NotificationService } from '../_services/notification.service';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
-import { catchError } from 'rxjs/internal/operators/catchError';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class UserProfileResolver implements Resolve<User> {
@@ -19,7 +19,7 @@ export class UserProfileResolver implements Resolve<User> {
 
   resolve(): Observable<User> {
     return this.userService.getUser(this.authService.loggedInUser.id).pipe(
-      catchError(error => {
+      catchError((error) => {
         this.notify.error('Problem retrieving data');
         this.router.navigate(['/members']);
         return of(null);

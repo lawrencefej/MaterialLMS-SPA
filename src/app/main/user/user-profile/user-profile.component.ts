@@ -15,7 +15,7 @@ import { UserProfileEditComponent } from '../user-profile-edit/user-profile-edit
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  @ViewChild('fileInput', { static: false }) myInputVariable: ElementRef;
+  @ViewChild('fileInput') myInputVariable: ElementRef;
   user: User;
 
   constructor(

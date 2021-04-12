@@ -5,12 +5,16 @@ import { Injectable } from '@angular/core';
 import { NotificationService } from '../_services/notification.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../_models/user';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { of } from 'rxjs/internal/observable/of';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable()
 export class AdminListResolver implements Resolve<User[]> {
-  constructor(private adminService: AdminService, private notify: NotificationService, private router: Router) {}
+  constructor(
+    private adminService: AdminService,
+    private notify: NotificationService,
+    private router: Router
+  ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
     return this.adminService.getAdmins().pipe(

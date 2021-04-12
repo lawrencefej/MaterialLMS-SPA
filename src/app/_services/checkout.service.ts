@@ -5,10 +5,10 @@ import { Checkout } from '../_models/checkout';
 import { Injectable } from '@angular/core';
 import { PaginatedResult } from '../_models/pagination';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CheckoutService {
   private baseUrl = environment.apiUrl + 'checkouts/';
@@ -39,9 +39,7 @@ export class CheckoutService {
   }
 
   getCheckoutsForAsset(assetId: number): Observable<Checkout[]> {
-    return this.http.get<Checkout[]>(
-      this.baseUrl + 'asset/' + assetId
-    );
+    return this.http.get<Checkout[]>(this.baseUrl + 'asset/' + assetId);
   }
 
   checkoutAsset(checkout: Checkout) {
@@ -85,10 +83,10 @@ export class CheckoutService {
     return this.http
       .get<Checkout[]>(this.baseUrl + 'pagination', {
         observe: 'response',
-        params
+        params,
       })
       .pipe(
-        map(response => {
+        map((response) => {
           paginatedResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
             paginatedResult.pagination = JSON.parse(

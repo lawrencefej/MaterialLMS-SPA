@@ -15,17 +15,23 @@ import { merge } from 'rxjs';
 @Component({
   selector: 'app-member-list',
   templateUrl: './member-list.component.html',
-  styleUrls: ['./member-list.component.css']
+  styleUrls: ['./member-list.component.css'],
 })
 export class MemberListComponent implements AfterViewInit, OnInit {
-  members: User[];
+  members: User[] = [];
   pagination: Pagination;
   dataSource = new MatTableDataSource<User>(this.members);
   searchString = '';
-  displayedColumns = ['libraryCardNumber', 'firstName', 'lastName', 'email', 'actions'];
+  displayedColumns = [
+    'libraryCardNumber',
+    'firstName',
+    'lastName',
+    'email',
+    'actions',
+  ];
   paginationOptions = new Pagination();
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private memberService: MemberService,
@@ -35,7 +41,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.pagination = data.members.pagination;
       this.members = data.members.result;
       this.dataSource = new MatTableDataSource<User>(this.members);
@@ -82,16 +88,19 @@ export class MemberListComponent implements AfterViewInit, OnInit {
     this.notify
       .confirm('Are you sure you sure you want to delete this member')
       .afterClosed()
-      .subscribe(res => {
+      .subscribe((res) => {
         if (res) {
           this.memberService.deleteMember(member.id).subscribe(
             () => {
-              this.members.splice(this.members.findIndex(x => x.id === member.id), 1);
+              this.members.splice(
+                this.members.findIndex((x) => x.id === member.id),
+                1
+              );
               this.notify.success('Member was deleted successfully');
               this.pagination.totalItems--;
               this.dataSource = new MatTableDataSource<User>(this.members);
             },
-            error => {
+            (error) => {
               this.notify.error(error);
             }
           );
@@ -113,7 +122,7 @@ export class MemberListComponent implements AfterViewInit, OnInit {
           this.members = res.result;
           this.dataSource = new MatTableDataSource<User>(this.members);
         },
-        error => {
+        (error) => {
           this.notify.error(error);
         }
       );

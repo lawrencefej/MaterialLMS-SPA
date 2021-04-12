@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AuthorComponent } from './author.component';
 import { By } from '@angular/platform-browser';
@@ -10,7 +10,7 @@ describe('AddAuthorComponent', () => {
   let component: AuthorComponent;
   let fixture: ComponentFixture<AuthorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AuthorComponent ]
     })

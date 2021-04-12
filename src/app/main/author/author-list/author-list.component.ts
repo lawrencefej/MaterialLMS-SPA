@@ -10,22 +10,22 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { merge } from 'rxjs/internal/observable/merge';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-author-list',
   templateUrl: './author-list.component.html',
-  styleUrls: ['./author-list.component.css']
+  styleUrls: ['./author-list.component.css'],
 })
 export class AuthorListComponent implements AfterViewInit, OnInit {
-  authors: Author[];
+  authors: Author[] = [];
   pagination: Pagination;
   dataSource = new MatTableDataSource<Author>(this.authors);
   searchString = '';
   displayedColumns = ['firstName', 'lastName', 'actions'];
   paginationOptions = new Pagination();
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private authorService: AuthorService,
@@ -35,7 +35,7 @@ export class AuthorListComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.pagination = data.authors.pagination;
       this.authors = data.authors.result;
       this.dataSource = new MatTableDataSource<Author>(this.authors);
@@ -92,7 +92,7 @@ export class AuthorListComponent implements AfterViewInit, OnInit {
           this.authors = res.result;
           this.dataSource = new MatTableDataSource<Author>(this.authors);
         },
-        error => {
+        (error) => {
           this.notify.error(error);
         }
       );

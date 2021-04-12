@@ -20,7 +20,7 @@ import { User } from 'src/app/_models/user';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-  @ViewChild('fileInput', { static: false }) myInputVariable: ElementRef;
+  @ViewChild('fileInput') myInputVariable: ElementRef;
   displayedColumns = ['title', 'until', 'status', 'action'];
   member: User;
   checkouts: Checkout[];

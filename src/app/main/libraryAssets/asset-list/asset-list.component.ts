@@ -10,22 +10,22 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/_services/notification.service';
-import { merge } from 'rxjs/internal/observable/merge';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-asset-list',
   templateUrl: './asset-list.component.html',
-  styleUrls: ['./asset-list.component.css']
+  styleUrls: ['./asset-list.component.css'],
 })
 export class AssetListComponent implements AfterViewInit, OnInit {
-  assets: LibraryAsset[];
+  assets: LibraryAsset[] = [];
   pagination: Pagination;
   dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
   searchString = '';
   displayedColumns = ['title', 'authorName', 'year', 'assetType', 'actions'];
   paginationOptions = new Pagination();
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   constructor(
     private assetService: AssetService,
     private route: ActivatedRoute,
@@ -34,7 +34,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.pagination = data.assets.pagination;
       this.assets = data.assets.result;
       this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
@@ -81,16 +81,21 @@ export class AssetListComponent implements AfterViewInit, OnInit {
     this.notify
       .confirm('Are you sure you sure you want to delete this item')
       .afterClosed()
-      .subscribe(res => {
+      .subscribe((res) => {
         if (res) {
           this.assetService.deleteAsset(asset.id).subscribe(
             () => {
-              this.assets.splice(this.assets.findIndex(x => x.id === asset.id), 1);
+              this.assets.splice(
+                this.assets.findIndex((x) => x.id === asset.id),
+                1
+              );
               this.notify.warn('Item was deleted successfully');
               this.pagination.totalItems--;
-              this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
+              this.dataSource = new MatTableDataSource<LibraryAsset>(
+                this.assets
+              );
             },
-            error => {
+            (error) => {
               this.notify.error(error);
             }
           );
@@ -112,7 +117,7 @@ export class AssetListComponent implements AfterViewInit, OnInit {
           this.assets = res.result;
           this.dataSource = new MatTableDataSource<LibraryAsset>(this.assets);
         },
-        error => {
+        (error) => {
           this.notify.error(error);
         }
       );
