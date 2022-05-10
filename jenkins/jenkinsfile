@@ -51,6 +51,7 @@ String getTag() {
     echo 'made it here'
     return tag
   }
+  echo 'didnt make it'
   return null
   }
 
