@@ -7,13 +7,13 @@ pipeline {
       environment {
         commit = "${ env.GIT_COMMIT }"
         tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
-        tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
+        // tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
       }
           steps {
             script {
               echo "commit = ${commit}"
               echo "tag = ${tag}"
-              echo "tag2 = ${tag2}"
+              // echo "tag2 = ${tag2}"
               if (tag) {
             version = tag
                 } else {
