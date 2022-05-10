@@ -1,28 +1,28 @@
-def version
+def String version = getVersion()
 
 pipeline {
     agent any
     stages {
         stage('initialize_variables') {
-      environment {
-        commit = "${ env.GIT_COMMIT }"
-        // tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
-        tag = getTag()
-        tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
-      }
+          // environment {
+          //   commit = "${ env.GIT_COMMIT }"
+          //   // tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
+          //   tag = getTag()
+          //   tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
+          // }
           steps {
             script {
-          if (env.tag) {
-            echo 'setting version as tag'
-            version = tag
-                  } else {
-            echo 'setting version as commit'
-            version = commit
-          }
-              echo "commit = ${commit}"
+              // if (env.tag) {
+              //   echo 'setting version as tag'
+              //   version = tag
+              //         } else {
+              //   echo 'setting version as commit'
+              //   version = commit
+              // }
+              // echo "commit = ${commit}"
               echo "version = ${version}"
-              echo "tag = ${tag}"
-            echo "tag2 = ${tag2}"
+            //   echo "tag = ${tag}"
+            // echo "tag2 = ${tag2}"
             }
           }
         }
@@ -43,17 +43,29 @@ pipeline {
     }
 }
 
-def getTag() {
-  tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
-  // if (env.tag != '') {
-  echo "gettag = ${tag}"
-  if (env.tag != '') {
-    echo 'made it here'
-    return tag
+// def getTag() {
+//   tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
+//   // if (env.tag != '') {
+//   echo "gettag = ${tag}"
+//   if (env.tag != '') {
+//     echo 'made it here'
+//     return tag
+//   }
+//   echo 'didnt make it'
+//   return null
+//   }
+
+String getVersion() {
+  tag1 = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
+
+  if (tag1) {
+    echo 'returning tag'
+    return tag1
   }
-  echo 'didnt make it'
-  return null
-  }
+
+  echo 'returning commit sha'
+  return "${ env.GIT_COMMIT }"
+}
 
 // def getRepoURL() {
 //   sh "git config --get remote.origin.url > .git/remote-url"
