@@ -41,9 +41,9 @@ pipeline {
     }
 }
 
-def getTag() {
+String getTag() {
   tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
-  if (env.tag) {
+  if (env.tag != '') {
     return tag
   }
   return null
