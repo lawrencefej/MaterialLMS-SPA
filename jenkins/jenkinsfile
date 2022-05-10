@@ -12,11 +12,11 @@ pipeline {
       }
           steps {
             script {
-              //   if (env.tag) {
-              // version = tag
-              //     } else {
-              // version = commit
-              //   }
+          if (env.tag) {
+            version = tag
+                  } else {
+            version = commit
+          }
               echo "commit = ${commit}"
               echo "version = ${version}"
               echo "tag = ${tag}"
