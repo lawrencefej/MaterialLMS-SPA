@@ -30,12 +30,6 @@ pipeline {
         }
         stage('Clone the repo') {
       steps {
-        // echo 'clone the repo'
-        // sh 'rm -fr MaterialLMS-SPA'
-        // sh 'git clone https://github.com/lawrencefej/MaterialLMS-SPA.git'
-        // sh 'cd MaterialLMS-SPA'
-        sh 'ls -alh'
-        // testfunc()
         echo "commit = ${env.GIT_COMMIT}"
         echo "version = ${version}"
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
@@ -46,17 +40,17 @@ pipeline {
 }
 
 String getVersion() {
-  tag1 = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
-  desc = sh(script: "git describe --tags ${env.GIT_COMMIT}", returnStdout: true)?.trim()
-  echo "tag1 = ${env.tag1}"
-  echo "desc = ${env.desc}"
+  tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
+  // desc = sh(script: "git describe --tags ${env.GIT_COMMIT}", returnStdout: true)?.trim()
+  echo "tag = ${env.tag}"
+  // echo "desc = ${env.desc}"
 
-  if (tag1 != null) {
+  if (env.tag) {
     echo 'returning tag'
-    return tag1
+    return env.tag
   }
 
-  echo 'returning commit shas'
+  echo 'returning commit sha'
   echo "commit in the func = ${env.GIT_COMMIT}"
   commit = "${ env.GIT_COMMIT }"
   return commit
