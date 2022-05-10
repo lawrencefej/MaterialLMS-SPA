@@ -51,5 +51,5 @@ String getVersion() {
 
   echo 'returning commit sha'
   echo "commit in the func = ${env.GIT_COMMIT}"
-  return env.GIT_COMMIT.take(7)
+  return env.GIT_COMMIT
 }
