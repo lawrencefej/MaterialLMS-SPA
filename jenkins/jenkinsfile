@@ -1,16 +1,16 @@
-def version
+// def version
 
 pipeline {
     agent any
     stages {
         stage('initialize_variables') {
-          // environment {
-          //   // commit = "${ env.GIT_COMMIT }"
-          //   // // tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
-          //   // tag = getTag()
-          //   // tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
-          //   version = getVersion()
-          // }
+          environment {
+            // commit = "${ env.GIT_COMMIT }"
+            // // tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
+            // tag = getTag()
+            // tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
+            VERSION = getVersion()
+          }
           steps {
             script {
               // if (env.tag) {
@@ -21,8 +21,8 @@ pipeline {
               //   version = commit
               // }
               // echo "commit = ${commit}"
-              version = getVersion()
-              echo "version = ${version}"
+              // version = getVersion()
+              echo "version = ${VERSION}"
             //   echo "tag = ${tag}"
             // echo "tag2 = ${tag2}"
             }
@@ -31,7 +31,7 @@ pipeline {
         stage('Clone the repo') {
       steps {
         echo "commit = ${env.GIT_COMMIT}"
-        echo "version = ${version}"
+        echo "version = ${VERSION}"
         echo "commit take 7 = ${env.GIT_COMMIT.take(7)}"
       }
         }
