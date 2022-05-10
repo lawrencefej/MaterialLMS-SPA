@@ -13,9 +13,10 @@ pipeline {
           steps {
             script {
           if (env.tag) {
-            echo 'made it here too'
+            echo 'setting version as tag'
             version = tag
                   } else {
+            echo 'setting version as commit'
             version = commit
           }
               echo "commit = ${commit}"
