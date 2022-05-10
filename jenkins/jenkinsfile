@@ -32,7 +32,6 @@ pipeline {
       steps {
         echo "commit = ${env.GIT_COMMIT}"
         echo "version = ${version}"
-        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
         echo "commit take 7 = ${env.GIT_COMMIT.take(7)}"
       }
         }
@@ -41,9 +40,9 @@ pipeline {
 
 String getVersion() {
   tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
-  // desc = sh(script: "git describe --tags ${env.GIT_COMMIT}", returnStdout: true)?.trim()
+  desc = sh(script: "git describe --tags ${env.GIT_COMMIT}", returnStdout: true)?.trim()
   echo "tag = ${env.tag}"
-  // echo "desc = ${env.desc}"
+  echo "desc = ${env.desc}"
 
   if (env.tag) {
     echo 'returning tag'
@@ -52,7 +51,5 @@ String getVersion() {
 
   echo 'returning commit sha'
   echo "commit in the func = ${env.GIT_COMMIT}"
-  commit = "${ env.GIT_COMMIT }"
-  // return commit
   return env.GIT_COMMIT
 }
