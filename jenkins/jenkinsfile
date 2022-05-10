@@ -43,11 +43,11 @@ pipeline {
     }
 }
 
-String getTag() {
+def getTag() {
   tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
   // if (env.tag != '') {
   echo "gettag = ${tag}"
-  if (env.tag.plainText().empty()) {
+  if (env.tag != '') {
     echo 'made it here'
     return tag
   }
