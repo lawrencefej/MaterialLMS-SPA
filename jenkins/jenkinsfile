@@ -17,8 +17,9 @@ pipeline {
             // version = commit
             //   }
               echo "commit = ${commit}"
+              echo "version = ${version}"
               echo "tag = ${tag}"
-              echo "tag2 = ${tag2}"
+              // echo "tag2 = ${tag2}"
             }
           }
         }
