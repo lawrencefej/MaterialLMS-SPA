@@ -4,11 +4,11 @@ pipeline {
     agent any
     stages {
         stage('initialize_variables') {
+      environment {
+        commit = "${ env.GIT_COMMIT }"
+        tag = sh(script: 'git --no-pager show -s --format=\'%ae\'', returnStdout: true).trim()
+      }
           steps {
-            environment {
-              commit = "${ env.GIT_COMMIT }"
-              tag = sh(script: 'git --no-pager show -s --format=\'%ae\'', returnStdout: true).trim()
-            }
             script {
               echo "commit = ${commit}"
               echo "tag = ${tag}"
