@@ -1,17 +1,33 @@
-def repoUrl;
+def version
+
 pipeline {
     agent any
     stages {
+        stage('initialize_variables') {
+            environment {
+                commit = ${ env.GIT_COMMIT }
+                echo "commit = ${commit}"
+                tag = sh(script: 'git --no-pager show -s --format=\'%ae\'', returnStdout: true).trim()
+                echo "tag = ${tag}"
+            }
+            script {
+                if (tag) {
+                    version = tag
+                } else {
+                    version = commit
+                }
+            }
+        }
         stage('Clone the repo') {
             steps {
-                    // echo 'clone the repo'
-                    // sh 'rm -fr MaterialLMS-SPA'
-                    // sh 'git clone https://github.com/lawrencefej/MaterialLMS-SPA.git'
-                    // sh 'cd MaterialLMS-SPA'
+                // echo 'clone the repo'
+                // sh 'rm -fr MaterialLMS-SPA'
+                // sh 'git clone https://github.com/lawrencefej/MaterialLMS-SPA.git'
+                // sh 'cd MaterialLMS-SPA'
                 sh 'ls -alh'
                 // testfunc()
                 echo "commit = ${env.GIT_COMMIT}"
-                echo "repoUrl = ${repoUrl}"
+                echo "version = ${version}"
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                 echo "commit take 7 = ${env.GIT_COMMIT.take(7)}"
             }
