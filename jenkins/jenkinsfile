@@ -69,7 +69,7 @@ String getVersion() {
     return tag1
   }
 
-  echo 'returning commit sha'
+  echo 'returning commit shas'
   echo "commit in the func = ${env.GIT_COMMIT}"
   commit = "${ env.GIT_COMMIT }"
   return commit
