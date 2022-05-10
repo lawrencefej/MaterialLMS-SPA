@@ -47,7 +47,7 @@ String getTag() {
   tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
   // if (env.tag != '') {
   echo "gettag = ${tag}"
-  if (env.tag) {
+  if (env.tag.isEmpty()) {
     echo 'made it here'
     return tag
   }
