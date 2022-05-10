@@ -13,6 +13,7 @@ pipeline {
                 echo "commit = ${env.GIT_COMMIT}"
                 echo "repoUrl = ${repoUrl}"
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                echo "commit take 7 = ${env.GIT_COMMIT.take(7)}"
             }
         }
     }
