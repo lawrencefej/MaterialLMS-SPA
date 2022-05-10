@@ -59,8 +59,8 @@ pipeline {
 //   }
 
 String getVersion() {
-  tag1 = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
-  desc = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
+  tag1 = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
+  desc = sh(script: "git describe --tags ${env.GIT_COMMIT}", returnStdout: true)?.trim()
   echo "tag1 = ${env.tag1}"
   echo "desc = ${env.desc}"
 
