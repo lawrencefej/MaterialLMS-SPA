@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('initialize_variables') {
             environment {
-                commit = ${ env.GIT_COMMIT }
+                commit = "${ env.GIT_COMMIT }"
                 echo "commit = ${commit}"
                 tag = sh(script: 'git --no-pager show -s --format=\'%ae\'', returnStdout: true).trim()
                 echo "tag = ${tag}"
