@@ -11,7 +11,7 @@ pipeline {
       }
           steps {
             script {
-              if (tag) {
+              if (env.tag) {
             version = tag
                 } else {
             version = commit
