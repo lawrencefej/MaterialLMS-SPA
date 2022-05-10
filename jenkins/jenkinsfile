@@ -9,10 +9,10 @@ pipeline {
             // // tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
             // tag = getTag()
             // tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
-            VERSION = getVersion()
           }
           steps {
             script {
+              VERSION = getVersion()
               // if (env.tag) {
               //   echo 'setting version as tag'
               //   version = tag
