@@ -60,8 +60,9 @@ pipeline {
 
 String getVersion() {
   tag1 = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
+  echo "tag1 = ${env.tag1}"
 
-  if (tag1?.trim()) {
+  if (tag1) {
     echo 'returning tag'
     return tag1
   }
