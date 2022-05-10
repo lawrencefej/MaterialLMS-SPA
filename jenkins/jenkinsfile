@@ -1,0 +1,28 @@
+def repoUrl;
+pipeline {
+    agent any
+    stages {
+        stage('Clone the repo') {
+            steps {
+                    // echo 'clone the repo'
+                    // sh 'rm -fr MaterialLMS-SPA'
+                    // sh 'git clone https://github.com/lawrencefej/MaterialLMS-SPA.git'
+                    // sh 'cd MaterialLMS-SPA'
+                sh 'ls -alh'
+                // testfunc()
+                echo "commit = ${env.GIT_COMMIT}"
+                echo "repoUrl = ${repoUrl}"
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            }
+        }
+    }
+}
+
+// def getRepoURL() {
+//   sh "git config --get remote.origin.url > .git/remote-url"
+//   return readFile(".git/remote-url").trim()
+// }
+
+// def testfunc() {
+//     repoUrl = getRepoURL()
+// }
