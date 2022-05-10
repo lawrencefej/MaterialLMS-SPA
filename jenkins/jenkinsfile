@@ -4,13 +4,13 @@ pipeline {
     agent any
     stages {
         stage('initialize_variables') {
-          environment {
-            // commit = "${ env.GIT_COMMIT }"
-            // // tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
-            // tag = getTag()
-            // tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
-            version = getVersion()
-          }
+          // environment {
+          //   // commit = "${ env.GIT_COMMIT }"
+          //   // // tag = sh(script: 'git tag --points-at=HEAD', returnStdout: true)?.trim()
+          //   // tag = getTag()
+          //   // tag2 = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
+          //   version = getVersion()
+          // }
           steps {
             script {
               // if (env.tag) {
@@ -61,7 +61,7 @@ pipeline {
 String getVersion() {
   tag1 = sh(script: 'git tag --points-at=HEAD', returnStdout: true).trim()
 
-  if (tag1) {
+  if (tag1?.trim()) {
     echo 'returning tag'
     return tag1
   }
