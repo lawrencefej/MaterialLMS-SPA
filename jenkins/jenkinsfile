@@ -3,10 +3,10 @@ VERSION
 pipeline {
     agent any
 
-    environment {
-      // VERSION = getVersion()
-      // VERSION = getVersion()
-    }
+    // environment {
+    //   // VERSION = getVersion()
+    //   // VERSION = getVersion()
+    // }
     stages {
         stage('initialize_variables') {
           steps {
