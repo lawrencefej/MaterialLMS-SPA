@@ -11,7 +11,7 @@ pipeline {
         stage('initialize_variables') {
           steps {
             script {
-            VERSION = getVersion()
+              env.VERSION = getVersion()
               // def VERSION = getVersion()
               // if (env.tag) {
               //   echo 'setting version as tag'
