@@ -1,4 +1,4 @@
-def VERSION
+VERSION
 
 pipeline {
     agent any
