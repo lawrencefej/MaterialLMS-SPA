@@ -1,14 +1,16 @@
-// def VERSION
+VERSION
 
 pipeline {
     agent any
 
     environment {
-      VERSION = getVersion()
+      // VERSION = getVersion()
+      // VERSION = getVersion()
     }
     stages {
         stage('initialize_variables') {
           steps {
+            VERSION = getVersion()
             script {
               // def VERSION = getVersion()
               // if (env.tag) {
