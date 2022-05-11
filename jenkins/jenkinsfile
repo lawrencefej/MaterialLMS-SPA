@@ -1,7 +1,11 @@
-def VERSION
+// def VERSION
 
 pipeline {
     agent any
+
+    environment {
+      VERSION = getVersion()
+    }
     stages {
         stage('initialize_variables') {
           // environment {
@@ -12,7 +16,7 @@ pipeline {
           // }
           steps {
             script {
-          VERSION = getVersion()
+              // def VERSION = getVersion()
               // if (env.tag) {
               //   echo 'setting version as tag'
               //   version = tag
